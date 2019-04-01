@@ -182,24 +182,13 @@ ol {
   justify-content: space-between;
 }
 
-.addable-player {
+.movable-player {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.addable-player button {
-  width: 2rem;
-  margin: 0 0.5rem 0 0.5rem;
-}
-
-.removable-player {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.removable-player button {
+.movable-player button {
   width: 2rem;
   margin: 0 0.5rem 0 0.5rem;
 }
