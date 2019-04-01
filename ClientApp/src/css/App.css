@@ -17,10 +17,19 @@ body {
   padding: 0;
 }
 
+p {
+  margin: 0;
+}
+
 .login-section {
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-bottom: 0.5rem;
+  background-color: #e9ecef;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 0.25rem;
 }
 
 .login-section input {
@@ -37,7 +46,7 @@ header {
   /*would like to prevent background pic from resizing */
   background-position: center;
   padding: 1rem;
-  height: 10rem;
+  height: 12rem;
   justify-content: center;
   color: rgb(47, 79, 79);
 }
