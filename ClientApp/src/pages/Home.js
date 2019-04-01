@@ -34,30 +34,6 @@ class Home extends Component {
                     <h3>Player Name</h3>
                   </Link>
                 </li>
-                <li>
-                  <h3>Player Name</h3>
-                </li>
-                <li>
-                  <h3>Player Name</h3>
-                </li>
-                <li>
-                  <h3>Player Name</h3>
-                </li>
-                <li>
-                  <h3>Player Name</h3>
-                </li>
-                <li>
-                  <h3>Player Name</h3>
-                </li>
-                <li>
-                  <h3>Player Name</h3>
-                </li>
-                <li>
-                  <h3>Player Name</h3>
-                </li>
-                <li>
-                  <h3>Player Name</h3>
-                </li>
               </ul>
             </section>
             <section className="actions">

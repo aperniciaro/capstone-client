@@ -15,19 +15,7 @@ class Release extends Component {
           <section className="roster">
             <h2>Choose Player(s) to Release:</h2>
             <ul className="current-roster">
-              <li className="removable-player">
-                <h3>Player Name</h3>
-                <button>-</button>
-              </li>
-              <li className="removable-player">
-                <h3>Player Name</h3>
-                <button>-</button>
-              </li>
-              <li className="removable-player">
-                <h3>Player Name</h3>
-                <button>-</button>
-              </li>
-              <li className="removable-player">
+              <li className="movable-player">
                 <h3>Player Name</h3>
                 <button>-</button>
               </li>
@@ -36,11 +24,7 @@ class Release extends Component {
           <section className="acquiring">
             <h3>Players to be Released: </h3>
             <ul>
-              <li className="addable-player">
-                <h3>Player Name</h3>
-                <button>+</button>
-              </li>
-              <li className="addable-player">
+              <li className="movable-player">
                 <h3>Player Name</h3>
                 <button>+</button>
               </li>
