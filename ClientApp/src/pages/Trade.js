@@ -2,6 +2,11 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
 class Trade extends Component {
+  movePlayer = event => {
+    //change state of player from out of deal to in deal, or vice versa
+    //player lists should be mapped with an in/out of deal filter
+  }
+
   render() {
     return (
       <div>
@@ -26,42 +31,18 @@ class Trade extends Component {
             <section className="roster">
               <h2>Choose Player(s) to Trade:</h2>
               <ul className="current-roster">
-                <li className="addable-player">
+                <li className="movable-player">
                   <h3>Player Name</h3>
-                  <button>+</button>
-                </li>
-                <li className="addable-player">
-                  <h3>Player Name</h3>
-                  <button>+</button>
-                </li>
-                <li className="addable-player">
-                  <h3>Player Name</h3>
-                  <button>+</button>
-                </li>
-                <li className="addable-player">
-                  <h3>Player Name</h3>
-                  <button>+</button>
+                  <button onClick={this.movePlayer}>+</button>
                 </li>
               </ul>
             </section>
             <section className="roster">
               <h2>Choose Player(s) to Acquire:</h2>
               <ul className="current-roster">
-                <li className="addable-player">
+                <li className="movable-player">
                   <h3>Player Name</h3>
-                  <button>+</button>
-                </li>
-                <li className="addable-player">
-                  <h3>Player Name</h3>
-                  <button>+</button>
-                </li>
-                <li className="addable-player">
-                  <h3>Player Name</h3>
-                  <button>+</button>
-                </li>
-                <li className="addable-player">
-                  <h3>Player Name</h3>
-                  <button>+</button>
+                  <button onClick={this.movePlayer}>+</button>
                 </li>
               </ul>
             </section>
@@ -70,26 +51,18 @@ class Trade extends Component {
             <section className="trading">
               <h3>Players to be Traded: </h3>
               <ul>
-                <li className="removable-player">
+                <li className="movable-player">
                   <h3>Player Name</h3>
-                  <button>-</button>
-                </li>
-                <li className="removable-player">
-                  <h3>Player Name</h3>
-                  <button>-</button>
+                  <button onClick={this.movePlayer}>-</button>
                 </li>
               </ul>
             </section>
             <section className="acquiring">
               <h3>Players to be Received: </h3>
               <ul>
-                <li className="removable-player">
+                <li className="movable-player">
                   <h3>Player Name</h3>
-                  <button>-</button>
-                </li>
-                <li className="removable-player">
-                  <h3>Player Name</h3>
-                  <button>-</button>
+                  <button onClick={this.movePlayer}>-</button>
                 </li>
               </ul>
             </section>
