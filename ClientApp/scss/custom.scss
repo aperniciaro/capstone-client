@@ -1,0 +1,228 @@
+@font-face {
+  font-family: 'krinkes';
+  src: url('../src/images/KrinkesRegularPERSONAL.ttf');
+}
+
+:root {
+  font: 16px / 1 'Carter One', cursive;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  margin: 1rem;
+  min-height: 100%;
+  padding: 0;
+}
+
+.login-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.login-section input {
+  margin: 0 0.25rem 0 0.25rem;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: url('../src/images/baseballandbat.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  /*would like to prevent background pic from resizing */
+  background-position: center;
+  padding: 1rem;
+  height: 10rem;
+  justify-content: center;
+  color: rgb(47, 79, 79);
+}
+
+h1 {
+  font-family: 'krinkes', Fallback, sans-serif;
+  font-size: 4rem;
+  margin: 0;
+}
+
+main {
+  /* colors will change based on selected team */
+  background-color: rgb(200, 60, 70);
+  margin: 0;
+  padding: 1rem;
+  color: rgb(255, 255, 255);
+}
+
+select {
+  height: 1.5rem;
+  width: 10rem;
+}
+
+.roster {
+  /* color will change based on selected team */
+  padding: 1rem;
+  background-color: rgb(31, 48, 129);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.manage-roster {
+  /* color will change based on selected team */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(31, 48, 129);
+  padding-right: 1rem;
+}
+
+.actions {
+  margin-left: 2rem;
+}
+
+.acquiring {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+ul {
+  list-style: none;
+}
+
+/* li content not left-aligning */
+li {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.current-roster {
+  overflow: scroll;
+  height: 10rem;
+  direction: rtl;
+}
+
+/*trying not to change colors on visit*/
+h3:visited p:visited {
+  color: inherit;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  margin-bottom: 1rem;
+  height: 2rem;
+  width: 8rem;
+  font-size: 1rem;
+}
+
+.outcomes {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* missing numbers in ordered list */
+ol {
+  list-style-type: decimal;
+}
+
+.save-and-load {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.save-input {
+  width: 10rem;
+  height: 2rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+}
+
+.save-and-load button {
+  margin-top: 0.5rem;
+  width: 10rem;
+  height: 2.5rem;
+}
+
+.saved-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rosters-side-by-side {
+  /* need to fix spillover on right side */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* color will change based on selected team */
+  background-color: rgb(31, 48, 129);
+}
+
+.on-the-move {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.addable-player {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.addable-player button {
+  width: 2rem;
+  margin: 0 0.5rem 0 0.5rem;
+}
+
+.removable-player {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.removable-player button {
+  width: 2rem;
+  margin: 0 0.5rem 0 0.5rem;
+}
+
+.projected-stats {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.trade-controls {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.player-card-front {
+  /* color will change based on selected team */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  justify-content: space-evenly;
+  background-color: rgb(31, 48, 129);
+}
+
+.player-stats {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
