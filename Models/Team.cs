@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace capstone_client.Models
 {
   public class Team
@@ -8,6 +10,6 @@ namespace capstone_client.Models
     public string PrimaryColor { get; set; }
     public string SecondaryColor { get; set; }
     public string TertiaryColor { get; set; }
-    public Roster Roster { get; set; }
+    public List<Roster> Rosters { get; set; } = new List<Roster>();
   }
 }
