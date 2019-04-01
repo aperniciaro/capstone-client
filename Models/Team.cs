@@ -11,6 +11,7 @@ namespace capstone_client.Models
     public int[] PrimaryColor { get; set; } = new int[3];
     public int[] SecondaryColor { get; set; } = new int[3];
     public int[] TertiaryColor { get; set; } = new int[3];
+    public string[] Division { get; set; } = new string[5];
     public List<Roster> Rosters { get; set; } = new List<Roster>();
   }
 }

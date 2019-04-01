@@ -10,5 +10,7 @@ namespace capstone_client.Models
     public int ProjectedWins { get; set; }
     public Team Team { get; set; }
     public List<Player> Players { get; set; } = new List<Player>();
+
+    //statistics
   }
 }

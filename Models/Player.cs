@@ -8,5 +8,7 @@ namespace capstone_client.Models
     public int Age { get; set; }
     public int YearsPlayed { get; set; }
     public Roster Roster { get; set; }
+
+    //statistics
   }
 }
