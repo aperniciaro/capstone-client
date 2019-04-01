@@ -48,6 +48,10 @@ h1 {
   margin: 0;
 }
 
+h2 {
+  font-size: 1.5rem;
+}
+
 main {
   /* colors will change based on selected team */
   background-color: rgb(200, 60, 70);
@@ -57,8 +61,8 @@ main {
 }
 
 select {
-  height: 1.5rem;
   width: 10rem;
+  font-size: 0.75rem;
 }
 
 .roster {
@@ -153,6 +157,7 @@ ol {
   margin-top: 0.5rem;
   width: 10rem;
   height: 2.5rem;
+  font-size: 0.85rem;
 }
 
 .saved-menu {
