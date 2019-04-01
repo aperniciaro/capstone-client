@@ -16,7 +16,9 @@ class FreeAgent extends Component {
             <h2>Available Free Agents:</h2>
             <ul className="current-roster">
               <li className="movable-player">
-                <h3>Player Name</h3>
+                <Link to={'/player/playername'}>
+                  <h3>Player Name</h3>
+                </Link>
                 <button>+</button>
               </li>
             </ul>
@@ -25,7 +27,9 @@ class FreeAgent extends Component {
             <h3>Players to be Signed: </h3>
             <ul>
               <li className="movable-player">
-                <h3>Player Name</h3>
+                <Link to={'/player/playername'}>
+                  <h3>Player Name</h3>
+                </Link>
                 <button>-</button>
               </li>
             </ul>

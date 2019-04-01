@@ -16,7 +16,9 @@ class Release extends Component {
             <h2>Choose Player(s) to Release:</h2>
             <ul className="current-roster">
               <li className="movable-player">
-                <h3>Player Name</h3>
+                <Link to={'/player/playername'}>
+                  <h3>Player Name</h3>
+                </Link>
                 <button>-</button>
               </li>
             </ul>
@@ -25,7 +27,9 @@ class Release extends Component {
             <h3>Players to be Released: </h3>
             <ul>
               <li className="movable-player">
-                <h3>Player Name</h3>
+                <Link to={'/player/playername'}>
+                  <h3>Player Name</h3>
+                </Link>
                 <button>+</button>
               </li>
             </ul>

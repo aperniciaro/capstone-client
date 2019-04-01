@@ -32,7 +32,9 @@ class Trade extends Component {
               <h2>Choose Player(s) to Trade:</h2>
               <ul className="current-roster">
                 <li className="movable-player">
-                  <h3>Player Name</h3>
+                  <Link to={'/player/playername'}>
+                    <h3>Player Name</h3>
+                  </Link>
                   <button onClick={this.movePlayer}>+</button>
                 </li>
               </ul>
@@ -41,7 +43,9 @@ class Trade extends Component {
               <h2>Choose Player(s) to Acquire:</h2>
               <ul className="current-roster">
                 <li className="movable-player">
-                  <h3>Player Name</h3>
+                  <Link to={'/player/playername'}>
+                    <h3>Player Name</h3>
+                  </Link>
                   <button onClick={this.movePlayer}>+</button>
                 </li>
               </ul>
@@ -52,7 +56,9 @@ class Trade extends Component {
               <h3>Players to be Traded: </h3>
               <ul>
                 <li className="movable-player">
-                  <h3>Player Name</h3>
+                  <Link to={'/player/playername'}>
+                    <h3>Player Name</h3>
+                  </Link>
                   <button onClick={this.movePlayer}>-</button>
                 </li>
               </ul>
@@ -61,7 +67,9 @@ class Trade extends Component {
               <h3>Players to be Received: </h3>
               <ul>
                 <li className="movable-player">
-                  <h3>Player Name</h3>
+                  <Link to={'/player/playername'}>
+                    <h3>Player Name</h3>
+                  </Link>
                   <button onClick={this.movePlayer}>-</button>
                 </li>
               </ul>
