@@ -154,6 +154,10 @@ button {
   align-items: center;
 }
 
+.expected-record {
+  margin: 1rem;
+}
+
 /* missing numbers in ordered list */
 ol {
   list-style-type: decimal;

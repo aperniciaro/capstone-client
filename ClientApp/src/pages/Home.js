@@ -51,8 +51,10 @@ class Home extends Component {
           </section>
           <section className="outcomes">
             <section className="expectations">
-              <h3>Expected Record: </h3>
-              <p>82-80</p>
+              <section className="expected-record">
+                <h3>Expected Record: </h3>
+                <p>82-80</p>
+              </section>
               <h3>Projected Division Standings: </h3>
               <ol className="division-standings">
                 <li>Phillies</li>
