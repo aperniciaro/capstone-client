@@ -70,7 +70,7 @@ class Home extends Component {
             </section>
           </section>
           <section className="save-and-load">
-            <input className="save-input" placeholder="name your roster" />
+            <input className="save-input" placeholder="Name your roster" />
             <button>Save Custom Roster</button>
             <section className="saved-menu">
               <h4>Saved Rosters: </h4>
