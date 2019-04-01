@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'krinkes';
-  src: url('../src/images/KrinkesRegularPERSONAL.ttf');
+  src: url('../images/KrinkesRegularPERSONAL.ttf');
 }
 
 :root {
@@ -31,7 +31,7 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-image: url('../src/images/baseballandbat.jpeg');
+  background-image: url('../images/baseballandbat.jpeg');
   background-repeat: no-repeat;
   background-size: cover;
   /*would like to prevent background pic from resizing */

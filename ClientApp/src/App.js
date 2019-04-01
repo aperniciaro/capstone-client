@@ -6,6 +6,7 @@ import FreeAgent from './pages/FreeAgent'
 import Release from './pages/Release'
 import PlayerInfo from './pages/PlayerInfo'
 import Error from './pages/Error'
+import './css/App.css'
 
 class App extends Component {
   render() {
