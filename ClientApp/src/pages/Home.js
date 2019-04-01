@@ -6,10 +6,11 @@ class Home extends Component {
     return (
       <div>
         <section className="login-section">
-          <p>New User or Login: </p>
+          <p>New or Existing User: </p>
           <input placeholder="User Name" />
           <p>Password: </p>
           <input placeholder="Password" />
+          <button className="log-in-button">Log In</button>
         </section>
         <header>
           <h1>Armchair GM</h1>
