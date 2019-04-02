@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using capstone_client.Models;
 using content;
+using capstone_client.ViewModels;
 
 namespace capstone_client.Controllers
 {
@@ -19,6 +20,20 @@ namespace capstone_client.Controllers
       this.db = new DatabaseContext();
     }
 
+    [HttpGet]
+    public ActionResult<IList<TeamViewModel>> GetAllTeams()
+    {
+      return db.Teams.Select(s => new TeamViewModel
+      {
+        Name = s.Name
+      }).ToList();
+    }
 
+    [HttpGet("{id}")]
+    public ActionResult<Team> GetSingleTeam(int id)
+    {
+      var team = db.Teams.FirstOrDefault(f => f.Id == id);
+      return team;
+    }
   }
 }

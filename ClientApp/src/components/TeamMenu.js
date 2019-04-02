@@ -5,12 +5,20 @@ class TeamMenu extends Component {
     return (
       <select
         className="team-menu"
-        defaultValue="Phillies"
+        defaultValue="109"
         // onChange={}
       >
-        <option value="0" name="Phillies">
-          Philadelphia Phillies
-        </option>
+        {this.props.teams.map(team => {
+          return (
+            <option
+              key={team.mlb_org_id}
+              value={team.mlb_org_id}
+              name={team.name_display_full}
+            >
+              {team.name_display_full}
+            </option>
+          )
+        })}
       </select>
     )
   }

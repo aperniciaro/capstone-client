@@ -8,6 +8,25 @@ import Outcomes from '../components/Outcomes'
 import NavMenu from '../components/NavMenu'
 
 class Home extends Component {
+  state = {
+    teams: []
+  }
+
+  componentDidMount() {
+    this.GetAllTeams()
+  }
+
+  GetAllTeams = () => {
+    axios
+      .get(
+        `https://lookup-service-prod.mlb.com/json/named.team_all_season.bam?sport_code='mlb'&all_star_sw='N'&sort_order=name_asc&season='2019'`
+      )
+      .then(resp => {
+        console.log(resp)
+        this.setState({ teams: resp.data.team_all_season.queryResults.row })
+      })
+  }
+
   render() {
     return (
       <div>
@@ -15,7 +34,7 @@ class Home extends Component {
         <header>
           <h1>Armchair GM</h1>
           <h2>Choose Your Team: </h2>
-          <TeamMenu />
+          <TeamMenu teams={this.state.teams} />
         </header>
         <main>
           <section className="manage-roster">
