@@ -5,9 +5,12 @@ class TeamMenu extends Component {
     return (
       <select
         className="team-menu"
-        defaultValue="109"
+        defaultValue=""
         onChange={this.props.changeTeam}
       >
+        <option value="" disabled hidden>
+          Select
+        </option>
         {this.props.teams.map(team => {
           return (
             <option

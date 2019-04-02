@@ -17,7 +17,7 @@ class App extends Component {
           <Route exact path="/trade" component={Trade} />
           <Route exact path="/freeagent" component={FreeAgent} />
           <Route exact path="/release" component={Release} />
-          <Route exact path="/player/:playername" component={PlayerInfo} />
+          <Route exact path="/player/:playerID" component={PlayerInfo} />
           <Route component={Error} />
         </Switch>
       </Router>

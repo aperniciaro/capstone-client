@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import axios from 'axios'
 import Login from '../components/Login'
 import TeamMenu from '../components/TeamMenu'
 import SaveLoad from '../components/SaveLoad'
 import Outcomes from '../components/Outcomes'
+import TeamRoster from '../components/TeamRoster'
 import NavMenu from '../components/NavMenu'
 
 class Home extends Component {
@@ -68,20 +68,7 @@ class Home extends Component {
         </header>
         <main>
           <section className="manage-roster">
-            <section className="roster">
-              <h2>Current Roster:</h2>
-              <ul className="current-roster">
-                {this.state.userRoster.map(player => {
-                  return (
-                    <li key={player.player_id}>
-                      <Link to={'/player/playername'}>
-                        <h3>{player.name_display_first_last}</h3>
-                      </Link>
-                    </li>
-                  )
-                })}
-              </ul>
-            </section>
+            <TeamRoster userRoster={this.state.userRoster} />
             <NavMenu />
           </section>
           <Outcomes divisionTeams={this.state.divisionTeams} />
