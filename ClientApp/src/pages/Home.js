@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import Login from './components/Login'
-import TeamMenu from './components/TeamMenu'
-import SaveLoad from './components/SaveLoad'
-import Outcomes from './components/Outcomes'
-import NavMenu from './components/NavMenu'
+import Login from '../components/Login'
+import TeamMenu from '../components/TeamMenu'
+import SaveLoad from '../components/SaveLoad'
+import Outcomes from '../components/Outcomes'
+import NavMenu from '../components/NavMenu'
 
 class Home extends Component {
   render() {
