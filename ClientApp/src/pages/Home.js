@@ -9,7 +9,8 @@ import NavMenu from '../components/NavMenu'
 
 class Home extends Component {
   state = {
-    teams: []
+    teams: [],
+    userTeam: ''
   }
 
   componentDidMount() {
@@ -27,6 +28,12 @@ class Home extends Component {
       })
   }
 
+  changeUserTeam = event => {
+    this.setState({
+      userTeam: event.target.value
+    })
+  }
+
   render() {
     return (
       <div>
@@ -34,7 +41,7 @@ class Home extends Component {
         <header>
           <h1>Armchair GM</h1>
           <h2>Choose Your Team: </h2>
-          <TeamMenu teams={this.state.teams} />
+          <TeamMenu teams={this.state.teams} changeTeam={this.changeUserTeam} />
         </header>
         <main>
           <section className="manage-roster">

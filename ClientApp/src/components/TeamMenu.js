@@ -6,7 +6,7 @@ class TeamMenu extends Component {
       <select
         className="team-menu"
         defaultValue="109"
-        // onChange={}
+        onChange={this.props.changeTeam}
       >
         {this.props.teams.map(team => {
           return (
