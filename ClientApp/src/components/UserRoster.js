@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
-class TeamRoster extends Component {
+class UserRoster extends Component {
   render() {
     return (
       <section className="roster">
@@ -22,4 +22,4 @@ class TeamRoster extends Component {
   }
 }
 
-export default TeamRoster
+export default UserRoster

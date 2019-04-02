@@ -4,7 +4,7 @@ import Login from '../components/Login'
 import TeamMenu from '../components/TeamMenu'
 import SaveLoad from '../components/SaveLoad'
 import Outcomes from '../components/Outcomes'
-import TeamRoster from '../components/TeamRoster'
+import UserRoster from '../components/UserRoster'
 import NavMenu from '../components/NavMenu'
 
 class Home extends Component {
@@ -68,7 +68,7 @@ class Home extends Component {
         </header>
         <main>
           <section className="manage-roster">
-            <TeamRoster userRoster={this.state.userRoster} />
+            <UserRoster userRoster={this.state.userRoster} />
             <NavMenu />
           </section>
           <Outcomes divisionTeams={this.state.divisionTeams} />
