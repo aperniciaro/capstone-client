@@ -1,14 +1,21 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import PlayerStats from '../components/PlayerStats'
 
 class PlayerInfo extends Component {
   state = {
-    player: {}
+    playerBio: {},
+    playerStats: {}
   }
 
   componentDidMount() {
     this.GetPlayerBio()
+    if (this.state.playerBio.primary_position === 1) {
+      this.GetPitchingStats()
+    } else {
+      this.GetHittingStats()
+    }
   }
 
   GetPlayerBio = () => {
@@ -20,7 +27,35 @@ class PlayerInfo extends Component {
       )
       .then(resp => {
         this.setState({
-          player: resp.data.player_info.queryResults.row
+          playerBio: resp.data.player_info.queryResults.row
+        })
+      })
+  }
+
+  GetHittingStats = () => {
+    axios
+      .get(
+        `https://lookup-service-prod.mlb.com/json/named.sport_hitting_tm.bam?league_list_id='mlb'&game_type='R'&season='2018'&player_id='${
+          this.props.match.params.playerID
+        }'`
+      )
+      .then(resp => {
+        this.setState({
+          playerStats: resp.data.sport_hitting_tm.queryResults.row
+        })
+      })
+  }
+
+  GetPitchingStats = () => {
+    axios
+      .get(
+        `http://lookup-service-prod.mlb.com/json/named.sport_pitching_tm.bam?league_list_id='mlb'&game_type='R'&season='2018'&player_id='${
+          this.props.match.params.playerID
+        }'`
+      )
+      .then(resp => {
+        this.setState({
+          playerStats: resp.data.pitching.queryResults.row
         })
       })
   }
@@ -37,20 +72,20 @@ class PlayerInfo extends Component {
         <main>
           <section className="player-bio">
             <h2>
-              {this.state.player.name_display_last_first} #
-              {this.state.player.jersey_number}
+              {this.state.playerBio.name_display_last_first} #
+              {this.state.playerBio.jersey_number}
             </h2>
-            <h3>Position: {this.state.player.primary_position_txt}</h3>
-            <h3>Age: {this.state.player.age}</h3>
-            <h3>Bats: {this.state.player.bats}</h3>
-            <h3>Throws: {this.state.player.throws}</h3>
+            <h3>Position: {this.state.playerBio.primary_position_txt}</h3>
+            <h3>Age: {this.state.playerBio.age}</h3>
+            <h3>Bats: {this.state.playerBio.bats}</h3>
+            <h3>Throws: {this.state.playerBio.throws}</h3>
           </section>
           <section className="player-stats">
-            <h3>Player Stats: </h3>
-            <p>HRs: </p>
-            <p>SBs: </p>
-            <p>BA: </p>
-            <p>ERA: </p>
+            <h2>Previous Season Stats: </h2>
+            <PlayerStats
+              position={this.state.playerBio.primary_position}
+              stats={this.state.playerStats}
+            />
           </section>
         </main>
       </div>
