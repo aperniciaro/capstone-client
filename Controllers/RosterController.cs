@@ -19,6 +19,11 @@ namespace capstone_client.Controllers
       this.db = new DatabaseContext();
     }
 
-
+    [HttpGet("{id}")]
+    public ActionResult<Roster> GetSingleRoster(int id)
+    {
+      var roster = db.Rosters.FirstOrDefault(f => f.Id == id);
+      return roster;
+    }
   }
 }

@@ -11,7 +11,8 @@ class Home extends Component {
   state = {
     teams: [],
     divisionTeams: [],
-    userTeam: {}
+    userTeam: {},
+    userRoster: []
   }
 
   componentDidMount() {
@@ -24,21 +25,36 @@ class Home extends Component {
         `https://lookup-service-prod.mlb.com/json/named.team_all_season.bam?sport_code='mlb'&all_star_sw='N'&sort_order=name_asc&season='2019'`
       )
       .then(resp => {
-        console.log(resp)
         this.setState({ teams: resp.data.team_all_season.queryResults.row })
       })
   }
 
-  changeUserTeam = event => {
-    let selectedTeam = this.state.teams.filter(
-      team => team.name_display_long === event.target.value
-    )
-    this.setState({
-      userTeam: selectedTeam,
-      divisionTeams: this.state.teams.filter(
-        team => team.division_abbrev === selectedTeam.division_abbrev
+  GetDefaultRoster = teamId => {
+    axios
+      .get(
+        `https://lookup-service-prod.mlb.com/json/named.roster_40.bam?team_id='${teamId}'`
       )
-    })
+      .then(resp => {
+        console.log(resp)
+        this.setState({ userRoster: resp.data.roster_40.queryResults.row })
+      })
+  }
+
+  ChangeUserTeam = event => {
+    let selectedTeam = this.state.teams.filter(
+      team => team.mlb_org_id === event.target.value
+    )[0]
+    this.setState(
+      {
+        userTeam: selectedTeam,
+        divisionTeams: this.state.teams.filter(
+          team => team.division_abbrev === selectedTeam.division_abbrev
+        )
+      },
+      () => {
+        this.GetDefaultRoster(selectedTeam.mlb_org_id)
+      }
+    )
   }
 
   render() {
@@ -48,18 +64,22 @@ class Home extends Component {
         <header>
           <h1>Armchair GM</h1>
           <h2>Choose Your Team: </h2>
-          <TeamMenu teams={this.state.teams} changeTeam={this.changeUserTeam} />
+          <TeamMenu teams={this.state.teams} changeTeam={this.ChangeUserTeam} />
         </header>
         <main>
           <section className="manage-roster">
             <section className="roster">
               <h2>Current Roster:</h2>
               <ul className="current-roster">
-                <li>
-                  <Link to={'/player/playername'}>
-                    <h3>Player Name</h3>
-                  </Link>
-                </li>
+                {this.state.userRoster.map(player => {
+                  return (
+                    <li key={player.player_id}>
+                      <Link to={'/player/playername'}>
+                        <h3>{player.name_display_first_last}</h3>
+                      </Link>
+                    </li>
+                  )
+                })}
               </ul>
             </section>
             <NavMenu />

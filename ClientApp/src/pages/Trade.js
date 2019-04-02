@@ -24,7 +24,7 @@ class Trade extends Component {
       })
   }
 
-  changeTradeTeam = event => {
+  ChangeTradeTeam = event => {
     this.setState({
       tradeTeam: event.target.value
     })
@@ -46,7 +46,7 @@ class Trade extends Component {
           <h2>Choose Trade Partner: </h2>
           <TeamMenu
             teams={this.state.teams}
-            changeTeam={this.changeTradeTeam}
+            changeTeam={this.ChangeTradeTeam}
           />
         </header>
         <main>
