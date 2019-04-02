@@ -19,6 +19,12 @@ namespace capstone_client.Controllers
       this.db = new DatabaseContext();
     }
 
+    [HttpGet("{id}")]
+    public ActionResult<Player> GetPlayer(int id)
+    {
+      var player = db.Players.FirstOrDefault(f => f.Id == id);
+      return player;
+    }
 
   }
 }

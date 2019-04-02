@@ -228,13 +228,11 @@ ol {
   flex-direction: column;
 }
 
-.player-card-front {
+.player-bio {
   /* color will change based on selected team */
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  justify-content: space-evenly;
   background-color: rgb(31, 48, 129);
 }
 

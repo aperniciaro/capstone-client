@@ -35,7 +35,6 @@ class Home extends Component {
         `https://lookup-service-prod.mlb.com/json/named.roster_40.bam?team_id='${teamId}'`
       )
       .then(resp => {
-        console.log(resp)
         this.setState({ userRoster: resp.data.roster_40.queryResults.row })
       })
   }
