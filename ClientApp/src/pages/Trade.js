@@ -6,7 +6,7 @@ import axios from 'axios'
 class Trade extends Component {
   state = {
     teams: [],
-    tradeTeam: ''
+    tradeTeam: {}
   }
 
   componentDidMount() {

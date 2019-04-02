@@ -11,11 +11,9 @@ class Outcomes extends Component {
           </section>
           <h3>Projected Division Standings: </h3>
           <ol className="division-standings">
-            <li>Phillies</li>
-            <li>Marlins</li>
-            <li>Mets</li>
-            <li>Braves</li>
-            <li>Phillies</li>
+            {this.props.divisionTeams.map(team => {
+              return <li key={team.mlb_org_id}>{team.name_display_full}</li>
+            })}
           </ol>
         </section>
         <section className="team-stats">

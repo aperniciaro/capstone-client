@@ -10,7 +10,8 @@ import NavMenu from '../components/NavMenu'
 class Home extends Component {
   state = {
     teams: [],
-    userTeam: ''
+    divisionTeams: [],
+    userTeam: {}
   }
 
   componentDidMount() {
@@ -29,8 +30,14 @@ class Home extends Component {
   }
 
   changeUserTeam = event => {
+    let selectedTeam = this.state.teams.filter(
+      team => team.name_display_long === event.target.value
+    )
     this.setState({
-      userTeam: event.target.value
+      userTeam: selectedTeam,
+      divisionTeams: this.state.teams.filter(
+        team => team.division_abbrev === selectedTeam.division_abbrev
+      )
     })
   }
 
@@ -57,7 +64,7 @@ class Home extends Component {
             </section>
             <NavMenu />
           </section>
-          <Outcomes />
+          <Outcomes divisionTeams={this.state.divisionTeams} />
           <SaveLoad />
         </main>
       </div>
