@@ -7,6 +7,7 @@ namespace capstone_client.Models
     public int Position { get; set; }
     public int Age { get; set; }
     public int YearsPlayed { get; set; }
+    public bool IsMoving { get; set; } = false;
     public Roster Roster { get; set; }
 
     //statistics
