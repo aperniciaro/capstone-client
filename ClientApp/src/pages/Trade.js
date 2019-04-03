@@ -6,7 +6,8 @@ import axios from 'axios'
 class Trade extends Component {
   state = {
     teams: [],
-    tradeTeam: {}
+    tradeTeam: {},
+    tradeTeamRoster: []
   }
 
   componentDidMount() {
@@ -24,10 +25,28 @@ class Trade extends Component {
       })
   }
 
+  GetTradeTeamRoster = teamId => {
+    axios
+      .get(
+        `https://lookup-service-prod.mlb.com/json/named.roster_40.bam?team_id='${teamId}'`
+      )
+      .then(resp => {
+        this.setState({ tradeTeamRoster: resp.data.roster_40.queryResults.row })
+      })
+  }
+
   ChangeTradeTeam = event => {
-    this.setState({
-      tradeTeam: event.target.value
-    })
+    let selectedTeam = this.state.teams.filter(
+      team => team.mlb_org_id === event.target.value
+    )[0]
+    this.setState(
+      {
+        tradeTeam: selectedTeam
+      },
+      () => {
+        this.GetTradeTeamRoster(selectedTeam.mlb_org_id)
+      }
+    )
   }
 
   movePlayer = event => {
@@ -65,12 +84,16 @@ class Trade extends Component {
             <section className="roster">
               <h2>Choose Player(s) to Acquire:</h2>
               <ul className="current-roster">
-                <li className="movable-player">
-                  <Link to={'/player/playername'}>
-                    <h3>Player Name</h3>
-                  </Link>
-                  <button onClick={this.movePlayer}>+</button>
-                </li>
+                {this.state.tradeTeamRoster.map(player => {
+                  return (
+                    <li className="movable-player" key={player.player_id}>
+                      <Link to={`/player/${player.player_id}`}>
+                        <h3>{player.name_display_first_last}</h3>
+                      </Link>
+                      <button onClick={this.movePlayer}>+</button>
+                    </li>
+                  )
+                })}
               </ul>
             </section>
           </section>
