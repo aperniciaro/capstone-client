@@ -19,6 +19,12 @@ namespace capstone_client.Controllers
       this.db = new DatabaseContext();
     }
 
+    [HttpGet]
+    public ActionResult<IList<Roster>> GetAllRosters()
+    {
+      return db.Rosters.ToList();
+    }
+
     [HttpGet("{id}")]
     public ActionResult<Roster> GetSingleRoster(int id)
     {
@@ -32,6 +38,24 @@ namespace capstone_client.Controllers
       db.Rosters.Add(newRoster);
       db.SaveChanges();
       return newRoster;
+    }
+
+    [HttpPut("{id}")]
+    public ActionResult<Roster> UpdateRoster(int id, [FromBody] Roster newRosterData)
+    {
+      var roster = db.Rosters.FirstOrDefault(f => f.Id == id);
+      //change props
+      db.SaveChanges();
+      return roster;
+    }
+
+    [HttpDelete("{id}")]
+    public ActionResult DeleteRoster(int id)
+    {
+      var roster = db.Rosters.FirstOrDefault(f => f.Id == id);
+      db.Rosters.Remove(roster);
+      db.SaveChanges();
+      return Ok();
     }
   }
 }

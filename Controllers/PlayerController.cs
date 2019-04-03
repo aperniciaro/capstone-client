@@ -19,6 +19,12 @@ namespace capstone_client.Controllers
       this.db = new DatabaseContext();
     }
 
+    [HttpGet]
+    public ActionResult<IList<Player>> GetAllPlayers()
+    {
+      return db.Players.ToList();
+    }
+
     [HttpGet("{id}")]
     public ActionResult<Player> GetPlayer(int id)
     {
@@ -26,5 +32,30 @@ namespace capstone_client.Controllers
       return player;
     }
 
+    [HttpPost]
+    public ActionResult<Player> CreatePlayer([FromBody] Player newPlayer)
+    {
+      db.Players.Add(newPlayer);
+      db.SaveChanges();
+      return newPlayer;
+    }
+
+    [HttpPut("{id}")]
+    public ActionResult<Player> UpdatePlayer(int id, [FromBody] Player newPlayerData)
+    {
+      var player = db.Players.FirstOrDefault(f => f.Id == id);
+      //change props
+      db.SaveChanges();
+      return player;
+    }
+
+    [HttpDelete("{id}")]
+    public ActionResult DeletePlayer(int id)
+    {
+      var player = db.Players.FirstOrDefault(f => f.Id == id);
+      db.Players.Remove(player);
+      db.SaveChanges();
+      return Ok();
+    }
   }
 }
