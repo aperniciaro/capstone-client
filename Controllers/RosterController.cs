@@ -25,5 +25,13 @@ namespace capstone_client.Controllers
       var roster = db.Rosters.FirstOrDefault(f => f.Id == id);
       return roster;
     }
+
+    [HttpPost]
+    public ActionResult<Roster> CreateRoster([FromBody] Roster newRoster)
+    {
+      db.Rosters.Add(newRoster);
+      db.SaveChanges();
+      return newRoster;
+    }
   }
 }

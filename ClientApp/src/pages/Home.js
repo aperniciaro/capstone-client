@@ -36,7 +36,7 @@ class Home extends Component {
       )
       .then(resp => {
         this.setState({ userRoster: resp.data.roster_40.queryResults.row })
-      })
+      }, this.CreateUserRoster)
   }
 
   ChangeUserTeam = event => {
@@ -54,6 +54,16 @@ class Home extends Component {
         this.GetDefaultRoster(selectedTeam.mlb_org_id)
       }
     )
+  }
+
+  CreateUserRoster = () => {
+    const data = {
+      team: this.state.userTeam,
+      players: this.state.userRoster
+    }
+    axios.post('https://localhost:5001/api/Roster', data, {
+      headers: { 'Content-type': 'application/json' }
+    })
   }
 
   render() {
