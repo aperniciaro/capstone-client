@@ -9,9 +9,9 @@ class UserRoster extends Component {
         <ul className="current-roster">
           {this.props.userRoster.map(player => {
             return (
-              <li key={player.player_id}>
-                <Link to={`/player/${player.player_id}`}>
-                  <h3>{player.name_display_first_last}</h3>
+              <li key={player.Id}>
+                <Link to={`/player/${player.Id}`}>
+                  <h3>{player.PlayerName}</h3>
                 </Link>
               </li>
             )

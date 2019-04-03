@@ -12,6 +12,7 @@ class Home extends Component {
     teams: [],
     divisionTeams: [],
     userTeam: {},
+    defaultRoster: [],
     userRoster: []
   }
 
@@ -35,8 +36,8 @@ class Home extends Component {
         `https://lookup-service-prod.mlb.com/json/named.roster_40.bam?team_id='${teamId}'`
       )
       .then(resp => {
-        this.setState({ userRoster: resp.data.roster_40.queryResults.row })
-      }, this.CreateUserRoster)
+        this.setState({ defaultRoster: resp.data.roster_40.queryResults.row })
+      }, this.AddPlayersToRoster)
   }
 
   ChangeUserTeam = event => {
@@ -59,10 +60,32 @@ class Home extends Component {
   CreateUserRoster = () => {
     const data = {
       team: this.state.userTeam,
-      players: this.state.userRoster
+      players: this.state.defaultRoster
     }
-    axios.post('https://localhost:5001/api/Roster', data, {
-      headers: { 'Content-type': 'application/json' }
+    axios
+      .post('https://localhost:5001/api/Roster', data, {
+        headers: { 'Content-type': 'application/json' }
+      })
+      .then()
+  }
+
+  AddPlayersToRoster = () => {
+    this.state.defaultRoster.forEach(function(player) {
+      const data = {
+        mlbId: player.player_id,
+        playerName: player.name_display_first_last,
+        position: player.primary_position,
+        throwsFrom: player.throws,
+        batsFrom: player.bats,
+        jerseyNumber: player.jersey_number
+      }
+      axios
+        .post('https://localhost:5001/api/Player', data, {
+          headers: { 'Content-type': 'application/json' }
+        })
+        .then(resp => {
+          this.state.userRoster.concat(resp)
+        })
     })
   }
 
