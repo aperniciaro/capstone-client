@@ -25,7 +25,7 @@ namespace capstone_client.Controllers
     {
       return db.Teams.Select(s => new TeamViewModel
       {
-        Name = s.Name
+        TeamName = s.TeamName
       }).ToList();
     }
 

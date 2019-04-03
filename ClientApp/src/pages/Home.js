@@ -82,7 +82,7 @@ class Home extends Component {
           </section>
           <Outcomes divisionTeams={this.state.divisionTeams} />
           <SaveLoad
-            resetRoster={this.GetDefaultRoster(this.state.userTeam.mlb_org_id)}
+          // resetRoster={this.GetDefaultRoster(this.state.userTeam.mlb_org_id)}
           />
         </main>
       </div>
