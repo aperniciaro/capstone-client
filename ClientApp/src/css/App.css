@@ -149,13 +149,13 @@ button {
 
 .outcomes {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
 }
 
 .expected-record {
   margin: 1rem;
+  align-items: center;
 }
 
 /* missing numbers in ordered list */
