@@ -15,7 +15,7 @@ class SaveLoad extends Component {
           </select>
         </section>
         <button>Load Custom Roster</button>
-        <button>Reset to Default</button>
+        <button onClick={this.props.resetRoster}>Reset to Default</button>
       </section>
     )
   }

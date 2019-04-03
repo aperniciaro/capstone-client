@@ -81,7 +81,9 @@ class Home extends Component {
             <NavMenu />
           </section>
           <Outcomes divisionTeams={this.state.divisionTeams} />
-          <SaveLoad />
+          <SaveLoad
+            resetRoster={this.GetDefaultRoster(this.state.userTeam.mlb_org_id)}
+          />
         </main>
       </div>
     )
