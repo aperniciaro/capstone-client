@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using content;
@@ -9,9 +10,10 @@ using content;
 namespace content.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20190403182946_BatsAndThrowsToStrings")]
+    partial class BatsAndThrowsToStrings
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,7 +32,7 @@ namespace content.Migrations
 
                     b.Property<double>("AverageAgainst");
 
-                    b.Property<string>("BatsFrom");
+                    b.Property<string>("Bats");
 
                     b.Property<double>("BattingAverage");
 
@@ -70,7 +72,7 @@ namespace content.Migrations
 
                     b.Property<int>("Steals");
 
-                    b.Property<string>("ThrowsFrom");
+                    b.Property<string>("Throws");
 
                     b.Property<double>("WalkRate");
 

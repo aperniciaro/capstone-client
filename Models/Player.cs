@@ -8,8 +8,8 @@ namespace capstone_client.Models
     public int JerseyNumber { get; set; }
     public int Position { get; set; }
     public int Age { get; set; }
-    public char Bats { get; set; }
-    public char Throws { get; set; }
+    public string BatsFrom { get; set; }
+    public string ThrowsFrom { get; set; }
     public bool IsMoving { get; set; } = false;
     public int AtBats { get; set; } = 0;
     public double BattingAverage { get; set; } = .000;
