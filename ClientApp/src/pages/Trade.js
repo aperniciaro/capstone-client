@@ -121,14 +121,6 @@ class Trade extends Component {
               </ul>
             </section>
           </section>
-          <section className="projected-stats">
-            <h3>Projections After Trade: </h3>
-            <p>Record: </p>
-            <p>HRs: </p>
-            <p>SBs: </p>
-            <p>BA: </p>
-            <p>ERA: </p>
-          </section>
           <section className="trade-controls">
             <button className="execute">Execute Trade</button>
             <button className="cancel">Clear Trade</button>

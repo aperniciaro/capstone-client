@@ -34,14 +34,6 @@ class Release extends Component {
               </li>
             </ul>
           </section>
-          <section className="projected-stats">
-            <h3>Projections After Release: </h3>
-            <p>Record: </p>
-            <p>HRs: </p>
-            <p>SBs: </p>
-            <p>BA: </p>
-            <p>ERA: </p>
-          </section>
           <section className="trade-controls">
             <button className="execute">Release</button>
             <button className="cancel">Clear Selected</button>

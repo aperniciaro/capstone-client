@@ -216,12 +216,6 @@ ol {
   margin: 0 0.5rem 0 0.5rem;
 }
 
-.projected-stats {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
 .trade-controls {
   display: flex;
   align-items: center;
