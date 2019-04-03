@@ -35,5 +35,31 @@ namespace capstone_client.Controllers
       var team = db.Teams.FirstOrDefault(f => f.Id == id);
       return team;
     }
+
+    [HttpPost]
+    public ActionResult<Team> CreateTeam([FromBody] Team newTeam)
+    {
+      db.Teams.Add(newTeam);
+      db.SaveChanges();
+      return newTeam;
+    }
+
+    [HttpPut("{id}")]
+    public ActionResult<Team> UpdateTeam(int id, [FromBody] Team newTeamData)
+    {
+      var team = db.Teams.FirstOrDefault(f => f.Id == id);
+      //change props
+      db.SaveChanges();
+      return team;
+    }
+
+    [HttpDelete("{id}")]
+    public ActionResult DeleteTeam(int id)
+    {
+      var team = db.Teams.FirstOrDefault(f => f.Id == id);
+      db.Teams.Remove(team);
+      db.SaveChanges();
+      return Ok();
+    }
   }
 }
