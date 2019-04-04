@@ -11,7 +11,7 @@ class UserRoster extends Component {
             return (
               <li key={player.Id}>
                 <Link to={`/player/${player.mlbId}`}>
-                  <h3>{player.PlayerName}</h3>
+                  <h3>{player.playerName}</h3>
                 </Link>
               </li>
             )

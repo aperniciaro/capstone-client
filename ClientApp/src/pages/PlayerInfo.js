@@ -11,11 +11,6 @@ class PlayerInfo extends Component {
 
   componentDidMount() {
     this.GetPlayerBio()
-    if (this.state.playerBio.primary_position === 1) {
-      this.GetPitchingStats()
-    } else {
-      this.GetHittingStats()
-    }
   }
 
   GetPlayerBio = () => {
@@ -26,9 +21,18 @@ class PlayerInfo extends Component {
         }'`
       )
       .then(resp => {
-        this.setState({
-          playerBio: resp.data.player_info.queryResults.row
-        })
+        this.setState(
+          {
+            playerBio: resp.data.player_info.queryResults.row
+          },
+          () => {
+            if (this.state.playerBio.primary_position === 1) {
+              this.GetPitchingStats()
+            } else {
+              this.GetHittingStats()
+            }
+          }
+        )
       })
   }
 

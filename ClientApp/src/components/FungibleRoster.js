@@ -9,7 +9,7 @@ class FungibleRoster extends Component {
           return (
             <li className="movable-player" key={player.Id}>
               <Link to={`/player/${player.mlbId}`}>
-                <h3>{player.PlayerName}</h3>
+                <h3>{player.playerName}</h3>
               </Link>
               <button onClick={this.movePlayer}>+</button>
             </li>
