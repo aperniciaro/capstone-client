@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import FungibleRoster from '../components/FungibleRoster'
 
 class Release extends Component {
   render() {
@@ -14,14 +15,7 @@ class Release extends Component {
         <main>
           <section className="roster">
             <h2>Choose Player(s) to Release:</h2>
-            <ul className="current-roster">
-              <li className="movable-player">
-                <Link to={'/player/playername'}>
-                  <h3>Player Name</h3>
-                </Link>
-                <button>-</button>
-              </li>
-            </ul>
+            <FungibleRoster playerList={this.state.userPlayerList} />
           </section>
           <section className="acquiring">
             <h3>Players to be Released: </h3>

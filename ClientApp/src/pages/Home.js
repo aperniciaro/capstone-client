@@ -21,9 +21,10 @@ class Home extends Component {
   }
 
   GetAllTeams = () => {
+    const currentYear = new Date().getFullYear()
     axios
       .get(
-        `https://lookup-service-prod.mlb.com/json/named.team_all_season.bam?sport_code='mlb'&all_star_sw='N'&sort_order=name_asc&season='2019'`
+        `https://lookup-service-prod.mlb.com/json/named.team_all_season.bam?sport_code='mlb'&all_star_sw='N'&sort_order=name_asc&season='${currentYear}'`
       )
       .then(resp => {
         this.setState({ teams: resp.data.team_all_season.queryResults.row })
@@ -102,7 +103,7 @@ class Home extends Component {
       })
       .then(resp => {
         this.setState(
-          { userRoster: resp },
+          { userRoster: resp.data },
           localStorage.setItem('user-roster', this.state.userRoster)
         )
       })

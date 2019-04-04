@@ -33,9 +33,10 @@ class PlayerInfo extends Component {
   }
 
   GetHittingStats = () => {
+    const previousYear = new Date().getFullYear() - 1
     axios
       .get(
-        `https://lookup-service-prod.mlb.com/json/named.sport_hitting_tm.bam?league_list_id='mlb'&game_type='R'&season='2018'&player_id='${
+        `https://lookup-service-prod.mlb.com/json/named.sport_hitting_tm.bam?league_list_id='mlb'&game_type='R'&season='${previousYear}'&player_id='${
           this.props.match.params.playerID
         }'`
       )
@@ -47,9 +48,10 @@ class PlayerInfo extends Component {
   }
 
   GetPitchingStats = () => {
+    const previousYear = new Date().getFullYear() - 1
     axios
       .get(
-        `http://lookup-service-prod.mlb.com/json/named.sport_pitching_tm.bam?league_list_id='mlb'&game_type='R'&season='2018'&player_id='${
+        `http://lookup-service-prod.mlb.com/json/named.sport_pitching_tm.bam?league_list_id='mlb'&game_type='R'&season='${previousYear}'&player_id='${
           this.props.match.params.playerID
         }'`
       )

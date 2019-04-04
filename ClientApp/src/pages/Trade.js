@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import TeamMenu from '../components/TeamMenu'
 import axios from 'axios'
+import FungibleRoster from '../components/FungibleRoster'
 
 class Trade extends Component {
   state = {
@@ -14,6 +15,7 @@ class Trade extends Component {
 
   componentDidMount() {
     this.GetAllTeams()
+    this.GetUserInfoFromStorage()
   }
 
   GetAllTeams = () => {
@@ -30,20 +32,8 @@ class Trade extends Component {
     const userRosterFromStorage = localStorage.getItem('user-roster')
     this.setState({
       userTeam: userRosterFromStorage.Team,
-      userPlayerList: userRosterFromStorage
+      userPlayerList: userRosterFromStorage.Players
     })
-  }
-
-  GetTradeTeamRoster = teamId => {
-    axios
-      .get(
-        `https://lookup-service-prod.mlb.com/json/named.roster_40.bam?team_id='${teamId}'`
-      )
-      .then(resp => {
-        this.setState({
-          tradeTeamPlayerLIst: resp.data.roster_40.queryResults.row
-        })
-      })
   }
 
   ChangeTradeTeam = event => {
@@ -58,6 +48,18 @@ class Trade extends Component {
         this.GetTradeTeamRoster(selectedTeam.mlb_org_id)
       }
     )
+  }
+
+  GetTradeTeamRoster = teamId => {
+    axios
+      .get(
+        `https://lookup-service-prod.mlb.com/json/named.roster_40.bam?team_id='${teamId}'`
+      )
+      .then(resp => {
+        this.setState({
+          tradeTeamPlayerLIst: resp.data.roster_40.queryResults.row
+        })
+      })
   }
 
   movePlayer = event => {
@@ -83,33 +85,11 @@ class Trade extends Component {
           <section className="rosters-side-by-side">
             <section className="roster">
               <h2>Choose Player(s) to Trade:</h2>
-              <ul className="current-roster">
-                {this.state.userPlayerList.map(player => {
-                  return (
-                    <li className="movable-player" key={player.player_id}>
-                      <Link to={`/player/${player.player_id}`}>
-                        <h3>{player.name_display_first_last}</h3>
-                      </Link>
-                      <button onClick={this.movePlayer}>+</button>
-                    </li>
-                  )
-                })}
-              </ul>
+              <FungibleRoster playerList={this.state.userPlayerList} />
             </section>
             <section className="roster">
               <h2>Choose Player(s) to Acquire:</h2>
-              <ul className="current-roster">
-                {this.state.tradeTeamPlayerList.map(player => {
-                  return (
-                    <li className="movable-player" key={player.player_id}>
-                      <Link to={`/player/${player.player_id}`}>
-                        <h3>{player.name_display_first_last}</h3>
-                      </Link>
-                      <button onClick={this.movePlayer}>+</button>
-                    </li>
-                  )
-                })}
-              </ul>
+              <FungibleRoster playerList={this.state.tradeTeamPlayerList} />
             </section>
           </section>
           <section className="on-the-move">
