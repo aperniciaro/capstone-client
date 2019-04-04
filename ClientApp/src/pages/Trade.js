@@ -57,7 +57,7 @@ class Trade extends Component {
       )
       .then(resp => {
         this.setState({
-          tradeTeamPlayerLIst: resp.data.roster_40.queryResults.row
+          tradeTeamPlayerList: resp.data.roster_40.queryResults.row
         })
       })
   }
