@@ -26,7 +26,8 @@ class PlayerInfo extends Component {
             playerBio: resp.data.player_info.queryResults.row
           },
           () => {
-            if (this.state.playerBio.primary_position === 1) {
+            console.log(this.state.playerBio)
+            if (parseInt(this.state.playerBio.primary_position, 10) === 1) {
               this.GetPitchingStats()
             } else {
               this.GetHittingStats()
@@ -55,13 +56,13 @@ class PlayerInfo extends Component {
     const previousYear = new Date().getFullYear() - 1
     axios
       .get(
-        `http://lookup-service-prod.mlb.com/json/named.sport_pitching_tm.bam?league_list_id='mlb'&game_type='R'&season='${previousYear}'&player_id='${
+        `https://lookup-service-prod.mlb.com/json/named.sport_pitching_tm.bam?league_list_id='mlb'&game_type='R'&season='${previousYear}'&player_id='${
           this.props.match.params.playerID
         }'`
       )
       .then(resp => {
         this.setState({
-          playerStats: resp.data.pitching.queryResults.row
+          playerStats: resp.data.sport_pitching_tm.queryResults.row
         })
       })
   }

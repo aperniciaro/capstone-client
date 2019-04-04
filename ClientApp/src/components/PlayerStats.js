@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 class PlayerStats extends Component {
   render() {
-    if (this.props.position === 1) {
+    if (parseInt(this.props.position, 10) === 1) {
       return (
         <div>
           <p>IP: {this.props.stats.ip}</p>
