@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using capstone_client.Models;
 
-namespace capstone_client.Models
+namespace capstone_client.ViewModels
 {
-  public class Roster
+  public class RosterViewModel
   {
     public int Id { get; set; }
     public string Name { get; set; }

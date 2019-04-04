@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using capstone_client.Models;
 using content;
+using capstone_client.ViewModels;
 
 namespace capstone_client.Controllers
 {
@@ -33,10 +34,22 @@ namespace capstone_client.Controllers
     }
 
     [HttpPost]
-    public ActionResult<Roster> CreateRoster([FromBody] Roster newRoster)
+    public ActionResult<Roster> CreateRoster([FromBody] Roster incomingRoster)
     {
+      // create a new roster
+      // copy over incoming properties (not navigation)
+      // save that new with 
+      //assign new roster the team and players of the incmoing roster
+      // save changes again
+      Roster newRoster = (Roster)Activator.CreateInstance(typeof(Roster));
+      newRoster.Id = incomingRoster.Id;
+      newRoster.Name = incomingRoster.Name;
+      newRoster.IsCustom = incomingRoster.IsCustom;
+      newRoster.ProjectedWins = incomingRoster.ProjectedWins;
       db.Rosters.Add(newRoster);
       db.SaveChanges();
+      newRoster.Team = incomingRoster.Team;
+      newRoster.Players = incomingRoster.Players;
       return newRoster;
     }
 
@@ -44,7 +57,6 @@ namespace capstone_client.Controllers
     public ActionResult<Roster> UpdateRoster(int id, [FromBody] Roster newRosterData)
     {
       var roster = db.Rosters.FirstOrDefault(f => f.Id == id);
-      //change props
       db.SaveChanges();
       return roster;
     }

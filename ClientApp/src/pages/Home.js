@@ -12,8 +12,8 @@ class Home extends Component {
     teams: [],
     divisionTeams: [],
     userTeam: {},
-    defaultRoster: [],
-    userRoster: []
+    defaultPlayerList: [],
+    userPlayerList: []
   }
 
   componentDidMount() {
@@ -28,16 +28,6 @@ class Home extends Component {
       .then(resp => {
         this.setState({ teams: resp.data.team_all_season.queryResults.row })
       })
-  }
-
-  GetDefaultRoster = teamId => {
-    axios
-      .get(
-        `https://lookup-service-prod.mlb.com/json/named.roster_40.bam?team_id='${teamId}'`
-      )
-      .then(resp => {
-        this.setState({ defaultRoster: resp.data.roster_40.queryResults.row })
-      }, this.AddPlayersToRoster)
   }
 
   ChangeUserTeam = event => {
@@ -57,21 +47,25 @@ class Home extends Component {
     )
   }
 
-  CreateUserRoster = () => {
-    const data = {
-      team: this.state.userTeam,
-      players: this.state.defaultRoster
-    }
+  GetDefaultRoster = teamId => {
     axios
-      .post('https://localhost:5001/api/Roster', data, {
-        headers: { 'Content-type': 'application/json' }
+      .get(
+        `https://lookup-service-prod.mlb.com/json/named.roster_40.bam?team_id='${teamId}'`
+      )
+      .then(resp => {
+        this.setState(
+          { defaultPlayerList: resp.data.roster_40.queryResults.row },
+          () => {
+            this.AddPlayersToUserList()
+          }
+        )
       })
-      .then()
   }
 
-  AddPlayersToRoster = () => {
-    this.state.defaultRoster.forEach(function(player) {
-      const data = {
+  AddPlayersToUserList = () => {
+    let data = []
+    this.state.defaultPlayerList.forEach(player => {
+      const playerToAdd = {
         mlbId: player.player_id,
         playerName: player.name_display_first_last,
         position: player.primary_position,
@@ -79,14 +73,39 @@ class Home extends Component {
         batsFrom: player.bats,
         jerseyNumber: player.jersey_number
       }
-      axios
-        .post('https://localhost:5001/api/Player', data, {
-          headers: { 'Content-type': 'application/json' }
-        })
-        .then(resp => {
-          this.state.userRoster.concat(resp)
-        })
+      data.push(playerToAdd)
     })
+    axios
+      .post('https://localhost:5001/api/Player', data, {
+        headers: { 'Content-type': 'application/json' }
+      })
+      .then(resp => {
+        this.setState(
+          {
+            userPlayerList: resp.data
+          },
+          () => {
+            this.CreateUserRoster()
+          }
+        )
+      })
+  }
+
+  CreateUserRoster = () => {
+    const data = {
+      team: this.state.userTeam,
+      players: this.state.userPlayerList
+    }
+    axios
+      .post('https://localhost:5001/api/Roster', data, {
+        headers: { 'Content-type': 'application/json' }
+      })
+      .then(resp => {
+        this.setState(
+          { userRoster: resp },
+          localStorage.setItem('user-roster', this.state.userRoster)
+        )
+      })
   }
 
   render() {
@@ -100,7 +119,7 @@ class Home extends Component {
         </header>
         <main>
           <section className="manage-roster">
-            <UserRoster userRoster={this.state.userRoster} />
+            <UserRoster userPlayers={this.state.userPlayerList} />
             <NavMenu />
           </section>
           <Outcomes divisionTeams={this.state.divisionTeams} />

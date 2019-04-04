@@ -7,7 +7,9 @@ class Trade extends Component {
   state = {
     teams: [],
     tradeTeam: {},
-    tradeTeamRoster: []
+    tradeTeamPlayerList: [],
+    userTeam: {},
+    userPlayerList: []
   }
 
   componentDidMount() {
@@ -20,9 +22,16 @@ class Trade extends Component {
         `https://lookup-service-prod.mlb.com/json/named.team_all_season.bam?sport_code='mlb'&all_star_sw='N'&sort_order=name_asc&season='2019'`
       )
       .then(resp => {
-        console.log(resp)
         this.setState({ teams: resp.data.team_all_season.queryResults.row })
       })
+  }
+
+  GetUserInfoFromStorage = () => {
+    const userRosterFromStorage = localStorage.getItem('user-roster')
+    this.setState({
+      userTeam: userRosterFromStorage.Team,
+      userPlayerList: userRosterFromStorage
+    })
   }
 
   GetTradeTeamRoster = teamId => {
@@ -31,7 +40,9 @@ class Trade extends Component {
         `https://lookup-service-prod.mlb.com/json/named.roster_40.bam?team_id='${teamId}'`
       )
       .then(resp => {
-        this.setState({ tradeTeamRoster: resp.data.roster_40.queryResults.row })
+        this.setState({
+          tradeTeamPlayerLIst: resp.data.roster_40.queryResults.row
+        })
       })
   }
 
@@ -73,18 +84,22 @@ class Trade extends Component {
             <section className="roster">
               <h2>Choose Player(s) to Trade:</h2>
               <ul className="current-roster">
-                <li className="movable-player">
-                  <Link to={'/player/playername'}>
-                    <h3>Player Name</h3>
-                  </Link>
-                  <button onClick={this.movePlayer}>+</button>
-                </li>
+                {this.state.userPlayerList.map(player => {
+                  return (
+                    <li className="movable-player" key={player.player_id}>
+                      <Link to={`/player/${player.player_id}`}>
+                        <h3>{player.name_display_first_last}</h3>
+                      </Link>
+                      <button onClick={this.movePlayer}>+</button>
+                    </li>
+                  )
+                })}
               </ul>
             </section>
             <section className="roster">
               <h2>Choose Player(s) to Acquire:</h2>
               <ul className="current-roster">
-                {this.state.tradeTeamRoster.map(player => {
+                {this.state.tradeTeamPlayerList.map(player => {
                   return (
                     <li className="movable-player" key={player.player_id}>
                       <Link to={`/player/${player.player_id}`}>

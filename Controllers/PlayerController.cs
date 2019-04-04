@@ -32,12 +32,20 @@ namespace capstone_client.Controllers
       return player;
     }
 
+    // [HttpPost]
+    // public ActionResult<Player> CreatePlayer([FromBody] Player newPlayer)
+    // {
+    //   db.Players.Add(newPlayer);
+    //   db.SaveChanges();
+    //   return newPlayer;
+    // }
+
     [HttpPost]
-    public ActionResult<Player> CreatePlayer([FromBody] Player newPlayer)
+    public ActionResult<Player[]> CreateMultiplePlayers([FromBody] Player[] playersToAdd)
     {
-      db.Players.Add(newPlayer);
+      db.Players.AddRange(playersToAdd);
       db.SaveChanges();
-      return newPlayer;
+      return playersToAdd;
     }
 
     [HttpPut("{id}")]
