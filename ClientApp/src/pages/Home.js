@@ -18,6 +18,7 @@ class Home extends Component {
 
   componentDidMount() {
     this.GetAllTeams()
+    this.GetUserInfoFromStorage()
   }
 
   GetAllTeams = () => {
@@ -29,6 +30,18 @@ class Home extends Component {
       .then(resp => {
         this.setState({ teams: resp.data.team_all_season.queryResults.row })
       })
+  }
+
+  GetUserInfoFromStorage = () => {
+    const userRosterFromStorage = JSON.parse(
+      localStorage.getItem('user-roster')
+    )
+    if (userRosterFromStorage) {
+      this.setState({
+        userTeam: userRosterFromStorage.team,
+        userPlayerList: userRosterFromStorage.players
+      })
+    }
   }
 
   ChangeUserTeam = event => {
