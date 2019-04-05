@@ -3,6 +3,23 @@ import { Link } from 'react-router-dom'
 import FungibleRoster from '../components/FungibleRoster'
 
 class Release extends Component {
+  state = {
+    userTeam: {},
+    userPlayerList: []
+  }
+
+  componentDidMount() {
+    this.GetUserInfoFromStorage()
+  }
+
+  GetUserInfoFromStorage = () => {
+    const userRosterFromStorage = localStorage.getItem('user-roster')
+    this.setState({
+      userTeam: userRosterFromStorage.Team,
+      userPlayerList: userRosterFromStorage.Players
+    })
+  }
+
   render() {
     return (
       <div>
