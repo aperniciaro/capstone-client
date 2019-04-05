@@ -13,11 +13,12 @@ class Release extends Component {
   }
 
   GetUserInfoFromStorage = () => {
-    const userRosterFromStorage = localStorage.getItem('user-roster')
-    console.log(userRosterFromStorage)
+    const userRosterFromStorage = JSON.parse(
+      localStorage.getItem('user-roster')
+    )
     this.setState({
-      userTeam: userRosterFromStorage.Team,
-      userPlayerList: userRosterFromStorage.Players
+      userTeam: userRosterFromStorage.team,
+      userPlayerList: userRosterFromStorage.players
     })
   }
 

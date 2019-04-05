@@ -35,6 +35,9 @@ class Home extends Component {
     let selectedTeam = this.state.teams.filter(
       team => team.mlb_org_id === event.target.value
     )[0]
+
+    localStorage.setItem('user-roster', selectedTeam)
+
     this.setState(
       {
         userTeam: selectedTeam,
@@ -102,10 +105,9 @@ class Home extends Component {
         headers: { 'Content-type': 'application/json' }
       })
       .then(resp => {
-        this.setState(
-          { userRoster: resp.data },
-          localStorage.setItem('user-roster', resp.data)
-        )
+        this.setState({ userRoster: resp.data })
+
+        localStorage.setItem('user-roster', JSON.stringify(resp.data))
       })
   }
 
