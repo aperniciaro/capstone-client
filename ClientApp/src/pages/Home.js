@@ -83,7 +83,7 @@ class Home extends Component {
       const playerToAdd = {
         mlbId: player.player_id,
         playerName: player.name_display_first_last,
-        position: player.primary_position,
+        position: parseInt(player.primary_position, 10),
         throwsFrom: player.throws,
         batsFrom: player.bats,
         jerseyNumber: player.jersey_number
