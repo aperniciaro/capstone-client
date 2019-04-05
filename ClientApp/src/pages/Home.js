@@ -104,7 +104,7 @@ class Home extends Component {
       .then(resp => {
         this.setState(
           { userRoster: resp.data },
-          localStorage.setItem('user-roster', this.state.userRoster)
+          localStorage.setItem('user-roster', resp.data)
         )
       })
   }
