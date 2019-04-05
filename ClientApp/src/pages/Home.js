@@ -49,8 +49,6 @@ class Home extends Component {
       team => team.mlb_org_id === event.target.value
     )[0]
 
-    localStorage.setItem('user-roster', selectedTeam)
-
     this.setState(
       {
         userTeam: selectedTeam,
