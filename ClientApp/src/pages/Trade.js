@@ -58,8 +58,37 @@ class Trade extends Component {
         `https://lookup-service-prod.mlb.com/json/named.roster_40.bam?team_id='${teamId}'`
       )
       .then(resp => {
+        this.setState(
+          {
+            tradeTeamPlayerList: resp.data.roster_40.queryResults.row
+          },
+          () => {
+            this.AddPlayersToTradeList()
+          }
+        )
+      })
+  }
+
+  AddPlayersToTradeList = () => {
+    let data = []
+    this.state.tradeTeamPlayerList.forEach(player => {
+      const playerToAdd = {
+        mlbId: player.player_id,
+        playerName: player.name_display_first_last,
+        position: player.primary_position,
+        throwsFrom: player.throws,
+        batsFrom: player.bats,
+        jerseyNumber: player.jersey_number
+      }
+      data.push(playerToAdd)
+    })
+    axios
+      .post('https://localhost:5001/api/Player', data, {
+        headers: { 'Content-type': 'application/json' }
+      })
+      .then(resp => {
         this.setState({
-          tradeTeamPlayerList: resp.data.roster_40.queryResults.row
+          tradeTeamPlayerList: resp.data
         })
       })
   }
