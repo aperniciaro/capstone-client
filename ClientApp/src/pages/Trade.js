@@ -11,7 +11,8 @@ class Trade extends Component {
     tradeTeamPlayerList: [],
     tradeRoster: {},
     userTeam: {},
-    userPlayerList: []
+    userPlayerList: [],
+    userRoster: {}
   }
 
   componentDidMount() {
@@ -34,6 +35,7 @@ class Trade extends Component {
       localStorage.getItem('user-roster')
     )
     this.setState({
+      userRoster: userRosterFromStorage,
       userTeam: userRosterFromStorage.team,
       userPlayerList: userRosterFromStorage.players
     })
@@ -113,6 +115,43 @@ class Trade extends Component {
       })
   }
 
+  MoveUserPlayer = playerId => {
+    axios
+      .put(`https://localhost:5001/api/Player/${playerId}/move`)
+      .then(resp => {
+        axios
+          .get(`https://localhost:5001/api/Roster/${this.state.userRoster.id}`)
+          .then(resp => {
+            this.setState({
+              userPlayerList: resp.data.players
+            })
+          })
+      })
+  }
+
+  MoveTradeTeamPlayer = playerId => {
+    axios
+      .put(`https://localhost:5001/api/Player/${playerId}/move`)
+      .then(resp => {
+        axios
+          .get(`https://localhost:5001/api/Roster/${this.state.tradeRoster.id}`)
+          .then(resp => {
+            this.setState({
+              tradeTeamPlayerList: resp.data.players
+            })
+          })
+      })
+  }
+
+  UndoTrade = () => {
+    this.state.userPlayerList
+      .filter(player => player.isMoving === true)
+      .map(player => this.MoveUserPlayer(player.id))
+    this.state.tradeTeamPlayerList
+      .filter(player => player.isMoving === true)
+      .map(player => this.MoveTradeTeamPlayer(player.id))
+  }
+
   render() {
     return (
       <div>
@@ -131,40 +170,66 @@ class Trade extends Component {
           <section className="rosters-side-by-side">
             <section className="roster">
               <h2>Choose Player(s) to Trade:</h2>
-              <FungibleRoster playerList={this.state.userPlayerList} />
+              <FungibleRoster
+                playerList={this.state.userPlayerList}
+                movePlayer={this.MoveUserPlayer}
+              />
             </section>
             <section className="roster">
               <h2>Choose Player(s) to Acquire:</h2>
-              <FungibleRoster playerList={this.state.tradeTeamPlayerList} />
+              <FungibleRoster
+                playerList={this.state.tradeTeamPlayerList}
+                movePlayer={this.MoveTradeTeamPlayer}
+              />
             </section>
           </section>
           <section className="on-the-move">
             <section className="trading">
               <h3>Players to be Traded: </h3>
               <ul>
-                <li className="movable-player">
-                  <Link to={'/player/playername'}>
-                    <h3>Player Name</h3>
-                  </Link>
-                  <button onClick={this.movePlayer}>-</button>
-                </li>
+                {this.state.userPlayerList
+                  .filter(f => f.isMoving === true)
+                  .map(player => {
+                    return (
+                      <li className="movable-player" key={player.id}>
+                        <Link to={`/player/${player.mlbId}`}>
+                          <h3>{player.playerName}</h3>
+                        </Link>
+                        <button onClick={() => this.MoveUserPlayer(player.id)}>
+                          -
+                        </button>
+                      </li>
+                    )
+                  })}
               </ul>
             </section>
             <section className="acquiring">
               <h3>Players to be Received: </h3>
               <ul>
-                <li className="movable-player">
-                  <Link to={'/player/playername'}>
-                    <h3>Player Name</h3>
-                  </Link>
-                  <button onClick={this.movePlayer}>-</button>
-                </li>
+                {this.state.tradeTeamPlayerList
+                  .filter(f => f.isMoving === true)
+                  .map(player => {
+                    return (
+                      <li className="movable-player" key={player.id}>
+                        <Link to={`/player/${player.mlbId}`}>
+                          <h3>{player.playerName}</h3>
+                        </Link>
+                        <button
+                          onClick={() => this.MoveTradeTeamPlayer(player.id)}
+                        >
+                          -
+                        </button>
+                      </li>
+                    )
+                  })}
               </ul>
             </section>
           </section>
           <section className="trade-controls">
             <button className="execute">Execute Trade</button>
-            <button className="cancel">Clear Trade</button>
+            <button className="cancel" onClick={this.UndoTrade}>
+              Clear Trade
+            </button>
           </section>
         </main>
       </div>
