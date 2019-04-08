@@ -13,7 +13,9 @@ class Home extends Component {
     divisionTeams: [],
     userTeam: {},
     defaultPlayerList: [],
-    userPlayerList: []
+    userPlayerList: [],
+    rosterName: '',
+    rosterNameInput: ''
   }
 
   componentDidMount() {
@@ -131,6 +133,12 @@ class Home extends Component {
       })
   }
 
+  ChangeRosterName = event => {
+    this.setState({
+      rosterNameInput: event.target.value
+    })
+  }
+
   render() {
     return (
       <div>
@@ -146,7 +154,13 @@ class Home extends Component {
             <NavMenu />
           </section>
           <Outcomes divisionTeams={this.state.divisionTeams} />
-          <SaveLoad resetRoster={this.CreateUserRoster} />
+          <SaveLoad
+            resetRoster={this.CreateUserRoster}
+            saveRoster={this.SaveRoster}
+            loadRoster={this.LoadRoster}
+            changeRosterName={this.ChangeRosterName}
+            rosterNameInput={this.state.rosterNameInput}
+          />
         </main>
       </div>
     )

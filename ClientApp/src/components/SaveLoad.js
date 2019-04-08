@@ -4,7 +4,12 @@ class SaveLoad extends Component {
   render() {
     return (
       <section className="save-and-load">
-        <input className="save-input" placeholder="Name your roster" />
+        <input
+          className="save-input"
+          placeholder="Name your roster"
+          value={this.props.rosterNameInput}
+          onChange={this.props.changeRosterName}
+        />
         <button>Save Custom Roster</button>
         <section className="saved-menu">
           <h4>Saved Rosters: </h4>
