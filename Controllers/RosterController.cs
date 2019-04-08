@@ -29,7 +29,7 @@ namespace capstone_client.Controllers
     [HttpGet("{id}")]
     public ActionResult<Roster> GetSingleRoster(int id)
     {
-      var roster = db.Rosters.FirstOrDefault(f => f.Id == id);
+      var roster = db.Rosters.Include(i => i.Players).FirstOrDefault(f => f.Id == id);
       return roster;
     }
 

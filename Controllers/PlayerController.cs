@@ -40,19 +40,23 @@ namespace capstone_client.Controllers
     //   return newPlayer;
     // }
 
-    [HttpPost]
-    public ActionResult<Player[]> CreateMultiplePlayers([FromBody] Player[] playersToAdd)
+    [HttpPost("{rosterId}")]
+    public ActionResult<Player[]> CreateMultiplePlayers([FromBody] Player[] playersToAdd, [FromRoute] int rosterId)
     {
+      foreach (var player in playersToAdd)
+      {
+        player.RosterId = rosterId;
+      }
       db.Players.AddRange(playersToAdd);
       db.SaveChanges();
       return playersToAdd;
     }
 
-    [HttpPut("{id}")]
-    public ActionResult<Player> UpdatePlayer(int id, [FromBody] Player newPlayerData)
+    [HttpPut("{id}/move")]
+    public ActionResult<Player> UpdatePlayer(int id)
     {
       var player = db.Players.FirstOrDefault(f => f.Id == id);
-      //change props
+      player.IsMoving = !player.IsMoving;
       db.SaveChanges();
       return player;
     }

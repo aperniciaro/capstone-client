@@ -28,5 +28,6 @@ namespace capstone_client.Models
     public int ProjRuns { get; set; } = 0;
     public double ProjERA { get; set; } = .000;
     public Roster Roster { get; set; }
+    public int RosterId { get; set; }
   }
 }

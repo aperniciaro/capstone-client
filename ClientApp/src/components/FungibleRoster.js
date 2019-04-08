@@ -5,16 +5,20 @@ class FungibleRoster extends Component {
   render() {
     return (
       <ul className="current-roster">
-        {this.props.playerList.map(player => {
-          return (
-            <li className="movable-player" key={player.Id}>
-              <Link to={`/player/${player.mlbId}`}>
-                <h3>{player.playerName}</h3>
-              </Link>
-              <button onClick={this.movePlayer}>+</button>
-            </li>
-          )
-        })}
+        {this.props.playerList
+          .filter(f => f.isMoving === false)
+          .map(player => {
+            return (
+              <li className="movable-player" key={player.id}>
+                <Link to={`/player/${player.mlbId}`}>
+                  <h3>{player.playerName}</h3>
+                </Link>
+                <button onClick={() => this.props.movePlayer(player.id)}>
+                  +
+                </button>
+              </li>
+            )
+          })}
       </ul>
     )
   }

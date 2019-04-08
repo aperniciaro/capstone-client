@@ -9,7 +9,7 @@ class UserRoster extends Component {
         <ul className="current-roster">
           {this.props.userPlayers.map(player => {
             return (
-              <li key={player.Id}>
+              <li key={player.id}>
                 <Link to={`/player/${player.mlbId}`}>
                   <h3>{player.playerName}</h3>
                 </Link>
