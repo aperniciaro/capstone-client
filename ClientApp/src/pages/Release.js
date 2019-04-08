@@ -45,6 +45,15 @@ class Release extends Component {
       .map(player => this.MovePlayer(player.id))
   }
 
+  ExecuteRelease = () => {
+    this.state.userPlayerList
+      .filter(player => player.isMoving === true)
+      .map(player =>
+        axios.put(`https://localhost:5001/api/Player/${player.id}/release`)
+      )
+    localStorage.setItem('user-roster', JSON.stringify(this.state.userRoster))
+  }
+
   render() {
     return (
       <div>
@@ -82,7 +91,9 @@ class Release extends Component {
             </ul>
           </section>
           <section className="trade-controls">
-            <button className="execute">Release</button>
+            <button className="execute" onClick={this.ExecuteRelease}>
+              Release
+            </button>
             <button className="cancel" onClick={this.UndoRelease}>
               Clear Selected
             </button>

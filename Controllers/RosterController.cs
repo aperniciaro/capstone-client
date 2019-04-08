@@ -57,6 +57,7 @@ namespace capstone_client.Controllers
     public ActionResult<Roster> UpdateRoster(int id, [FromBody] Roster newRosterData)
     {
       var roster = db.Rosters.FirstOrDefault(f => f.Id == id);
+      roster = newRosterData;
       db.SaveChanges();
       return roster;
     }

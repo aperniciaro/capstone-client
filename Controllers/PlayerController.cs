@@ -61,6 +61,15 @@ namespace capstone_client.Controllers
       return player;
     }
 
+    [HttpPut("{id}/release")]
+    public ActionResult<Player> ReleasePlayer(int id)
+    {
+      var player = db.Players.FirstOrDefault(f => f.Id == id);
+      player.RosterId = null;
+      db.SaveChanges();
+      return player;
+    }
+
     [HttpDelete("{id}")]
     public ActionResult DeletePlayer(int id)
     {
