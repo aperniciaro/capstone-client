@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import FungibleRoster from '../components/FungibleRoster'
-import Axios from 'axios'
+import axios from 'axios'
 
 class Release extends Component {
   state = {
@@ -26,17 +26,23 @@ class Release extends Component {
   }
 
   MovePlayer = playerId => {
-    Axios.put(`https://localhost:5001/api/Player/${playerId}/move`).then(
-      resp => {
-        Axios.get(
-          `https://localhost:5001/api/Roster/${this.state.userRoster.id}`
-        ).then(resp => {
-          this.setState({
-            userPlayerList: resp.data.players
+    axios
+      .put(`https://localhost:5001/api/Player/${playerId}/move`)
+      .then(resp => {
+        axios
+          .get(`https://localhost:5001/api/Roster/${this.state.userRoster.id}`)
+          .then(resp => {
+            this.setState({
+              userPlayerList: resp.data.players
+            })
           })
-        })
-      }
-    )
+      })
+  }
+
+  UndoRelease = () => {
+    this.state.userPlayerList
+      .filter(player => player.isMoving === true)
+      .map(player => this.MovePlayer(player.id))
   }
 
   render() {
@@ -77,7 +83,9 @@ class Release extends Component {
           </section>
           <section className="trade-controls">
             <button className="execute">Release</button>
-            <button className="cancel">Clear Selected</button>
+            <button className="cancel" onClick={this.UndoRelease}>
+              Clear Selected
+            </button>
           </section>
         </main>
       </div>
