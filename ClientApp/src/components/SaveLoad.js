@@ -10,7 +10,7 @@ class SaveLoad extends Component {
           value={this.props.rosterNameInput}
           onChange={this.props.changeRosterName}
         />
-        <button>Save Custom Roster</button>
+        <button onClick={this.props.saveRoster}>Save Custom Roster</button>
         <section className="saved-menu">
           <h4>Saved Rosters: </h4>
           <select className="saved-rosters" defaultValue="0">

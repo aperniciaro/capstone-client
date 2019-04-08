@@ -139,6 +139,21 @@ class Home extends Component {
     })
   }
 
+  SaveRoster = () => {
+    let data = []
+    this.setState(
+      {
+        rosterName: this.state.rosterNameInput,
+        rosterNameInput: ''
+      },
+      axios
+        .put(`https://localhost:5001/api/Roster/${this.state.userRoster.id}`)
+        .then(data, {
+          headers: { 'Content-type': 'application/json' }
+        })
+    )
+  }
+
   render() {
     return (
       <div>
