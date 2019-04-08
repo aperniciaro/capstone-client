@@ -9,6 +9,7 @@ class Trade extends Component {
     teams: [],
     tradeTeam: {},
     tradeTeamPlayerList: [],
+    tradeRoster: {},
     userTeam: {},
     userPlayerList: []
   }
@@ -42,17 +43,34 @@ class Trade extends Component {
     let selectedTeam = this.state.teams.filter(
       team => team.mlb_org_id === event.target.value
     )[0]
+
     this.setState(
       {
         tradeTeam: selectedTeam
       },
       () => {
-        this.GetTradeTeamRoster(selectedTeam.mlb_org_id)
+        this.CreateTradeRoster()
       }
     )
   }
 
-  GetTradeTeamRoster = teamId => {
+  CreateTradeRoster = () => {
+    const data = {
+      team: this.state.tradeTeam,
+      players: []
+    }
+    axios
+      .post('https://localhost:5001/api/Roster', data, {
+        headers: { 'Content-type': 'application/json' }
+      })
+      .then(resp => {
+        this.setState({ tradeRoster: resp.data }, () => {
+          this.GetDefaultPlayerList(this.state.tradeTeam.mlb_org_id)
+        })
+      })
+  }
+
+  GetDefaultPlayerList = teamId => {
     axios
       .get(
         `https://lookup-service-prod.mlb.com/json/named.roster_40.bam?team_id='${teamId}'`
@@ -63,16 +81,15 @@ class Trade extends Component {
             tradeTeamPlayerList: resp.data.roster_40.queryResults.row
           },
           () => {
-            this.AddPlayersToTradeList()
+            this.AddPlayersToUserRoster()
           }
         )
       })
   }
 
-  AddPlayersToTradeList = () => {
-    let data = []
-    this.state.tradeTeamPlayerList.forEach(player => {
-      const playerToAdd = {
+  AddPlayersToUserRoster = () => {
+    let playerData = this.state.tradeTeamPlayerList.map(player => {
+      return {
         mlbId: player.player_id,
         playerName: player.name_display_first_last,
         position: parseInt(player.primary_position, 10),
@@ -80,22 +97,20 @@ class Trade extends Component {
         batsFrom: player.bats,
         jerseyNumber: player.jersey_number
       }
-      data.push(playerToAdd)
     })
     axios
-      .post('https://localhost:5001/api/Player', data, {
-        headers: { 'Content-type': 'application/json' }
-      })
+      .post(
+        `https://localhost:5001/api/Player/${this.state.tradeRoster.id}`,
+        playerData,
+        {
+          headers: { 'Content-type': 'application/json' }
+        }
+      )
       .then(resp => {
         this.setState({
           tradeTeamPlayerList: resp.data
         })
       })
-  }
-
-  movePlayer = event => {
-    //change state of player from out of deal to in deal, or vice versa
-    //player lists should be mapped with an in/out of deal filter
   }
 
   render() {
