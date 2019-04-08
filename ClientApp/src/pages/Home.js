@@ -146,9 +146,7 @@ class Home extends Component {
             <NavMenu />
           </section>
           <Outcomes divisionTeams={this.state.divisionTeams} />
-          <SaveLoad
-          // resetRoster={this.CreateUserRoster()}
-          />
+          <SaveLoad resetRoster={this.CreateUserRoster} />
         </main>
       </div>
     )
