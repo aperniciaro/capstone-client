@@ -10,7 +10,6 @@ import NavMenu from '../components/NavMenu'
 class Home extends Component {
   state = {
     teams: [],
-    divisionTeams: [],
     userTeam: {},
     defaultPlayerList: [],
     userPlayerList: [],
@@ -18,6 +17,8 @@ class Home extends Component {
     rosterNameInput: '',
     savedRosters: [],
     userRoster: {}
+    //initialProjWins
+    //userProjWins
   }
 
   componentDidMount() {
@@ -50,6 +51,7 @@ class Home extends Component {
     this.setState({
       savedRosters: JSON.parse(localStorage.getItem('saved-rosters'))
     })
+    //CalculateProjWins = userProjWins
   }
 
   ChangeUserTeam = event => {
@@ -70,7 +72,7 @@ class Home extends Component {
   CreateUserRoster = () => {
     const data = {
       //need correct build of team object
-      // team: {mlbId: this.state.userTeam.mlb_or_id,},
+      name: `${this.state.userTeam.mlb_org} default`,
       players: []
     }
     axios
@@ -105,6 +107,7 @@ class Home extends Component {
 
   AddPlayersToUserRoster = () => {
     let playerData = this.state.defaultPlayerList.map(player => {
+      //Also GetPlayerStats
       return {
         mlbId: player.player_id,
         playerName: player.name_display_first_last,
@@ -120,18 +123,33 @@ class Home extends Component {
         }
       )
       .then(resp => {
-        const userRosterFromStorage = JSON.parse(
-          localStorage.getItem('user-roster')
-        )
-        userRosterFromStorage.players = resp.data
-        localStorage.setItem(
-          'user-roster',
-          JSON.stringify(userRosterFromStorage)
-        )
-        this.setState({
-          userPlayerList: resp.data
-        })
+        // const userRosterFromStorage = JSON.parse(
+        //   localStorage.getItem('user-roster')
+        // )
+        // userRosterFromStorage.players = resp.data
+        // localStorage.setItem(
+        //   'user-roster',
+        //   JSON.stringify(userRosterFromStorage)
+        // )
+        //CalculateProjectedWins
       })
+  }
+
+  GetPlayerStats = player => {
+    // if (player.position === 1) {
+    //   //get projected pitching stats from external api
+    //   //set ProjERA and ProjIP
+    // } else {
+    //   //get projected hitting stats from external api
+    //   //set ProjRuns
+    // }
+  }
+
+  CalculateProjectedWins = () => {
+    //loop through players on userRoster
+    //if player is a pitcher, add projEra*(projIp/9) to projRunsAllowed
+    //if player is a hitter, add projRuns to projRunsScored
+    //return (projRunsScored^1.81/(projRunsScored^1.81 + projRunsAllowed^1.81))*162, rounded down
   }
 
   ChangeRosterName = event => {
@@ -185,6 +203,7 @@ class Home extends Component {
     })
   }
 
+  //add footer to render with attribution info
   render() {
     return (
       <div>

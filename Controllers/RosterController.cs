@@ -59,7 +59,7 @@ namespace capstone_client.Controllers
       var roster = db.Rosters.FirstOrDefault(f => f.Id == id);
       roster.Name = newRosterData.Name;
       roster.IsCustom = newRosterData.IsCustom;
-      // roster.Players = newRosterData.Players;
+      roster.Players = newRosterData.Players;
       db.SaveChanges();
       return roster;
     }
