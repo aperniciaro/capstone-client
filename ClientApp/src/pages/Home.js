@@ -140,7 +140,10 @@ class Home extends Component {
   }
 
   SaveRoster = () => {
-    let data = []
+    const data = {
+      name: this.state.rosterNameInput,
+      isCustom: true
+    }
     this.setState(
       {
         rosterName: this.state.rosterNameInput,
