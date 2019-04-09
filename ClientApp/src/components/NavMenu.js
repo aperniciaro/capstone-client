@@ -6,13 +6,13 @@ class NavMenu extends Component {
     return (
       <section className="actions">
         <Link to={'/Trade'}>
-          <div className="trade-button">Trade</div>
+          <button className="trade-button">Trade</button>
         </Link>
         <Link to={'/FreeAgent'}>
-          <div className="sign-button">Sign FA</div>
+          <button className="sign-button">Sign FA</button>
         </Link>
         <Link to={'/Release'}>
-          <div className="release-button">Release Player</div>
+          <button className="release-button">Release Player</button>
         </Link>
       </section>
     )
