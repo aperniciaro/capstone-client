@@ -108,10 +108,7 @@ class Home extends Component {
       return {
         mlbId: player.player_id,
         playerName: player.name_display_first_last,
-        position: parseInt(player.primary_position, 10),
-        throwsFrom: player.throws,
-        batsFrom: player.bats,
-        jerseyNumber: player.jersey_number
+        position: parseInt(player.primary_position, 10)
       }
     })
     axios
