@@ -19,6 +19,7 @@ class Home extends Component {
     userRoster: {}
     //initialProjWins
     //userProjWins
+    //messages
   }
 
   componentDidMount() {
@@ -132,6 +133,7 @@ class Home extends Component {
         //   JSON.stringify(userRosterFromStorage)
         // )
         //CalculateProjectedWins
+        //Check roster size and add message for over or under 40
       })
   }
 
@@ -204,6 +206,7 @@ class Home extends Component {
   }
 
   //add footer to render with attribution info
+  //add area for status messages
   render() {
     return (
       <div>
