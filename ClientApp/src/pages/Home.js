@@ -77,7 +77,7 @@ class Home extends Component {
       players: []
     }
     axios
-      .post('https://localhost:5001/api/Roster', data, {
+      .post('/api/Roster', data, {
         headers: { 'Content-type': 'application/json' }
       })
       .then(resp => {
@@ -116,13 +116,9 @@ class Home extends Component {
       }
     })
     axios
-      .post(
-        `https://localhost:5001/api/Player/${this.state.userRoster.id}`,
-        playerData,
-        {
-          headers: { 'Content-type': 'application/json' }
-        }
-      )
+      .post(`/api/Player/${this.state.userRoster.id}`, playerData, {
+        headers: { 'Content-type': 'application/json' }
+      })
       .then(resp => {
         const userRosterFromStorage = JSON.parse(
           localStorage.getItem('user-roster')
@@ -169,7 +165,7 @@ class Home extends Component {
       () => {
         axios
           .put(
-            `https://localhost:5001/api/Roster/${this.state.userRoster.id}`,
+            `/api/Roster/${this.state.userRoster.id}`,
             {
               name: this.state.rosterName,
               players: this.state.userPlayerList,

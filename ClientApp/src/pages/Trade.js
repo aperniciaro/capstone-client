@@ -62,7 +62,7 @@ class Trade extends Component {
       players: []
     }
     axios
-      .post('https://localhost:5001/api/Roster', data, {
+      .post('/api/Roster', data, {
         headers: { 'Content-type': 'application/json' }
       })
       .then(resp => {
@@ -101,13 +101,9 @@ class Trade extends Component {
       }
     })
     axios
-      .post(
-        `https://localhost:5001/api/Player/${this.state.tradeRoster.id}`,
-        playerData,
-        {
-          headers: { 'Content-type': 'application/json' }
-        }
-      )
+      .post(`/api/Player/${this.state.tradeRoster.id}`, playerData, {
+        headers: { 'Content-type': 'application/json' }
+      })
       .then(resp => {
         this.setState({
           tradeTeamPlayerList: resp.data
@@ -116,31 +112,23 @@ class Trade extends Component {
   }
 
   MoveUserPlayer = playerId => {
-    axios
-      .put(`https://localhost:5001/api/Player/${playerId}/move`)
-      .then(resp => {
-        axios
-          .get(`https://localhost:5001/api/Roster/${this.state.userRoster.id}`)
-          .then(resp => {
-            this.setState({
-              userPlayerList: resp.data.players
-            })
-          })
+    axios.put(`/api/Player/${playerId}/move`).then(resp => {
+      axios.get(`/api/Roster/${this.state.userRoster.id}`).then(resp => {
+        this.setState({
+          userPlayerList: resp.data.players
+        })
       })
+    })
   }
 
   MoveTradeTeamPlayer = playerId => {
-    axios
-      .put(`https://localhost:5001/api/Player/${playerId}/move`)
-      .then(resp => {
-        axios
-          .get(`https://localhost:5001/api/Roster/${this.state.tradeRoster.id}`)
-          .then(resp => {
-            this.setState({
-              tradeTeamPlayerList: resp.data.players
-            })
-          })
+    axios.put(`/api/Player/${playerId}/move`).then(resp => {
+      axios.get(`/api/Roster/${this.state.tradeRoster.id}`).then(resp => {
+        this.setState({
+          tradeTeamPlayerList: resp.data.players
+        })
       })
+    })
   }
 
   UndoTrade = () => {
@@ -157,7 +145,7 @@ class Trade extends Component {
       .filter(player => player.isMoving === true)
       .map(player =>
         axios
-          .put(`https://localhost:5001/api/Player/${player.id}/changeteam`)
+          .put(`/api/Player/${player.id}/changeteam`)
           .then(this.state.tradeRoster.id, {
             headers: { 'Content-type': 'application/json' }
           })
@@ -166,7 +154,7 @@ class Trade extends Component {
       .filter(player => player.isMoving === true)
       .map(player =>
         axios
-          .put(`https://localhost:5001/api/Player/${player.id}/changeteam`)
+          .put(`/api/Player/${player.id}/changeteam`)
           .then(this.state.playerRoster.id, {
             headers: { 'Content-type': 'application/json' }
           })

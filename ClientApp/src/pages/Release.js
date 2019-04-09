@@ -26,17 +26,13 @@ class Release extends Component {
   }
 
   MovePlayer = playerId => {
-    axios
-      .put(`https://localhost:5001/api/Player/${playerId}/move`)
-      .then(resp => {
-        axios
-          .get(`https://localhost:5001/api/Roster/${this.state.userRoster.id}`)
-          .then(resp => {
-            this.setState({
-              userPlayerList: resp.data.players
-            })
-          })
+    axios.put(`/api/Player/${playerId}/move`).then(resp => {
+      axios.get(`/api/Roster/${this.state.userRoster.id}`).then(resp => {
+        this.setState({
+          userPlayerList: resp.data.players
+        })
       })
+    })
   }
 
   UndoRelease = () => {
@@ -49,11 +45,9 @@ class Release extends Component {
     this.state.userPlayerList
       .filter(player => player.isMoving === true)
       .map(player =>
-        axios
-          .put(`https://localhost:5001/api/Player/${player.id}/changeteam`)
-          .then(null, {
-            headers: { 'Content-type': 'application/json' }
-          })
+        axios.put(`/api/Player/${player.id}/changeteam`).then(null, {
+          headers: { 'Content-type': 'application/json' }
+        })
       )
     localStorage.setItem('user-roster', JSON.stringify(this.state.userRoster))
   }
