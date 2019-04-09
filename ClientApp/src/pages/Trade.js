@@ -157,7 +157,7 @@ class Trade extends Component {
       .filter(player => player.isMoving === true)
       .map(player =>
         axios
-          .put(`https://localhost:5001/api/Player/${player.id}`)
+          .put(`https://localhost:5001/api/Player/${player.id}/changeteam`)
           .then(this.state.tradeRoster.id, {
             headers: { 'Content-type': 'application/json' }
           })
@@ -166,7 +166,7 @@ class Trade extends Component {
       .filter(player => player.isMoving === true)
       .map(player =>
         axios
-          .put(`https://localhost:5001/api/Player/${player.id}`)
+          .put(`https://localhost:5001/api/Player/${player.id}/changeteam`)
           .then(this.state.playerRoster.id, {
             headers: { 'Content-type': 'application/json' }
           })
