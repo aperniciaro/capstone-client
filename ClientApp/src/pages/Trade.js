@@ -152,6 +152,27 @@ class Trade extends Component {
       .map(player => this.MoveTradeTeamPlayer(player.id))
   }
 
+  ExecuteTrade = () => {
+    this.state.userPlayerList
+      .filter(player => player.isMoving === true)
+      .map(player =>
+        axios
+          .put(`https://localhost:5001/api/Player/${player.id}`)
+          .then(this.state.tradeRoster.id, {
+            headers: { 'Content-type': 'application/json' }
+          })
+      )
+    this.state.tradeTeamPlayerList
+      .filter(player => player.isMoving === true)
+      .map(player =>
+        axios
+          .put(`https://localhost:5001/api/Player/${player.id}`)
+          .then(this.state.playerRoster.id, {
+            headers: { 'Content-type': 'application/json' }
+          })
+      )
+  }
+
   render() {
     return (
       <div>
@@ -226,7 +247,9 @@ class Trade extends Component {
             </section>
           </section>
           <section className="trade-controls">
-            <button className="execute">Execute Trade</button>
+            <button className="execute" onClick={this.ExecuteTrade}>
+              Execute Trade
+            </button>
             <button className="cancel" onClick={this.UndoTrade}>
               Clear Trade
             </button>

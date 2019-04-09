@@ -49,7 +49,11 @@ class Release extends Component {
     this.state.userPlayerList
       .filter(player => player.isMoving === true)
       .map(player =>
-        axios.put(`https://localhost:5001/api/Player/${player.id}/release`)
+        axios
+          .put(`https://localhost:5001/api/Player/${player.id}/move`)
+          .then(null, {
+            headers: { 'Content-type': 'application/json' }
+          })
       )
     localStorage.setItem('user-roster', JSON.stringify(this.state.userRoster))
   }

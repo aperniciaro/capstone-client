@@ -61,11 +61,11 @@ namespace capstone_client.Controllers
       return player;
     }
 
-    [HttpPut("{id}/release")]
-    public ActionResult<Player> ReleasePlayer(int id)
+    [HttpPut("{id}/move")]
+    public ActionResult<Player> ReleasePlayer(int id, [FromBody] int newRoster)
     {
       var player = db.Players.FirstOrDefault(f => f.Id == id);
-      player.RosterId = null;
+      player.RosterId = newRoster;
       db.SaveChanges();
       return player;
     }
