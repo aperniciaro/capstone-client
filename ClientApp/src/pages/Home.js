@@ -46,10 +46,10 @@ class Home extends Component {
         userTeam: userRosterFromStorage.team,
         userPlayerList: userRosterFromStorage.players
       })
-      this.setState({
-        savedRosters: localStorage.getItem('saved-rosters')
-      })
     }
+    this.setState({
+      savedRosters: JSON.parse(localStorage.getItem('saved-rosters'))
+    })
   }
 
   ChangeUserTeam = event => {
@@ -59,10 +59,7 @@ class Home extends Component {
 
     this.setState(
       {
-        userTeam: selectedTeam,
-        divisionTeams: this.state.teams.filter(
-          team => team.division_abbrev === selectedTeam.division_abbrev
-        )
+        userTeam: selectedTeam
       },
       () => {
         this.CreateUserRoster()
@@ -72,7 +69,8 @@ class Home extends Component {
 
   CreateUserRoster = () => {
     const data = {
-      team: this.state.userTeam,
+      //need correct build of team object
+      // team: {mlbId: this.state.userTeam.mlb_or_id,},
       players: []
     }
     axios
@@ -146,25 +144,38 @@ class Home extends Component {
   }
 
   SaveRoster = () => {
-    const data = {
-      name: this.state.rosterNameInput,
-      isCustom: true
-    }
     this.setState(
       {
         rosterName: this.state.rosterNameInput,
-        rosterNameInput: '',
-        savedRosters: this.state.savedRosters.concat(this.state.userRoster)
+        rosterNameInput: ''
       },
-      axios
-        .put(
-          `https://localhost:5001/api/Roster/${this.state.userRoster.id}`,
-          data,
-          { headers: { 'Content-type': 'application/json' } }
-        )
-        .then(resp => {
-          localStorage.setItem('saved-rosters', JSON.stringify(resp.data))
-        })
+      () => {
+        axios
+          .put(
+            `https://localhost:5001/api/Roster/${this.state.userRoster.id}`,
+            {
+              name: this.state.rosterName,
+              // players: this.state.userPlayerList,
+              isCustom: true
+            },
+            { headers: { 'Content-type': 'application/json' } }
+          )
+          .then(resp => {
+            this.setState(
+              {
+                savedRosters: this.state.savedRosters.concat(
+                  this.state.userRoster
+                )
+              },
+              () => {
+                localStorage.setItem(
+                  'saved-rosters',
+                  JSON.stringify([].concat(this.state.savedRosters))
+                )
+              }
+            )
+          })
+      }
     )
   }
 
@@ -191,7 +202,7 @@ class Home extends Component {
             <UserRoster userPlayers={this.state.userPlayerList} />
             <NavMenu />
           </section>
-          <Outcomes divisionTeams={this.state.divisionTeams} />
+          <Outcomes />
           <SaveLoad
             resetRoster={this.CreateUserRoster}
             saveRoster={this.SaveRoster}

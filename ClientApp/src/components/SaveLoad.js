@@ -21,13 +21,13 @@ class SaveLoad extends Component {
             <option value="" disabled hidden>
               Select
             </option>
-            {this.props.savedRosters.map(roster => {
+            {/* {this.props.savedRosters.map(roster => {
               return (
                 <option key={roster.id} value={roster.id} name={roster.name}>
                   {roster.name}
                 </option>
               )
-            })}
+            })} */}
           </select>
         </section>
         <button onClick={this.props.resetRoster}>Reset to Default</button>
