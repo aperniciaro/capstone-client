@@ -14,9 +14,16 @@ class SaveLoad extends Component {
         <section className="saved-menu">
           <h4>Saved Rosters: </h4>
           <select className="saved-rosters" defaultValue="0">
-            <option value="0" name="Roster1">
-              Roster1
+            <option value="" disabled hidden>
+              Select
             </option>
+            {this.props.savedRosters.map(roster => {
+              return (
+                <option key={roster.id} value={roster.id} name={roster.name}>
+                  {roster.name}
+                </option>
+              )
+            })}
           </select>
         </section>
         <button>Load Custom Roster</button>

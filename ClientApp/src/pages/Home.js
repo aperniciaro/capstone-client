@@ -15,7 +15,9 @@ class Home extends Component {
     defaultPlayerList: [],
     userPlayerList: [],
     rosterName: '',
-    rosterNameInput: ''
+    rosterNameInput: '',
+    savedRosters: [],
+    userRoster: {}
   }
 
   componentDidMount() {
@@ -40,8 +42,12 @@ class Home extends Component {
     )
     if (userRosterFromStorage) {
       this.setState({
+        userRoster: userRosterFromStorage,
         userTeam: userRosterFromStorage.team,
         userPlayerList: userRosterFromStorage.players
+      })
+      this.setState({
+        savedRosters: localStorage.getItem('saved-rosters')
       })
     }
   }
@@ -147,12 +153,17 @@ class Home extends Component {
     this.setState(
       {
         rosterName: this.state.rosterNameInput,
-        rosterNameInput: ''
+        rosterNameInput: '',
+        savedRosters: this.state.savedRosters.concat(this.state.userRoster)
       },
       axios
-        .put(`https://localhost:5001/api/Roster/${this.state.userRoster.id}`)
-        .then(data, {
-          headers: { 'Content-type': 'application/json' }
+        .put(
+          `https://localhost:5001/api/Roster/${this.state.userRoster.id}`,
+          data,
+          { headers: { 'Content-type': 'application/json' } }
+        )
+        .then(resp => {
+          localStorage.setItem('saved-rosters', JSON.stringify(resp.data))
         })
     )
   }
@@ -178,6 +189,7 @@ class Home extends Component {
             loadRoster={this.LoadRoster}
             changeRosterName={this.ChangeRosterName}
             rosterNameInput={this.state.rosterNameInput}
+            savedRosters={this.state.savedRosters}
           />
         </main>
       </div>
