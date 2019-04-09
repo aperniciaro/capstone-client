@@ -168,6 +168,15 @@ class Home extends Component {
     )
   }
 
+  LoadRoster = event => {
+    let selectedRoster = this.state.savedRosters.filter(
+      roster => roster.name === event.target.value
+    )[0]
+    this.setState({
+      userRoster: selectedRoster
+    })
+  }
+
   render() {
     return (
       <div>
@@ -190,6 +199,7 @@ class Home extends Component {
             changeRosterName={this.ChangeRosterName}
             rosterNameInput={this.state.rosterNameInput}
             savedRosters={this.state.savedRosters}
+            loadCustomRoster={this.LoadRoster}
           />
         </main>
       </div>

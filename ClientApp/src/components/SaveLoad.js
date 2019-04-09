@@ -13,7 +13,11 @@ class SaveLoad extends Component {
         <button onClick={this.props.saveRoster}>Save Custom Roster</button>
         <section className="saved-menu">
           <h4>Saved Rosters: </h4>
-          <select className="saved-rosters" defaultValue="0">
+          <select
+            className="saved-rosters"
+            defaultValue=""
+            onChange={this.props.loadCustomRoster}
+          >
             <option value="" disabled hidden>
               Select
             </option>
@@ -26,7 +30,6 @@ class SaveLoad extends Component {
             })}
           </select>
         </section>
-        <button>Load Custom Roster</button>
         <button onClick={this.props.resetRoster}>Reset to Default</button>
       </section>
     )
