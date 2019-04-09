@@ -14,10 +14,10 @@ class App extends Component {
       <Router>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/trade" component={Trade} />
-          <Route exact path="/freeagent" component={FreeAgent} />
-          <Route exact path="/release" component={Release} />
-          <Route exact path="/player/:playerID" component={PlayerInfo} />
+          <Route exact path="/Trade" component={Trade} />
+          <Route exact path="/FreeAgent" component={FreeAgent} />
+          <Route exact path="/Release" component={Release} />
+          <Route exact path="/Player/:playerID" component={PlayerInfo} />
           <Route component={Error} />
         </Switch>
       </Router>

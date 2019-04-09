@@ -10,7 +10,7 @@ class UserRoster extends Component {
           {this.props.userPlayers.map(player => {
             return (
               <li key={player.id}>
-                <Link to={`/player/${player.mlbId}`}>
+                <Link to={`/Player/${player.mlbId}`}>
                   <h3>{player.playerName}</h3>
                 </Link>
               </li>

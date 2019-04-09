@@ -124,14 +124,14 @@ class Home extends Component {
         }
       )
       .then(resp => {
-        // const userRosterFromStorage = JSON.parse(
-        //   localStorage.getItem('user-roster')
-        // )
-        // userRosterFromStorage.players = resp.data
-        // localStorage.setItem(
-        //   'user-roster',
-        //   JSON.stringify(userRosterFromStorage)
-        // )
+        const userRosterFromStorage = JSON.parse(
+          localStorage.getItem('user-roster')
+        )
+        userRosterFromStorage.players = resp.data
+        localStorage.setItem(
+          'user-roster',
+          JSON.stringify(userRosterFromStorage)
+        )
         //CalculateProjectedWins
         //Check roster size and add message for over or under 40
       })
@@ -172,7 +172,7 @@ class Home extends Component {
             `https://localhost:5001/api/Roster/${this.state.userRoster.id}`,
             {
               name: this.state.rosterName,
-              // players: this.state.userPlayerList,
+              players: this.state.userPlayerList,
               isCustom: true
             },
             { headers: { 'Content-type': 'application/json' } }

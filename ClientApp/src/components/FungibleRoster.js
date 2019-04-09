@@ -10,7 +10,7 @@ class FungibleRoster extends Component {
           .map(player => {
             return (
               <li className="movable-player" key={player.id}>
-                <Link to={`/player/${player.mlbId}`}>
+                <Link to={`/Player/${player.mlbId}`}>
                   <h3>{player.playerName}</h3>
                 </Link>
                 <button onClick={() => this.props.movePlayer(player.id)}>
