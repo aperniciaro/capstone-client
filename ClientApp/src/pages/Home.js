@@ -65,7 +65,8 @@ class Home extends Component {
     )[0]
     this.setState(
       {
-        userTeam: selectedTeam
+        userTeam: selectedTeam,
+        rosterNameInput: ''
       },
       () => {
         this.CreateUserRoster()
@@ -193,7 +194,8 @@ class Home extends Component {
               name: this.state.rosterName,
               players: this.state.userPlayerList,
               isCustom: true,
-              projectedWins: this.state.newProjWins
+              projectedWins: this.state.newProjWins,
+              team: this.state.userTeam
             },
             { headers: { 'Content-type': 'application/json' } }
           )
@@ -221,10 +223,12 @@ class Home extends Component {
 
   LoadRoster = event => {
     let selectedRoster = this.state.savedRosters.filter(
-      roster => roster.name === event.target.value
+      roster => roster.id === parseInt(event.target.value, 10)
     )[0]
     this.setState({
-      userRoster: selectedRoster
+      userRoster: selectedRoster,
+      userPlayerList: selectedRoster.players,
+      userTeam: selectedRoster.team
     })
   }
 
