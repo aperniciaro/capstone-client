@@ -5,6 +5,9 @@
 
 :root {
   font: 16px / 1 'Carter One', cursive;
+  --primary-color: rgb(200, 60, 70);
+  --secondary-color: rgb(31, 48, 129);
+  --tertiary-color: rgb(255, 255, 255);
 }
 
 html {
@@ -73,10 +76,10 @@ h3 {
 
 main {
   /* colors will change based on selected team */
-  background-color: rgb(200, 60, 70);
+  background-color: var(--primary-color);
   margin: 0;
   padding: 1rem;
-  color: rgb(255, 255, 255);
+  color: var(--tertiary-color);
 }
 
 select {
@@ -87,7 +90,7 @@ select {
 .roster {
   /* color will change based on selected team */
   padding: 1rem;
-  background-color: rgb(31, 48, 129);
+  background-color: var(--secondary-color);
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -99,7 +102,7 @@ select {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: rgb(31, 48, 129);
+  background-color: var(--secondary-color);
   padding-right: 1rem;
 }
 
@@ -185,7 +188,7 @@ button {
   flex-direction: row;
   justify-content: space-between;
   /* color will change based on selected team */
-  background-color: rgb(31, 48, 129);
+  background-color: var(--secondary-color);
 }
 
 .on-the-move {
@@ -217,7 +220,7 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgb(31, 48, 129);
+  background-color: var(--secondary-color);
 }
 
 .player-stats {
