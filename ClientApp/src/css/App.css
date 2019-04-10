@@ -130,7 +130,6 @@ li {
   direction: rtl;
 }
 
-/*trying not to change colors on visit*/
 h3:visited p:visited {
   color: inherit;
 }
@@ -153,11 +152,6 @@ button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-/* missing numbers in ordered list */
-ol {
-  list-style-type: decimal;
 }
 
 .save-and-load {
@@ -187,7 +181,6 @@ ol {
 }
 
 .rosters-side-by-side {
-  /* need to fix spillover on right side */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
