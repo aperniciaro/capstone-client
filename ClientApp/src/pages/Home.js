@@ -29,14 +29,9 @@ class Home extends Component {
   }
 
   GetAllTeams = () => {
-    const currentYear = new Date().getFullYear()
-    axios
-      .get(
-        `https://lookup-service-prod.mlb.com/json/named.team_all_season.bam?sport_code='mlb'&all_star_sw='N'&sort_order=name_asc&season='${currentYear}'`
-      )
-      .then(resp => {
-        this.setState({ teams: resp.data.team_all_season.queryResults.row })
-      })
+    axios.get('/api/Team').then(resp => {
+      this.setState({ teams: resp.data })
+    })
   }
 
   GetUserInfoFromStorage = () => {
@@ -50,10 +45,14 @@ class Home extends Component {
         userPlayerList: userRosterFromStorage.players
       })
     }
+    if (localStorage.getItem('saved-rosters')) {
+      this.setState({
+        savedRosters: JSON.parse(localStorage.getItem('saved-rosters'))
+      })
+    }
     this.setState(
       {
-        savedRosters: JSON.parse(localStorage.getItem('saved-rosters')),
-        newProjWins: this.CalculateProjectedWins
+        newProjWins: this.CalculateProjectedWins()
       },
       () => this.CompareProjectedWins
     )
@@ -62,9 +61,8 @@ class Home extends Component {
 
   ChangeUserTeam = event => {
     let selectedTeam = this.state.teams.filter(
-      team => team.mlb_org_id === event.target.value
+      team => team.mlbId === parseInt(event.target.value, 10)
     )[0]
-
     this.setState(
       {
         userTeam: selectedTeam
@@ -77,8 +75,8 @@ class Home extends Component {
 
   CreateUserRoster = () => {
     const data = {
-      //need correct build of team object
-      name: `${this.state.userTeam.mlb_org} default`,
+      team: this.state.userTeam,
+      name: `${this.state.userTeam.teamName} default`,
       players: []
     }
     axios
@@ -89,7 +87,7 @@ class Home extends Component {
         localStorage.setItem('user-roster', JSON.stringify(resp.data))
 
         this.setState({ userRoster: resp.data }, () => {
-          this.GetDefaultPlayerList(this.state.userTeam.mlb_org_id)
+          this.GetDefaultPlayerList(this.state.userTeam.mlbId)
         })
       })
   }
@@ -125,7 +123,6 @@ class Home extends Component {
         headers: { 'Content-type': 'application/json' }
       })
       .then(resp => {
-        console.log(resp)
         const userRosterFromStorage = JSON.parse(
           localStorage.getItem('user-roster')
         )
@@ -136,7 +133,7 @@ class Home extends Component {
         )
         this.setState({
           userPlayerList: resp.data,
-          prevProjWins: this.CalculateProjectedWins
+          prevProjWins: this.CalculateProjectedWins()
         })
         //Check roster size and add message for over or under 40
       })
@@ -153,20 +150,20 @@ class Home extends Component {
   }
 
   CalculateProjectedWins = () => {
-    let projRunsScored = 0
-    let projRunsAllowed = 0
-    for (let i = 0; i < this.state.userPlayerList.length; i++) {
-      if (this.state.userPlayerList[i].position === 1) {
-        projRunsAllowed +=
-          this.state.userPLayerList[i].projERA *
-          (this.state.userPlayerList.projIP / 9)
-      } else {
-        projRunsScored += this.state.userPlayerList[i].projRuns
-      }
-    }
+    // let projRunsScored = 0
+    // let projRunsAllowed = 0
+    // for (let i = 0; i < this.state.userPlayerList.length; i++) {
+    //   if (this.state.userPlayerList[i].position === 1) {
+    //     projRunsAllowed +=
+    //       this.state.userPLayerList[i].projERA *
+    //       (this.state.userPlayerList.projIP / 9)
+    //   } else {
+    //     projRunsScored += this.state.userPlayerList[i].projRuns
+    //   }
+    // }
     return (
-      (Math.pow(projRunsScored, 1.81) /
-        (Math.pow(projRunsScored, 1.81) + Math.pow(projRunsAllowed, 1.81))) *
+      // (Math.pow(projRunsScored, 1.81) /
+      //   (Math.pow(projRunsScored, 1.81) + Math.pow(projRunsAllowed, 1.81))) *
       162
     )
   }

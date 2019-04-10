@@ -56,13 +56,11 @@ namespace capstone_client.Controllers
     [HttpPut("{id}")]
     public ActionResult<Roster> UpdateRoster(int id, [FromBody] Roster newRosterData)
     {
-      var roster = db.Rosters.FirstOrDefault(f => f.Id == id);
-      roster.Name = newRosterData.Name;
-      roster.IsCustom = newRosterData.IsCustom;
-      roster.Players = newRosterData.Players;
-      roster.ProjectedWins = newRosterData.ProjectedWins;
+      newRosterData.Id = id;
+      db.Entry(newRosterData).State = EntityState.Modified;
+
       db.SaveChanges();
-      return roster;
+      return newRosterData;
     }
 
     [HttpDelete("{id}")]

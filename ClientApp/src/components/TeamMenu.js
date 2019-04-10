@@ -13,12 +13,8 @@ class TeamMenu extends Component {
         </option>
         {this.props.teams.map(team => {
           return (
-            <option
-              key={team.mlb_org_id}
-              value={team.mlb_org_id}
-              name={team.name_display_full}
-            >
-              {team.name_display_full}
+            <option key={team.mlbId} value={team.mlbId} name={team.teamName}>
+              {team.location} {team.teamName}
             </option>
           )
         })}
