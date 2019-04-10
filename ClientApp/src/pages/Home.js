@@ -196,7 +196,8 @@ class Home extends Component {
             {
               name: this.state.rosterName,
               players: this.state.userPlayerList,
-              isCustom: true
+              isCustom: true,
+              projectedWins: this.state.newProjWins
             },
             { headers: { 'Content-type': 'application/json' } }
           )

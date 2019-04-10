@@ -60,6 +60,7 @@ namespace capstone_client.Controllers
       roster.Name = newRosterData.Name;
       roster.IsCustom = newRosterData.IsCustom;
       roster.Players = newRosterData.Players;
+      roster.ProjectedWins = newRosterData.ProjectedWins;
       db.SaveChanges();
       return roster;
     }
