@@ -125,6 +125,7 @@ class Home extends Component {
         headers: { 'Content-type': 'application/json' }
       })
       .then(resp => {
+        console.log(resp)
         const userRosterFromStorage = JSON.parse(
           localStorage.getItem('user-roster')
         )
@@ -133,7 +134,10 @@ class Home extends Component {
           'user-roster',
           JSON.stringify(userRosterFromStorage)
         )
-        this.setState({ prevProjWins: this.CalculateProjectedWins })
+        this.setState({
+          userPlayerList: resp.data,
+          prevProjWins: this.CalculateProjectedWins
+        })
         //Check roster size and add message for over or under 40
       })
   }
