@@ -72,11 +72,8 @@ h3 {
 }
 
 main {
-  /* colors will change based on selected team */
-  background-color: var(--primary-color);
   margin: 0;
   padding: 1rem;
-  color: var(--tertiary-color);
 }
 
 select {
@@ -85,21 +82,17 @@ select {
 }
 
 .roster {
-  /* color will change based on selected team */
   padding: 1rem;
-  background-color: var(--secondary-color);
   display: flex;
   align-items: center;
   flex-direction: column;
 }
 
 .manage-roster {
-  /* color will change based on selected team */
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  /* background-color: var(--secondary-color); */
   padding-right: 1rem;
 }
 
@@ -184,8 +177,6 @@ button {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  /* color will change based on selected team */
-  background-color: var(--secondary-color);
 }
 
 .on-the-move {
@@ -213,11 +204,9 @@ button {
 }
 
 .player-bio {
-  /* color will change based on selected team */
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: var(--secondary-color);
 }
 
 .player-stats {
