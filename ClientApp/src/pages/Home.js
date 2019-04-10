@@ -183,8 +183,7 @@ class Home extends Component {
   SaveRoster = () => {
     this.setState(
       {
-        rosterName: this.state.rosterNameInput,
-        rosterNameInput: ''
+        rosterName: this.state.rosterNameInput
       },
       () => {
         axios
@@ -200,14 +199,12 @@ class Home extends Component {
           )
           .then(resp => {
             if (
-              this.state.rosterName !== '' &&
-              !this.state.savedRosters.includes(this.state.rosterName)
+              resp.data.name !== '' &&
+              !this.state.savedRosters.includes(resp.data.name)
             ) {
               this.setState(
                 {
-                  savedRosters: this.state.savedRosters.concat(
-                    this.state.userRoster
-                  )
+                  savedRosters: this.state.savedRosters.concat(resp.data)
                 },
                 () => {
                   localStorage.setItem(
