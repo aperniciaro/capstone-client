@@ -16,9 +16,10 @@ class Home extends Component {
     rosterName: '',
     rosterNameInput: '',
     savedRosters: [],
-    userRoster: {}
-    //initialProjWins
-    //userProjWins
+    userRoster: {},
+    prevProjWins: 0,
+    newProjWins: 0,
+    projWinsDiff: 0
     //messages
   }
 
@@ -49,10 +50,14 @@ class Home extends Component {
         userPlayerList: userRosterFromStorage.players
       })
     }
-    this.setState({
-      savedRosters: JSON.parse(localStorage.getItem('saved-rosters'))
-    })
-    //CalculateProjWins = userProjWins
+    this.setState(
+      {
+        savedRosters: JSON.parse(localStorage.getItem('saved-rosters')),
+        newProjWins: this.CalculateProjectedWins
+      },
+      () => this.CompareProjectedWins
+    )
+    //Check roster size and add message for over or under 40
   }
 
   ChangeUserTeam = event => {
@@ -128,7 +133,7 @@ class Home extends Component {
           'user-roster',
           JSON.stringify(userRosterFromStorage)
         )
-        //CalculateProjectedWins
+        this.setState({ prevProjWins: this.CalculateProjectedWins })
         //Check roster size and add message for over or under 40
       })
   }
@@ -144,10 +149,28 @@ class Home extends Component {
   }
 
   CalculateProjectedWins = () => {
-    //loop through players on userRoster
-    //if player is a pitcher, add projEra*(projIp/9) to projRunsAllowed
-    //if player is a hitter, add projRuns to projRunsScored
-    //return (projRunsScored^1.81/(projRunsScored^1.81 + projRunsAllowed^1.81))*162, rounded down
+    let projRunsScored = 0
+    let projRunsAllowed = 0
+    for (let i = 0; i < this.state.userPlayerList.length; i++) {
+      if (this.state.userPlayerList[i].position === 1) {
+        projRunsAllowed +=
+          this.state.userPLayerList[i].projERA *
+          (this.state.userPlayerList.projIP / 9)
+      } else {
+        projRunsScored += this.state.userPlayerList[i].projRuns
+      }
+    }
+    return (
+      (Math.pow(projRunsScored, 1.81) /
+        (Math.pow(projRunsScored, 1.81) + Math.pow(projRunsAllowed, 1.81))) *
+      162
+    )
+  }
+
+  CompareProjectedWins = () => {
+    this.setState({
+      projWinsDiff: this.state.newProjWins - this.state.prevProjWins
+    })
   }
 
   ChangeRosterName = event => {
@@ -217,7 +240,11 @@ class Home extends Component {
             <UserRoster userPlayers={this.state.userPlayerList} />
             <NavMenu />
           </section>
-          <Outcomes />
+          <Outcomes
+            winDiff={this.state.projWinsDiff}
+            prevProjWins={this.state.prevProjWins}
+            newProjWins={this.state.newProjWins}
+          />
           <SaveLoad
             resetRoster={this.CreateUserRoster}
             saveRoster={this.SaveRoster}
