@@ -35,27 +35,11 @@ class Home extends Component {
   }
 
   GetUserInfoFromStorage = () => {
-    const userRosterFromStorage = JSON.parse(
-      localStorage.getItem('user-roster')
-    )
-    if (userRosterFromStorage) {
-      this.setState({
-        userRoster: userRosterFromStorage,
-        userTeam: userRosterFromStorage.team,
-        userPlayerList: userRosterFromStorage.players
-      })
-    }
     if (localStorage.getItem('saved-rosters')) {
       this.setState({
         savedRosters: JSON.parse(localStorage.getItem('saved-rosters'))
       })
     }
-    this.setState(
-      {
-        newProjWins: this.CalculateProjectedWins()
-      },
-      () => this.CompareProjectedWins
-    )
     //Check roster size and add message for over or under 40
   }
 
@@ -228,7 +212,9 @@ class Home extends Component {
     this.setState({
       userRoster: selectedRoster,
       userPlayerList: selectedRoster.players,
-      userTeam: selectedRoster.team
+      userTeam: selectedRoster.team,
+      rosterNameInput: '',
+      prevProjWins: this.CalculateProjectedWins()
     })
   }
 
