@@ -21,9 +21,9 @@ class SaveLoad extends Component {
             <option value="" disabled hidden>
               Select
             </option>
-            {this.props.savedRosters.map(roster => {
+            {this.props.savedRosters.map((roster, i) => {
               return (
-                <option key={roster.id} value={roster.id} name={roster.name}>
+                <option key={i} value={roster.id} name={roster.name}>
                   {roster.name}
                 </option>
               )

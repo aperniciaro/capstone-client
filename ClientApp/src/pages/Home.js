@@ -199,19 +199,24 @@ class Home extends Component {
             { headers: { 'Content-type': 'application/json' } }
           )
           .then(resp => {
-            this.setState(
-              {
-                savedRosters: this.state.savedRosters.concat(
-                  this.state.userRoster
-                )
-              },
-              () => {
-                localStorage.setItem(
-                  'saved-rosters',
-                  JSON.stringify([].concat(this.state.savedRosters))
-                )
-              }
-            )
+            if (
+              this.state.rosterName !== '' &&
+              !this.state.savedRosters.includes(this.state.rosterName)
+            ) {
+              this.setState(
+                {
+                  savedRosters: this.state.savedRosters.concat(
+                    this.state.userRoster
+                  )
+                },
+                () => {
+                  localStorage.setItem(
+                    'saved-rosters',
+                    JSON.stringify([].concat(this.state.savedRosters))
+                  )
+                }
+              )
+            }
           })
       }
     )
