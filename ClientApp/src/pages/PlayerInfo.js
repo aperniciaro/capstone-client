@@ -6,7 +6,10 @@ import PlayerStats from '../components/PlayerStats'
 class PlayerInfo extends Component {
   state = {
     playerBio: {},
-    playerStats: {}
+    playerStats: {},
+    primaryColor: `rgb(201,58,69)`,
+    secondaryColor: `rgb(31, 48, 129)`,
+    tertiaryColor: `rgb(255, 255, 255)`
   }
 
   componentDidMount() {
@@ -75,8 +78,16 @@ class PlayerInfo extends Component {
         <header>
           <h1>Player Information</h1>
         </header>
-        <main>
-          <section className="player-bio">
+        <main
+          style={{
+            backgroundColor: this.state.primaryColor,
+            color: this.state.tertiaryColor
+          }}
+        >
+          <section
+            className="player-bio"
+            style={{ backgroundColor: this.state.secondaryColor }}
+          >
             <h2>
               {this.state.playerBio.name_display_last_first} #
               {this.state.playerBio.jersey_number}

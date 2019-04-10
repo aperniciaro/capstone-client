@@ -2,6 +2,11 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
 class FreeAgent extends Component {
+  state = {
+    primaryColor: `rgb(201,58,69)`,
+    secondaryColor: `rgb(31, 48, 129)`,
+    tertiaryColor: `rgb(255, 255, 255)`
+  }
   render() {
     return (
       <div>
@@ -11,8 +16,16 @@ class FreeAgent extends Component {
         <header>
           <h1>Sign Free Agents</h1>
         </header>
-        <main>
-          <section className="roster">
+        <main
+          style={{
+            backgroundColor: this.state.primaryColor,
+            color: this.state.tertiaryColor
+          }}
+        >
+          <section
+            className="roster"
+            style={{ backgroundColor: this.state.secondaryColor }}
+          >
             <h2>Available Free Agents:</h2>
             <ul className="current-roster">
               <li className="movable-player">

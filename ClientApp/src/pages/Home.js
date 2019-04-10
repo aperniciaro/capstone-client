@@ -19,7 +19,10 @@ class Home extends Component {
     userRoster: {},
     prevProjWins: 0,
     newProjWins: 0,
-    projWinsDiff: 0
+    projWinsDiff: 0,
+    primaryColor: `rgb(201,58,69)`,
+    secondaryColor: `rgb(31, 48, 129)`,
+    tertiaryColor: `rgb(255, 255, 255)`
     //messages
   }
 
@@ -50,7 +53,10 @@ class Home extends Component {
     this.setState(
       {
         userTeam: selectedTeam,
-        rosterNameInput: ''
+        rosterNameInput: '',
+        primaryColor: selectedTeam.primaryColor,
+        secondaryColor: selectedTeam.secondaryColor,
+        tertiaryColor: selectedTeam.tertiaryColor
       },
       () => {
         this.CreateUserRoster()
@@ -229,8 +235,16 @@ class Home extends Component {
           <h2>Choose Your Team: </h2>
           <TeamMenu teams={this.state.teams} changeTeam={this.ChangeUserTeam} />
         </header>
-        <main>
-          <section className="manage-roster">
+        <main
+          style={{
+            backgroundColor: this.state.primaryColor,
+            color: this.state.tertiaryColor
+          }}
+        >
+          <section
+            className="manage-roster"
+            style={{ backgroundColor: this.state.secondaryColor }}
+          >
             <UserRoster userPlayers={this.state.userPlayerList} />
             <NavMenu />
           </section>

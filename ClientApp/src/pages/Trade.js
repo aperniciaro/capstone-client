@@ -12,7 +12,10 @@ class Trade extends Component {
     tradeRoster: {},
     userTeam: {},
     userPlayerList: [],
-    userRoster: {}
+    userRoster: {},
+    primaryColor: `rgb(201,58,69)`,
+    secondaryColor: `rgb(31, 48, 129)`,
+    tertiaryColor: `rgb(255, 255, 255)`
   }
 
   componentDidMount() {
@@ -175,8 +178,16 @@ class Trade extends Component {
             changeTeam={this.ChangeTradeTeam}
           />
         </header>
-        <main>
-          <section className="rosters-side-by-side">
+        <main
+          style={{
+            backgroundColor: this.state.primaryColor,
+            color: this.state.tertiaryColor
+          }}
+        >
+          <section
+            className="rosters-side-by-side"
+            style={{ backgroundColor: this.state.secondaryColor }}
+          >
             <section className="roster">
               <h2>Choose Player(s) to Trade:</h2>
               <FungibleRoster

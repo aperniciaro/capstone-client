@@ -7,7 +7,10 @@ class Release extends Component {
   state = {
     userRoster: {},
     userTeam: {},
-    userPlayerList: []
+    userPlayerList: [],
+    primaryColor: `rgb(201,58,69)`,
+    secondaryColor: `rgb(31, 48, 129)`,
+    tertiaryColor: `rgb(255, 255, 255)`
   }
 
   componentDidMount() {
@@ -61,8 +64,16 @@ class Release extends Component {
         <header>
           <h1>Release Players</h1>
         </header>
-        <main>
-          <section className="roster">
+        <main
+          style={{
+            backgroundColor: this.state.primaryColor,
+            color: this.state.tertiaryColor
+          }}
+        >
+          <section
+            className="roster"
+            style={{ backgroundColor: this.state.secondaryColor }}
+          >
             <h2>Choose Player(s) to Release:</h2>
             <FungibleRoster
               playerList={this.state.userPlayerList}
