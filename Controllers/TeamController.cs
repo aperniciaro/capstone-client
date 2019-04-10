@@ -21,12 +21,9 @@ namespace capstone_client.Controllers
     }
 
     [HttpGet]
-    public ActionResult<IList<TeamViewModel>> GetAllTeams()
+    public ActionResult<IList<Team>> GetAllTeams()
     {
-      return db.Teams.Select(s => new TeamViewModel
-      {
-        TeamName = s.TeamName
-      }).ToList();
+      return db.Teams.ToList();
     }
 
     [HttpGet("{id}")]
