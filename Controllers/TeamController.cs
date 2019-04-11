@@ -44,10 +44,11 @@ namespace capstone_client.Controllers
     [HttpPut("{id}")]
     public ActionResult<Team> UpdateTeam(int id, [FromBody] Team newTeamData)
     {
-      var team = db.Teams.FirstOrDefault(f => f.Id == id);
-      //change props
+      newTeamData.Id = id;
+      db.Entry(newTeamData).State = EntityState.Modified;
+
       db.SaveChanges();
-      return team;
+      return newTeamData;
     }
 
     [HttpDelete("{id}")]
