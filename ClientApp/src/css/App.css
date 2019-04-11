@@ -68,6 +68,7 @@ h2 {
 
 h3 {
   font-size: 1rem;
+  display: inline;
 }
 
 main {
@@ -109,12 +110,9 @@ ul {
   list-style: none;
 }
 
-/* li content not left-aligning */
 li {
   display: flex;
-  flex-direction: row;
-  align-items: left;
-  justify-content: left;
+  flex-flow: row nowrap;
   margin-bottom: 0.25rem;
 }
 
@@ -186,12 +184,10 @@ button {
   flex-direction: row;
   justify-content: space-between;
 }
-
+/* 
 .movable-player {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
+  display: inline;
+} */
 
 .movable-player button {
   width: 2rem;
