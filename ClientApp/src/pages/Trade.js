@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import TeamMenu from '../components/TeamMenu'
 import axios from 'axios'
 import FungibleRoster from '../components/FungibleRoster'
+import Footer from '../components/Footer'
 
 class Trade extends Component {
   state = {
@@ -263,6 +264,7 @@ class Trade extends Component {
             </button>
           </section>
         </main>
+        <Footer />
       </div>
     )
   }

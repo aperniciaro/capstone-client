@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import FungibleRoster from '../components/FungibleRoster'
 import axios from 'axios'
+import Footer from '../components/Footer'
 
 class Release extends Component {
   state = {
@@ -117,6 +118,7 @@ class Release extends Component {
             </button>
           </section>
         </main>
+        <Footer />
       </div>
     )
   }

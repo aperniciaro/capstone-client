@@ -6,6 +6,7 @@ import SaveLoad from '../components/SaveLoad'
 import Outcomes from '../components/Outcomes'
 import UserRoster from '../components/UserRoster'
 import NavMenu from '../components/NavMenu'
+import Footer from '../components/Footer'
 
 class Home extends Component {
   state = {
@@ -288,6 +289,7 @@ class Home extends Component {
             loadCustomRoster={this.LoadRoster}
           />
         </main>
+        <Footer />
       </div>
     )
   }

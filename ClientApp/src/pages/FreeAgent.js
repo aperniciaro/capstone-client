@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import Footer from '../components/Footer'
 
 class FreeAgent extends Component {
   state = {
@@ -77,6 +78,7 @@ class FreeAgent extends Component {
             <button className="cancel">Clear Selected</button>
           </section>
         </main>
+        <Footer />
       </div>
     )
   }

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import PlayerStats from '../components/PlayerStats'
+import Footer from '../components/Footer'
 
 class PlayerInfo extends Component {
   state = {
@@ -126,6 +127,7 @@ class PlayerInfo extends Component {
             />
           </section>
         </main>
+        <Footer />
       </div>
     )
   }
