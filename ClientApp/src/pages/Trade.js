@@ -154,18 +154,44 @@ class Trade extends Component {
       .filter(player => player.isMoving === true)
       .map(player =>
         axios
-          .put(`/api/Player/${player.id}/changeteam`)
-          .then(this.state.tradeRoster.id, {
-            headers: { 'Content-type': 'application/json' }
+          .put(
+            `/api/Player/${player.id}/changeteam`,
+            this.state.tradeRoster.id,
+            {
+              headers: { 'Content-type': 'application/json' }
+            }
+          )
+          .then(() => {
+            axios.get(`/api/Roster/${this.state.userRoster.id}`).then(resp => {
+              this.setState(
+                {
+                  userPlayerList: resp.data.players
+                },
+                localStorage.setItem(
+                  'user-roster',
+                  JSON.stringify(this.state.userRoster)
+                )
+              )
+            })
           })
       )
     this.state.tradeTeamPlayerList
       .filter(player => player.isMoving === true)
       .map(player =>
         axios
-          .put(`/api/Player/${player.id}/changeteam`)
-          .then(this.state.playerRoster.id, {
-            headers: { 'Content-type': 'application/json' }
+          .put(
+            `/api/Player/${player.id}/changeteam`,
+            this.state.playerRoster.id,
+            {
+              headers: { 'Content-type': 'application/json' }
+            }
+          )
+          .then(() => {
+            axios.get(`/api/Roster/${this.state.tradeRoster.id}`).then(resp => {
+              this.setState({
+                tradeTeamPlayerList: resp.data.players
+              })
+            })
           })
       )
   }

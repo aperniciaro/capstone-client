@@ -58,11 +58,24 @@ class Release extends Component {
     this.state.userPlayerList
       .filter(player => player.isMoving === true)
       .map(player =>
-        axios.put(`/api/Player/${player.id}/changeteam`).then(null, {
-          headers: { 'Content-type': 'application/json' }
-        })
+        axios
+          .put(`/api/Player/${player.id}/changeteam`, 301, {
+            headers: { 'Content-type': 'application/json' }
+          })
+          .then(() => {
+            axios.get(`/api/Roster/${this.state.userRoster.id}`).then(resp => {
+              this.setState(
+                {
+                  userPlayerList: resp.data.players
+                },
+                localStorage.setItem(
+                  'user-roster',
+                  JSON.stringify(this.state.userRoster)
+                )
+              )
+            })
+          })
       )
-    localStorage.setItem('user-roster', JSON.stringify(this.state.userRoster))
   }
 
   render() {
