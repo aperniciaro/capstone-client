@@ -104,7 +104,8 @@ class Home extends Component {
         headers: { 'Content-type': 'application/json' }
       })
       .then(resp => {
-        localStorage.setItem('user-roster', JSON.stringify(resp.data))
+        console.log(resp.data)
+        // localStorage.setItem('user-roster', JSON.stringify(resp.data))
 
         this.setState({ userRoster: resp.data }, () => {
           this.GetDefaultPlayerList(this.state.userTeam.mlbId)
@@ -143,6 +144,7 @@ class Home extends Component {
         headers: { 'Content-type': 'application/json' }
       })
       .then(resp => {
+        console.log(this.state.userRoster)
         localStorage.setItem(
           'user-roster',
           JSON.stringify(this.state.userRoster)

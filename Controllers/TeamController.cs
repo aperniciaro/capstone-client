@@ -33,6 +33,14 @@ namespace capstone_client.Controllers
       return team;
     }
 
+    [HttpPost("all")]
+    public ActionResult<Team[]> CreateAllTeams([FromBody] Team[] teamsToAdd)
+    {
+      db.Teams.AddRange(teamsToAdd);
+      db.SaveChanges();
+      return teamsToAdd;
+    }
+
     [HttpPost]
     public ActionResult<Team> CreateTeam([FromBody] Team newTeam)
     {
@@ -41,13 +49,7 @@ namespace capstone_client.Controllers
       return newTeam;
     }
 
-    [HttpPost("/all")]
-    public ActionResult<Team[]> CreateAllTeams([FromBody] Team[] teamsToAdd)
-    {
-      db.Teams.AddRange(teamsToAdd);
-      db.SaveChanges();
-      return teamsToAdd;
-    }
+
 
     [HttpPut("{id}")]
     public ActionResult<Team> UpdateTeam(int id, [FromBody] Team newTeamData)
