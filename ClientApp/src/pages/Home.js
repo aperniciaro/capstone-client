@@ -143,11 +143,6 @@ class Home extends Component {
         headers: { 'Content-type': 'application/json' }
       })
       .then(resp => {
-        // const userRosterFromStorage = JSON.parse(
-        //   localStorage.getItem('user-roster')
-        // )
-        // userRosterFromStorage.players = resp.data
-        // console.log(this.state.userTeam)
         localStorage.setItem(
           'user-roster',
           JSON.stringify(this.state.userRoster)
@@ -254,8 +249,6 @@ class Home extends Component {
     })
   }
 
-  //add footer to render with attribution info
-  //add area for status messages
   render() {
     return (
       <div>
