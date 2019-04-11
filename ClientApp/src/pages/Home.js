@@ -44,7 +44,6 @@ class Home extends Component {
         localStorage.getItem('user-roster')
       )
       axios.get(`/api/Roster/${userRosterFromStorage.id}`).then(resp => {
-        console.log(resp.data)
         this.setState({
           userRoster: resp.data,
           userTeam: resp.data.team,
@@ -104,7 +103,6 @@ class Home extends Component {
         headers: { 'Content-type': 'application/json' }
       })
       .then(resp => {
-        console.log(resp.data)
         // localStorage.setItem('user-roster', JSON.stringify(resp.data))
 
         this.setState({ userRoster: resp.data }, () => {
@@ -131,12 +129,39 @@ class Home extends Component {
   }
 
   AddPlayersToUserRoster = () => {
+    const currentYear = new Date().getFullYear()
     let playerData = this.state.defaultPlayerList.map(player => {
-      //Also GetPlayerStats
-      return {
-        mlbId: player.player_id,
-        playerName: player.name_display_first_last,
-        position: parseInt(player.primary_position, 10)
+      if (parseInt(player.primary_position, 10) === 1) {
+        axios
+          .get(
+            `https://lookup-service-prod.mlb.com/json/named.proj_pecota_pitching.bam?season='${currentYear}'&player_id='${
+              player.player_id
+            }'`
+          )
+          .then(resp => {
+            return {
+              mlbId: player.player_id,
+              playerName: player.name_display_first_last,
+              position: parseInt(player.primary_position, 10),
+              projERA: resp.data.proj_pecota_pitching.queryResults.row.ip,
+              proIP: resp.data.proj_pecota_pitching.queryResults.row.era
+            }
+          })
+      } else {
+        axios
+          .get(
+            `https://lookup-service-prod.mlb.com/json/named.proj_pecota_batting.bam?season='${currentYear}'&player_id='${
+              player.player_id
+            }'`
+          )
+          .then(resp => {
+            return {
+              mlbId: player.player_id,
+              playerName: player.name_display_first_last,
+              position: parseInt(player.primary_position, 10),
+              proRuns: resp.data.proj_pecota_batting.queryResults.row.r
+            }
+          })
       }
     })
     axios
@@ -144,7 +169,6 @@ class Home extends Component {
         headers: { 'Content-type': 'application/json' }
       })
       .then(resp => {
-        console.log(this.state.userRoster)
         localStorage.setItem(
           'user-roster',
           JSON.stringify(this.state.userRoster)
@@ -157,31 +181,21 @@ class Home extends Component {
       })
   }
 
-  GetPlayerProjStats = player => {
-    // if (player.position === 1) {
-    //   //get projected pitching stats from external api
-    //   //set ProjERA and ProjIP
-    // } else {
-    //   //get projected hitting stats from external api
-    //   //set ProjRuns
-    // }
-  }
-
   CalculateProjectedWins = () => {
-    // let projRunsScored = 0
-    // let projRunsAllowed = 0
-    // for (let i = 0; i < this.state.userPlayerList.length; i++) {
-    //   if (this.state.userPlayerList[i].position === 1) {
-    //     projRunsAllowed +=
-    //       this.state.userPLayerList[i].projERA *
-    //       (this.state.userPlayerList.projIP / 9)
-    //   } else {
-    //     projRunsScored += this.state.userPlayerList[i].projRuns
-    //   }
-    // }
+    let projRunsScored = 0
+    let projRunsAllowed = 0
+    for (let i = 0; i < this.state.userPlayerList.length; i++) {
+      if (this.state.userPlayerList[i].position === 1) {
+        projRunsAllowed +=
+          this.state.userPlayerList[i].projERA *
+          (this.state.userPlayerList.projIP / 9)
+      } else {
+        projRunsScored += this.state.userPlayerList[i].projRuns
+      }
+    }
     return (
-      // (Math.pow(projRunsScored, 1.81) /
-      //   (Math.pow(projRunsScored, 1.81) + Math.pow(projRunsAllowed, 1.81))) *
+      (Math.pow(projRunsScored, 1.81) /
+        (Math.pow(projRunsScored, 1.81) + Math.pow(projRunsAllowed, 1.81))) *
       162
     )
   }
