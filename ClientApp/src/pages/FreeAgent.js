@@ -33,6 +33,12 @@ class FreeAgent extends Component {
     })
   }
 
+  //create a free agent roster
+  //get free agents from MLB
+  //match free agent player to regular player lookup via mlbid
+  //create a Player obj for each free agent
+  //add players to roster
+
   render() {
     return (
       <div>
