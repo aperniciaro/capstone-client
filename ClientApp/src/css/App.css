@@ -113,7 +113,9 @@ ul {
 li {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  align-items: left;
+  justify-content: left;
+  margin-bottom: 0.25rem;
 }
 
 .current-roster {
