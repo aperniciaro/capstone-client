@@ -25,13 +25,9 @@ class Trade extends Component {
   }
 
   GetAllTeams = () => {
-    axios
-      .get(
-        `https://lookup-service-prod.mlb.com/json/named.team_all_season.bam?sport_code='mlb'&all_star_sw='N'&sort_order=name_asc&season='2019'`
-      )
-      .then(resp => {
-        this.setState({ teams: resp.data.team_all_season.queryResults.row })
-      })
+    axios.get('/api/Team').then(resp => {
+      this.setState({ teams: resp.data })
+    })
   }
 
   GetUserInfoFromStorage = () => {
@@ -56,7 +52,7 @@ class Trade extends Component {
 
   ChangeTradeTeam = event => {
     let selectedTeam = this.state.teams.filter(
-      team => team.mlb_org_id === event.target.value
+      team => team.mlbId === parseInt(event.target.value, 10)
     )[0]
 
     this.setState(
@@ -80,7 +76,7 @@ class Trade extends Component {
       })
       .then(resp => {
         this.setState({ tradeRoster: resp.data }, () => {
-          this.GetDefaultPlayerList(this.state.tradeTeam.mlb_org_id)
+          this.GetDefaultPlayerList(this.state.tradeTeam.mlbId)
         })
       })
   }
