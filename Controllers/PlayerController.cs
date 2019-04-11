@@ -22,7 +22,7 @@ namespace capstone_client.Controllers
     [HttpGet]
     public ActionResult<IList<Player>> GetAllPlayers()
     {
-      return db.Players.ToList();
+      return db.Players.OrderBy(o => o.PlayerName).ToList();
     }
 
     [HttpGet("{id}")]

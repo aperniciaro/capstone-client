@@ -43,19 +43,21 @@ class Home extends Component {
       const userRosterFromStorage = JSON.parse(
         localStorage.getItem('user-roster')
       )
-      this.setState({
-        userRoster: userRosterFromStorage,
-        userTeam: userRosterFromStorage.team,
-        userPlayerList: userRosterFromStorage.players,
-        primaryColor: `rgb(${userRosterFromStorage.team.primaryColor[0]},${
-          userRosterFromStorage.team.primaryColor[1]
-        },${userRosterFromStorage.team.primaryColor[2]})`,
-        secondaryColor: `rgb(${userRosterFromStorage.team.secondaryColor[0]},${
-          userRosterFromStorage.team.secondaryColor[1]
-        },${userRosterFromStorage.team.secondaryColor[2]})`,
-        tertiaryColor: `rgb(${userRosterFromStorage.team.tertiaryColor[0]},${
-          userRosterFromStorage.team.tertiaryColor[1]
-        },${userRosterFromStorage.team.tertiaryColor[2]})`
+      axios.get(`/api/Roster/${userRosterFromStorage.id}`).then(resp => {
+        this.setState({
+          userRoster: resp.data,
+          userTeam: resp.data.team,
+          userPlayerList: resp.data.players
+          // primaryColor: `rgb(${resp.data.team.primaryColor[0]},${
+          //   resp.data.team.primaryColor[1]
+          // },${resp.data.team.primaryColor[2]})`,
+          // secondaryColor: `rgb(${resp.data.team.secondaryColor[0]},${
+          //   resp.data.team.secondaryColor[1]
+          // },${resp.data.team.secondaryColor[2]})`,
+          // tertiaryColor: `rgb(${resp.data.team.tertiaryColor[0]},${
+          //   resp.data.team.tertiaryColor[1]
+          // },${resp.data.team.tertiaryColor[2]})`
+        })
       })
     }
     if (localStorage.getItem('saved-rosters')) {
@@ -140,13 +142,14 @@ class Home extends Component {
         headers: { 'Content-type': 'application/json' }
       })
       .then(resp => {
-        const userRosterFromStorage = JSON.parse(
-          localStorage.getItem('user-roster')
-        )
-        userRosterFromStorage.players = resp.data
+        // const userRosterFromStorage = JSON.parse(
+        //   localStorage.getItem('user-roster')
+        // )
+        // userRosterFromStorage.players = resp.data
+        // console.log(this.state.userTeam)
         localStorage.setItem(
           'user-roster',
-          JSON.stringify(userRosterFromStorage)
+          JSON.stringify(this.state.userRoster)
         )
         this.setState({
           userPlayerList: resp.data,
@@ -156,7 +159,7 @@ class Home extends Component {
       })
   }
 
-  GetPlayerStats = player => {
+  GetPlayerProjStats = player => {
     // if (player.position === 1) {
     //   //get projected pitching stats from external api
     //   //set ProjERA and ProjIP

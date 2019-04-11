@@ -23,7 +23,7 @@ namespace capstone_client.Controllers
     [HttpGet]
     public ActionResult<IList<Roster>> GetAllRosters()
     {
-      return db.Rosters.ToList();
+      return db.Rosters.OrderBy(o => o.Name).ToList();
     }
 
     [HttpGet("{id}")]

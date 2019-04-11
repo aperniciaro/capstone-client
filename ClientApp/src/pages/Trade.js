@@ -34,19 +34,21 @@ class Trade extends Component {
     const userRosterFromStorage = JSON.parse(
       localStorage.getItem('user-roster')
     )
-    this.setState({
-      userRoster: userRosterFromStorage,
-      userTeam: userRosterFromStorage.team,
-      userPlayerList: userRosterFromStorage.players,
-      primaryColor: `rgb(${userRosterFromStorage.team.primaryColor[0]},${
-        userRosterFromStorage.team.primaryColor[1]
-      },${userRosterFromStorage.team.primaryColor[2]})`,
-      secondaryColor: `rgb(${userRosterFromStorage.team.secondaryColor[0]},${
-        userRosterFromStorage.team.secondaryColor[1]
-      },${userRosterFromStorage.team.secondaryColor[2]})`,
-      tertiaryColor: `rgb(${userRosterFromStorage.team.tertiaryColor[0]},${
-        userRosterFromStorage.team.tertiaryColor[1]
-      },${userRosterFromStorage.team.tertiaryColor[2]})`
+    axios.get(`/api/Roster/${userRosterFromStorage.id}`).then(resp => {
+      this.setState({
+        userRoster: resp.data,
+        userTeam: resp.data.team,
+        userPlayerList: resp.data.players
+        // primaryColor: `rgb(${resp.data.team.primaryColor[0]},${
+        //   resp.data.team.primaryColor[1]
+        // },${resp.data.team.primaryColor[2]})`,
+        // secondaryColor: `rgb(${resp.data.team.secondaryColor[0]},${
+        //   resp.data.team.secondaryColor[1]
+        // },${resp.data.team.secondaryColor[2]})`,
+        // tertiaryColor: `rgb(${resp.data.team.tertiaryColor[0]},${
+        //   resp.data.team.tertiaryColor[1]
+        // },${resp.data.team.tertiaryColor[2]})`
+      })
     })
   }
 
@@ -121,7 +123,7 @@ class Trade extends Component {
   }
 
   MoveUserPlayer = playerId => {
-    axios.put(`/api/Player/${playerId}/move`).then(resp => {
+    axios.put(`/api/Player/${playerId}/move`).then(() => {
       axios.get(`/api/Roster/${this.state.userRoster.id}`).then(resp => {
         this.setState({
           userPlayerList: resp.data.players
@@ -131,7 +133,7 @@ class Trade extends Component {
   }
 
   MoveTradeTeamPlayer = playerId => {
-    axios.put(`/api/Player/${playerId}/move`).then(resp => {
+    axios.put(`/api/Player/${playerId}/move`).then(() => {
       axios.get(`/api/Roster/${this.state.tradeRoster.id}`).then(resp => {
         this.setState({
           tradeTeamPlayerList: resp.data.players
@@ -181,7 +183,7 @@ class Trade extends Component {
         axios
           .put(
             `/api/Player/${player.id}/changeteam`,
-            this.state.playerRoster.id,
+            this.state.userRoster.id,
             {
               headers: { 'Content-type': 'application/json' }
             }
