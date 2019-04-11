@@ -47,6 +47,10 @@ class Release extends Component {
         this.setState({
           userPlayerList: resp.data.players
         })
+        localStorage.setItem(
+          'user-roster',
+          JSON.stringify(this.state.userRoster)
+        )
       })
     })
   }
@@ -66,15 +70,7 @@ class Release extends Component {
             headers: { 'Content-type': 'application/json' }
           })
           .then(() => {
-            axios.get(`/api/Roster/${this.state.userRoster.id}`).then(resp => {
-              this.setState({
-                userPlayerList: resp.data.players
-              })
-              localStorage.setItem(
-                'user-roster',
-                JSON.stringify(this.state.userRoster)
-              )
-            })
+            this.MovePlayer(player.id)
           })
       )
   }

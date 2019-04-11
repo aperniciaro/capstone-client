@@ -125,9 +125,15 @@ class Trade extends Component {
   MoveUserPlayer = playerId => {
     axios.put(`/api/Player/${playerId}/move`).then(() => {
       axios.get(`/api/Roster/${this.state.userRoster.id}`).then(resp => {
-        this.setState({
-          userPlayerList: resp.data.players
-        })
+        this.setState(
+          {
+            userPlayerList: resp.data.players
+          },
+          localStorage.setItem(
+            'user-roster',
+            JSON.stringify(this.state.userRoster)
+          )
+        )
       })
     })
   }
@@ -135,9 +141,15 @@ class Trade extends Component {
   MoveTradeTeamPlayer = playerId => {
     axios.put(`/api/Player/${playerId}/move`).then(() => {
       axios.get(`/api/Roster/${this.state.tradeRoster.id}`).then(resp => {
-        this.setState({
-          tradeTeamPlayerList: resp.data.players
-        })
+        this.setState(
+          {
+            tradeTeamPlayerList: resp.data.players
+          },
+          localStorage.setItem(
+            'user-roster',
+            JSON.stringify(this.state.userRoster)
+          )
+        )
       })
     })
   }
@@ -164,17 +176,7 @@ class Trade extends Component {
             }
           )
           .then(() => {
-            axios.get(`/api/Roster/${this.state.userRoster.id}`).then(resp => {
-              this.setState(
-                {
-                  userPlayerList: resp.data.players
-                },
-                localStorage.setItem(
-                  'user-roster',
-                  JSON.stringify(this.state.userRoster)
-                )
-              )
-            })
+            this.MoveUserPlayer(player.id)
           })
       )
     this.state.tradeTeamPlayerList
@@ -189,11 +191,7 @@ class Trade extends Component {
             }
           )
           .then(() => {
-            axios.get(`/api/Roster/${this.state.tradeRoster.id}`).then(resp => {
-              this.setState({
-                tradeTeamPlayerList: resp.data.players
-              })
-            })
+            this.MoveTradeTeamPlayer(player.id)
           })
       )
   }
