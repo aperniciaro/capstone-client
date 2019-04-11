@@ -3,10 +3,35 @@ import { Link } from 'react-router-dom'
 
 class Error extends Component {
   state = {
-    primaryColor: `rgb(201,58,69)`,
-    secondaryColor: `rgb(31, 48, 129)`,
-    tertiaryColor: `rgb(255, 255, 255)`
+    primaryColor: 'rgb(220,220,220)',
+    secondaryColor: 'rgb(169, 169, 169)',
+    tertiaryColor: 'rgb(105, 105, 105)'
   }
+
+  componentDidMount() {
+    this.GetUserInfoFromStorage()
+  }
+
+  GetUserInfoFromStorage = () => {
+    const userRosterFromStorage = JSON.parse(
+      localStorage.getItem('user-roster')
+    )
+    this.setState({
+      userRoster: userRosterFromStorage,
+      userTeam: userRosterFromStorage.team,
+      userPlayerList: userRosterFromStorage.players,
+      primaryColor: `rgb(${userRosterFromStorage.team.primaryColor[0]},${
+        userRosterFromStorage.team.primaryColor[1]
+      },${userRosterFromStorage.team.primaryColor[2]})`,
+      secondaryColor: `rgb(${userRosterFromStorage.team.secondaryColor[0]},${
+        userRosterFromStorage.team.secondaryColor[1]
+      },${userRosterFromStorage.team.secondaryColor[2]})`,
+      tertiaryColor: `rgb(${userRosterFromStorage.team.tertiaryColor[0]},${
+        userRosterFromStorage.team.tertiaryColor[1]
+      },${userRosterFromStorage.team.tertiaryColor[2]})`
+    })
+  }
+
   render() {
     return (
       <div

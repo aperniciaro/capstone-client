@@ -8,9 +8,9 @@ class Release extends Component {
     userRoster: {},
     userTeam: {},
     userPlayerList: [],
-    primaryColor: `rgb(201,58,69)`,
-    secondaryColor: `rgb(31, 48, 129)`,
-    tertiaryColor: `rgb(255, 255, 255)`
+    primaryColor: 'rgb(220,220,220)',
+    secondaryColor: 'rgb(169, 169, 169)',
+    tertiaryColor: 'rgb(105, 105, 105)'
   }
 
   componentDidMount() {
@@ -24,7 +24,16 @@ class Release extends Component {
     this.setState({
       userRoster: userRosterFromStorage,
       userTeam: userRosterFromStorage.team,
-      userPlayerList: userRosterFromStorage.players
+      userPlayerList: userRosterFromStorage.players,
+      primaryColor: `rgb(${userRosterFromStorage.team.primaryColor[0]},${
+        userRosterFromStorage.team.primaryColor[1]
+      },${userRosterFromStorage.team.primaryColor[2]})`,
+      secondaryColor: `rgb(${userRosterFromStorage.team.secondaryColor[0]},${
+        userRosterFromStorage.team.secondaryColor[1]
+      },${userRosterFromStorage.team.secondaryColor[2]})`,
+      tertiaryColor: `rgb(${userRosterFromStorage.team.tertiaryColor[0]},${
+        userRosterFromStorage.team.tertiaryColor[1]
+      },${userRosterFromStorage.team.tertiaryColor[2]})`
     })
   }
 

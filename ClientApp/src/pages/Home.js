@@ -20,9 +20,9 @@ class Home extends Component {
     prevProjWins: 0,
     newProjWins: 0,
     projWinsDiff: 0,
-    primaryColor: `rgb(201,58,69)`,
-    secondaryColor: `rgb(31, 48, 129)`,
-    tertiaryColor: `rgb(255, 255, 255)`
+    primaryColor: 'rgb(220,220,220)',
+    secondaryColor: 'rgb(169, 169, 169)',
+    tertiaryColor: 'rgb(105, 105, 105)'
     //messages
   }
 
@@ -54,9 +54,15 @@ class Home extends Component {
       {
         userTeam: selectedTeam,
         rosterNameInput: '',
-        primaryColor: selectedTeam.primaryColor,
-        secondaryColor: selectedTeam.secondaryColor,
-        tertiaryColor: selectedTeam.tertiaryColor
+        primaryColor: `rgb(${selectedTeam.primaryColor[0]},${
+          selectedTeam.primaryColor[1]
+        },${selectedTeam.primaryColor[2]})`,
+        secondaryColor: `rgb(${selectedTeam.secondaryColor[0]},${
+          selectedTeam.secondaryColor[1]
+        },${selectedTeam.secondaryColor[2]})`,
+        tertiaryColor: `rgb(${selectedTeam.tertiaryColor[0]},${
+          selectedTeam.tertiaryColor[1]
+        },${selectedTeam.tertiaryColor[2]})`
       },
       () => {
         this.CreateUserRoster()
