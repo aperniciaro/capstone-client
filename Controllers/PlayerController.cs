@@ -52,6 +52,16 @@ namespace capstone_client.Controllers
       return playersToAdd;
     }
 
+    [HttpPut("{id}")]
+    public ActionResult<Player> UpdatePlayer(int id, [FromBody] Player newPlayerData)
+    {
+      newPlayerData.Id = id;
+      db.Entry(newPlayerData).State = EntityState.Modified;
+
+      db.SaveChanges();
+      return newPlayerData;
+    }
+
     [HttpPut("{id}/move")]
     public ActionResult<Player> UpdatePlayer(int id)
     {

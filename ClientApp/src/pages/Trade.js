@@ -14,9 +14,9 @@ class Trade extends Component {
     userTeam: {},
     userPlayerList: [],
     userRoster: {},
-    primaryColor: `rgb(201,58,69)`,
-    secondaryColor: `rgb(31, 48, 129)`,
-    tertiaryColor: `rgb(255, 255, 255)`
+    primaryColor: 'rgb(220,220,220)',
+    secondaryColor: 'rgb(169, 169, 169)',
+    tertiaryColor: 'rgb(105, 105, 105)'
   }
 
   componentDidMount() {

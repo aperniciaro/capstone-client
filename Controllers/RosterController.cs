@@ -29,18 +29,13 @@ namespace capstone_client.Controllers
     [HttpGet("{id}")]
     public ActionResult<Roster> GetSingleRoster(int id)
     {
-      var roster = db.Rosters.Include(i => i.Players).FirstOrDefault(f => f.Id == id);
+      var roster = db.Rosters.Include(i => i.Team).Include(i => i.Players).FirstOrDefault(f => f.Id == id);
       return roster;
     }
 
     [HttpPost]
     public ActionResult<Roster> CreateRoster([FromBody] Roster incomingRoster)
     {
-      // create a new roster
-      // copy over incoming properties (not navigation)
-      // save that new with 
-      //assign new roster the team and players of the incmoing roster
-      // save changes again
       Roster newRoster = (Roster)Activator.CreateInstance(typeof(Roster));
       newRoster.Id = incomingRoster.Id;
       newRoster.Name = incomingRoster.Name;
