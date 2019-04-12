@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import async from 'async'
 import Login from '../components/Login'
 import TeamMenu from '../components/TeamMenu'
 import SaveLoad from '../components/SaveLoad'
@@ -131,38 +132,43 @@ class Home extends Component {
   AddPlayersToUserRoster = () => {
     const currentYear = new Date().getFullYear()
     let playerData = this.state.defaultPlayerList.map(player => {
-      if (parseInt(player.primary_position, 10) === 1) {
-        axios
-          .get(
-            `https://lookup-service-prod.mlb.com/json/named.proj_pecota_pitching.bam?season='${currentYear}'&player_id='${
-              player.player_id
-            }'`
-          )
-          .then(resp => {
-            return {
-              mlbId: player.player_id,
-              playerName: player.name_display_first_last,
-              position: parseInt(player.primary_position, 10),
-              projERA: resp.data.proj_pecota_pitching.queryResults.row.ip,
-              proIP: resp.data.proj_pecota_pitching.queryResults.row.era
-            }
-          })
-      } else {
-        axios
-          .get(
-            `https://lookup-service-prod.mlb.com/json/named.proj_pecota_batting.bam?season='${currentYear}'&player_id='${
-              player.player_id
-            }'`
-          )
-          .then(resp => {
-            return {
-              mlbId: player.player_id,
-              playerName: player.name_display_first_last,
-              position: parseInt(player.primary_position, 10),
-              proRuns: resp.data.proj_pecota_batting.queryResults.row.r
-            }
-          })
+      return callback => {
+        if (parseInt(player.primary_position, 10) === 1) {
+          axios
+            .get(
+              `https://lookup-service-prod.mlb.com/json/named.proj_pecota_pitching.bam?season='${currentYear}'&player_id='${
+                player.player_id
+              }'`
+            )
+            .then(resp => {
+              callback(null, {
+                mlbId: player.player_id,
+                playerName: player.name_display_first_last,
+                position: parseInt(player.primary_position, 10),
+                projERA: resp.data.proj_pecota_pitching.queryResults.row.ip,
+                proIP: resp.data.proj_pecota_pitching.queryResults.row.era
+              })
+            })
+        } else {
+          axios
+            .get(
+              `https://lookup-service-prod.mlb.com/json/named.proj_pecota_batting.bam?season='${currentYear}'&player_id='${
+                player.player_id
+              }'`
+            )
+            .then(resp => {
+              callback(null, {
+                mlbId: player.player_id,
+                playerName: player.name_display_first_last,
+                position: parseInt(player.primary_position, 10),
+                proRuns: resp.data.proj_pecota_batting.queryResults.row.r
+              })
+            })
+        }
       }
+    })
+    async.series(playerData, (err, data) => {
+      console.log('done', err, data)
     })
     axios
       .post(`/api/Player/${this.state.userRoster.id}`, playerData, {
@@ -264,6 +270,20 @@ class Home extends Component {
       prevProjWins: this.CalculateProjectedWins()
     })
   }
+
+  // asynctest = () => {
+  //   let players = [1, 2, 3, 4, 5, 6]
+  //   let getPlayerInfo = players.map(player => {
+  //     return callback => {
+  //       console.log(player)
+  //       callback(null, player)
+  //     }
+  //   })
+  //   console.log(getPlayerInfo)
+  //   async.series(getPlayerInfo, (err, data) => {
+  //     console.log('done', err, data)
+  //   })
+  // }
 
   render() {
     return (
