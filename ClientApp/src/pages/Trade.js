@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import TeamMenu from '../components/TeamMenu'
 import axios from 'axios'
+import async from 'async'
 import FungibleRoster from '../components/FungibleRoster'
 import Footer from '../components/Footer'
 
@@ -101,15 +102,45 @@ class Trade extends Component {
   }
 
   AddPlayersToTradeRoster = () => {
+    const currentYear = new Date().getFullYear()
     let playerData = this.state.tradeTeamPlayerList.map(player => {
-      return {
-        mlbId: player.player_id,
-        playerName: player.name_display_first_last,
-        position: parseInt(player.primary_position, 10),
-        throwsFrom: player.throws,
-        batsFrom: player.bats,
-        jerseyNumber: player.jersey_number
+      return callback => {
+        if (parseInt(player.primary_position, 10) === 1) {
+          axios
+            .get(
+              `https://lookup-service-prod.mlb.com/json/named.proj_pecota_pitching.bam?season='${currentYear}'&player_id='${
+                player.player_id
+              }'`
+            )
+            .then(resp => {
+              callback(null, {
+                mlbId: player.player_id,
+                playerName: player.name_display_first_last,
+                position: parseInt(player.primary_position, 10),
+                projERA: resp.data.proj_pecota_pitching.queryResults.row.ip,
+                proIP: resp.data.proj_pecota_pitching.queryResults.row.era
+              })
+            })
+        } else {
+          axios
+            .get(
+              `https://lookup-service-prod.mlb.com/json/named.proj_pecota_batting.bam?season='${currentYear}'&player_id='${
+                player.player_id
+              }'`
+            )
+            .then(resp => {
+              callback(null, {
+                mlbId: player.player_id,
+                playerName: player.name_display_first_last,
+                position: parseInt(player.primary_position, 10),
+                projRuns: resp.data.proj_pecota_batting.queryResults.row.r
+              })
+            })
+        }
       }
+    })
+    async.series(playerData, (err, data) => {
+      console.log('done', err, data)
     })
     axios
       .post(`/api/Player/${this.state.tradeRoster.id}`, playerData, {

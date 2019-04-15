@@ -161,7 +161,7 @@ class Home extends Component {
                 mlbId: player.player_id,
                 playerName: player.name_display_first_last,
                 position: parseInt(player.primary_position, 10),
-                proRuns: resp.data.proj_pecota_batting.queryResults.row.r
+                projRuns: resp.data.proj_pecota_batting.queryResults.row.r
               })
             })
         }
