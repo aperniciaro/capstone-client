@@ -147,8 +147,8 @@ class Home extends Component {
                 mlbId: player.player_id,
                 playerName: player.name_display_first_last,
                 position: parseInt(player.primary_position, 10),
-                projERA: resp.data.proj_pecota_pitching.queryResults.row.ip,
-                proIP: resp.data.proj_pecota_pitching.queryResults.row.era
+                projERA: resp.data.proj_pecota_pitching.queryResults.row.era,
+                proIP: resp.data.proj_pecota_pitching.queryResults.row.ip
               })
             })
         } else {
@@ -175,7 +175,6 @@ class Home extends Component {
   }
 
   PostPlayersToRoster = playerData => {
-    console.log({ playerData })
     axios
       .post(`/api/Player/${this.state.userRoster.id}`, playerData, {
         headers: { 'Content-type': 'application/json' }
@@ -187,8 +186,8 @@ class Home extends Component {
         )
         this.setState({
           userPlayerList: resp.data,
-          prevProjWins: this.CalculateProjectedWins,
-          newProjWins: this.CalculateProjectedWins
+          prevProjWins: this.CalculateProjectedWins(),
+          newProjWins: this.CalculateProjectedWins()
         })
         //Check roster size and add message for over or under 40
       })
@@ -197,15 +196,18 @@ class Home extends Component {
   CalculateProjectedWins = () => {
     let projRunsScored = 0
     let projRunsAllowed = 0
+    console.log(this.state.userPlayerList)
     for (let i = 0; i < this.state.userPlayerList.length; i++) {
-      if (this.state.userPlayerList[i].position === 1) {
+      if (parseInt(this.state.userPlayerList[i].position, 10) === 1) {
         projRunsAllowed +=
           this.state.userPlayerList[i].projERA *
-          (this.state.userPlayerList.projIP / 9)
+          (this.state.userPlayerList[i].projIP / 9)
       } else {
         projRunsScored += this.state.userPlayerList[i].projRuns
       }
     }
+    console.log(projRunsScored)
+    console.log(projRunsAllowed)
     return (
       (Math.pow(projRunsScored, 1.81) /
         (Math.pow(projRunsScored, 1.81) + Math.pow(projRunsAllowed, 1.81))) *

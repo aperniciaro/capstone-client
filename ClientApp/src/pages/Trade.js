@@ -117,8 +117,8 @@ class Trade extends Component {
                 mlbId: player.player_id,
                 playerName: player.name_display_first_last,
                 position: parseInt(player.primary_position, 10),
-                projERA: resp.data.proj_pecota_pitching.queryResults.row.ip,
-                proIP: resp.data.proj_pecota_pitching.queryResults.row.era
+                projERA: resp.data.proj_pecota_pitching.queryResults.row.era,
+                proIP: resp.data.proj_pecota_pitching.queryResults.row.ip
               })
             })
         } else {
