@@ -48,7 +48,8 @@ class Home extends Component {
         this.setState({
           userRoster: resp.data,
           userTeam: resp.data.team,
-          userPlayerList: resp.data.players
+          userPlayerList: resp.data.players,
+          newProjWins: resp.data.projectedWins
           // primaryColor: `rgb(${resp.data.team.primaryColor[0]},${
           //   resp.data.team.primaryColor[1]
           // },${resp.data.team.primaryColor[2]})`,
@@ -66,6 +67,7 @@ class Home extends Component {
         savedRosters: JSON.parse(localStorage.getItem('saved-rosters'))
       })
     }
+    this.CompareProjectedWins()
     //Check roster size and add message for over or under 40
   }
 
