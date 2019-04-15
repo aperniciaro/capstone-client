@@ -288,7 +288,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <Login />
+        {/* <Login /> */}
         <header>
           <h1>Armchair GM</h1>
           <h2>Choose Your Team: </h2>
