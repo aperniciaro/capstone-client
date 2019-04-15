@@ -75,6 +75,10 @@ namespace capstone_client.Controllers
     public ActionResult<Player> ChangeTeamOfPlayer(int id, [FromBody] int? newRoster)
     {
       var player = db.Players.FirstOrDefault(f => f.Id == id);
+      if (newRoster == -1)
+      {
+        newRoster = null;
+      }
       player.RosterId = newRoster;
       db.SaveChanges();
       return player;
