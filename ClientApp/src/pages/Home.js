@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import async from 'async'
-import Login from '../components/Login'
+// import Login from '../components/Login'
 import TeamMenu from '../components/TeamMenu'
 import SaveLoad from '../components/SaveLoad'
 import Outcomes from '../components/Outcomes'
@@ -125,13 +125,13 @@ class Home extends Component {
             defaultPlayerList: resp.data.roster_40.queryResults.row
           },
           () => {
-            this.AddPlayersToUserRoster()
+            this.GetPlayerStats()
           }
         )
       })
   }
 
-  AddPlayersToUserRoster = () => {
+  GetPlayerStats = () => {
     const currentYear = new Date().getFullYear()
     let playerData = this.state.defaultPlayerList.map(player => {
       return callback => {
@@ -170,8 +170,12 @@ class Home extends Component {
       }
     })
     async.series(playerData, (err, data) => {
-      console.log('done', err, data)
+      this.PostPlayersToRoster(data)
     })
+  }
+
+  PostPlayersToRoster = playerData => {
+    console.log({ playerData })
     axios
       .post(`/api/Player/${this.state.userRoster.id}`, playerData, {
         headers: { 'Content-type': 'application/json' }
@@ -183,7 +187,8 @@ class Home extends Component {
         )
         this.setState({
           userPlayerList: resp.data,
-          prevProjWins: this.CalculateProjectedWins()
+          prevProjWins: this.CalculateProjectedWins,
+          newProjWins: this.CalculateProjectedWins
         })
         //Check roster size and add message for over or under 40
       })
