@@ -6,9 +6,10 @@ class Outcomes extends Component {
       <section className="expected-record">
         <h3>Expected Record: </h3>
         <p>
-          {this.props.newProjWins} - {162 - this.props.newProjWins}
+          {Math.round(this.props.newProjWins)} -{' '}
+          {Math.round(162 - this.props.newProjWins)}
         </p>
-        <p>Change of {this.props.winDiff} wins</p>
+        <p>Change of {Math.round(this.props.winDiff)} wins</p>
       </section>
     )
   }
