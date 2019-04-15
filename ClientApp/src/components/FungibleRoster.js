@@ -7,6 +7,7 @@ class FungibleRoster extends Component {
       <ul className="current-roster">
         {this.props.playerList
           .filter(f => f.isMoving === false)
+          .sort()
           .map(player => {
             return (
               <li className="movable-player" key={player.id}>

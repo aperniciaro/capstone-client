@@ -239,6 +239,7 @@ class FreeAgent extends Component {
             <ul>
               {this.state.freeAgentPlayerList
                 .filter(f => f.isMoving === true)
+                .sort()
                 .map(player => {
                   return (
                     <li className="movable-player" key={player.id}>

@@ -7,7 +7,7 @@ class UserRoster extends Component {
       <section className="roster">
         <h2>Current Roster:</h2>
         <ul className="current-roster">
-          {this.props.userPlayers.map(player => {
+          {this.props.userPlayers.sort().map(player => {
             return (
               <li key={player.id}>
                 <Link to={`/Player/${player.mlbId}`}>

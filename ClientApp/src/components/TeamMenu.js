@@ -11,7 +11,7 @@ class TeamMenu extends Component {
         <option value="" disabled hidden>
           Select
         </option>
-        {this.props.teams.map((team, i) => {
+        {this.props.teams.sort().map((team, i) => {
           return (
             <option key={i} value={team.mlbId} name={team.teamName}>
               {team.location} {team.teamName}

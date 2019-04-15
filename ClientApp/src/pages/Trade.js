@@ -275,6 +275,7 @@ class Trade extends Component {
               <ul>
                 {this.state.userPlayerList
                   .filter(f => f.isMoving === true)
+                  .sort()
                   .map(player => {
                     return (
                       <li className="movable-player" key={player.id}>
@@ -294,6 +295,7 @@ class Trade extends Component {
               <ul>
                 {this.state.tradeTeamPlayerList
                   .filter(f => f.isMoving === true)
+                  .sort()
                   .map(player => {
                     return (
                       <li className="movable-player" key={player.id}>
