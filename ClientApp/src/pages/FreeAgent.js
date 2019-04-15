@@ -18,31 +18,40 @@ class FreeAgent extends Component {
 
   componentDidMount() {
     this.GetUserInfoFromStorage()
+    this.GetFreeAgentInfoFromStorage()
   }
 
   GetUserInfoFromStorage = () => {
     const userRosterFromStorage = JSON.parse(
       localStorage.getItem('user-roster')
     )
-    this.setState(
-      {
-        userRoster: userRosterFromStorage,
-        userTeam: userRosterFromStorage.team,
-        userPlayerList: userRosterFromStorage.players
-        // primaryColor: `rgb(${userRosterFromStorage.team.primaryColor[0]},${
-        //   userRosterFromStorage.team.primaryColor[1]
-        // },${userRosterFromStorage.team.primaryColor[2]})`,
-        // secondaryColor: `rgb(${userRosterFromStorage.team.secondaryColor[0]},${
-        //   userRosterFromStorage.team.secondaryColor[1]
-        // },${userRosterFromStorage.team.secondaryColor[2]})`,
-        // tertiaryColor: `rgb(${userRosterFromStorage.team.tertiaryColor[0]},${
-        //   userRosterFromStorage.team.tertiaryColor[1]
-        // },${userRosterFromStorage.team.tertiaryColor[2]})`
-      },
-      () => {
-        this.CreateFreeAgentRoster()
-      }
-    )
+    this.setState({
+      userRoster: userRosterFromStorage,
+      userTeam: userRosterFromStorage.team,
+      userPlayerList: userRosterFromStorage.players
+      // primaryColor: `rgb(${userRosterFromStorage.team.primaryColor[0]},${
+      //   userRosterFromStorage.team.primaryColor[1]
+      // },${userRosterFromStorage.team.primaryColor[2]})`,
+      // secondaryColor: `rgb(${userRosterFromStorage.team.secondaryColor[0]},${
+      //   userRosterFromStorage.team.secondaryColor[1]
+      // },${userRosterFromStorage.team.secondaryColor[2]})`,
+      // tertiaryColor: `rgb(${userRosterFromStorage.team.tertiaryColor[0]},${
+      //   userRosterFromStorage.team.tertiaryColor[1]
+      // },${userRosterFromStorage.team.tertiaryColor[2]})`
+    })
+  }
+
+  GetFreeAgentInfoFromStorage = () => {
+    if (localStorage.getItem('free-agent-roster')) {
+      const freeAgentRosterFromStorage = JSON.parse(
+        localStorage.getItem('free-agent-roster')
+      )
+      this.setState({
+        freeAgentRoster: freeAgentRosterFromStorage
+      })
+    } else {
+      this.CreateFreeAgentRoster()
+    }
   }
 
   CreateFreeAgentRoster = () => {

@@ -43,12 +43,14 @@ class Release extends Component {
   }
 
   GetFreeAgentInfoFromStorage = () => {
-    const freeAgentRosterFromStorage = JSON.parse(
-      localStorage.getItem('free-agent-roster')
-    )
-    this.setState({
-      freeAgentRoster: freeAgentRosterFromStorage
-    })
+    if (localStorage.getItem('free-agent-roster')) {
+      const freeAgentRosterFromStorage = JSON.parse(
+        localStorage.getItem('free-agent-roster')
+      )
+      this.setState({
+        freeAgentRoster: freeAgentRosterFromStorage
+      })
+    }
   }
 
   MovePlayer = playerId => {
