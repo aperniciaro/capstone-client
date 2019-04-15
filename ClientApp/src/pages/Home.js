@@ -184,11 +184,17 @@ class Home extends Component {
           'user-roster',
           JSON.stringify(this.state.userRoster)
         )
-        this.setState({
-          userPlayerList: resp.data,
-          prevProjWins: this.CalculateProjectedWins(),
-          newProjWins: this.CalculateProjectedWins()
-        })
+        this.setState(
+          {
+            userPlayerList: resp.data
+          },
+          () => {
+            this.setState({
+              prevProjWins: this.CalculateProjectedWins(),
+              newProjWins: this.CalculateProjectedWins()
+            })
+          }
+        )
         //Check roster size and add message for over or under 40
       })
   }
@@ -196,7 +202,6 @@ class Home extends Component {
   CalculateProjectedWins = () => {
     let projRunsScored = 0
     let projRunsAllowed = 0
-    console.log(this.state.userPlayerList)
     for (let i = 0; i < this.state.userPlayerList.length; i++) {
       if (parseInt(this.state.userPlayerList[i].position, 10) === 1) {
         projRunsAllowed +=
@@ -206,8 +211,6 @@ class Home extends Component {
         projRunsScored += this.state.userPlayerList[i].projRuns
       }
     }
-    console.log(projRunsScored)
-    console.log(projRunsAllowed)
     return (
       (Math.pow(projRunsScored, 1.81) /
         (Math.pow(projRunsScored, 1.81) + Math.pow(projRunsAllowed, 1.81))) *
