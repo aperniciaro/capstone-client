@@ -19,7 +19,7 @@ class Home extends Component {
     rosterNameInput: '',
     savedRosters: [],
     userRoster: {},
-    prevProjWins: 0,
+    initialProjWins: 0,
     newProjWins: 0,
     projWinsDiff: 0,
     primaryColor: 'rgb(220,220,220)',
@@ -45,21 +45,27 @@ class Home extends Component {
         localStorage.getItem('user-roster')
       )
       axios.get(`/api/Roster/${userRosterFromStorage.id}`).then(resp => {
-        this.setState({
-          userRoster: resp.data,
-          userTeam: resp.data.team,
-          userPlayerList: resp.data.players,
-          newProjWins: resp.data.projectedWins,
-          primaryColor: `rgb(${resp.data.team.primaryColor[0]},${
-            resp.data.team.primaryColor[1]
-          },${resp.data.team.primaryColor[2]})`,
-          secondaryColor: `rgb(${resp.data.team.secondaryColor[0]},${
-            resp.data.team.secondaryColor[1]
-          },${resp.data.team.secondaryColor[2]})`,
-          tertiaryColor: `rgb(${resp.data.team.tertiaryColor[0]},${
-            resp.data.team.tertiaryColor[1]
-          },${resp.data.team.tertiaryColor[2]})`
-        })
+        this.setState(
+          {
+            userRoster: resp.data,
+            userTeam: resp.data.team,
+            userPlayerList: resp.data.players,
+            initialProjWins: resp.data.projectedWins,
+            newProjWins: this.CalculateProjectedWins(),
+            primaryColor: `rgb(${resp.data.team.primaryColor[0]},${
+              resp.data.team.primaryColor[1]
+            },${resp.data.team.primaryColor[2]})`,
+            secondaryColor: `rgb(${resp.data.team.secondaryColor[0]},${
+              resp.data.team.secondaryColor[1]
+            },${resp.data.team.secondaryColor[2]})`,
+            tertiaryColor: `rgb(${resp.data.team.tertiaryColor[0]},${
+              resp.data.team.tertiaryColor[1]
+            },${resp.data.team.tertiaryColor[2]})`
+          },
+          () => {
+            this.CompareProjectedWins()
+          }
+        )
       })
     }
     if (localStorage.getItem('saved-rosters')) {
@@ -67,7 +73,6 @@ class Home extends Component {
         savedRosters: JSON.parse(localStorage.getItem('saved-rosters'))
       })
     }
-    this.CompareProjectedWins()
     //Check roster size and add message for over or under 40
   }
 
@@ -191,8 +196,7 @@ class Home extends Component {
           },
           () => {
             this.setState({
-              prevProjWins: this.CalculateProjectedWins(),
-              newProjWins: this.CalculateProjectedWins()
+              initialProjWins: this.CalculateProjectedWins()
             })
           }
         )
@@ -221,7 +225,7 @@ class Home extends Component {
 
   CompareProjectedWins = () => {
     this.setState({
-      projWinsDiff: this.state.newProjWins - this.state.prevProjWins
+      projWinsDiff: this.state.newProjWins - this.state.initialProjWins
     })
   }
 
@@ -280,7 +284,7 @@ class Home extends Component {
       userPlayerList: selectedRoster.players,
       userTeam: selectedRoster.team,
       rosterNameInput: '',
-      prevProjWins: this.CalculateProjectedWins()
+      initialProjWins: this.CalculateProjectedWins()
     })
   }
 
