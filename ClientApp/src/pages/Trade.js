@@ -94,13 +94,13 @@ class Trade extends Component {
             tradeTeamPlayerList: resp.data.roster_40.queryResults.row
           },
           () => {
-            this.AddPlayersToUserRoster()
+            this.AddPlayersToTradeRoster()
           }
         )
       })
   }
 
-  AddPlayersToUserRoster = () => {
+  AddPlayersToTradeRoster = () => {
     let playerData = this.state.tradeTeamPlayerList.map(player => {
       return {
         mlbId: player.player_id,

@@ -11,11 +11,13 @@ class Release extends Component {
     userPlayerList: [],
     primaryColor: 'rgb(220,220,220)',
     secondaryColor: 'rgb(169, 169, 169)',
-    tertiaryColor: 'rgb(105, 105, 105)'
+    tertiaryColor: 'rgb(105, 105, 105)',
+    freeAgentRoster: {}
   }
 
   componentDidMount() {
     this.GetUserInfoFromStorage()
+    this.GetFreeAgentInfoFromStorage()
   }
 
   GetUserInfoFromStorage = () => {
@@ -37,6 +39,15 @@ class Release extends Component {
         //   resp.data.team.tertiaryColor[1]
         // },${resp.data.team.tertiaryColor[2]})`
       })
+    })
+  }
+
+  GetFreeAgentInfoFromStorage = () => {
+    const freeAgentRosterFromStorage = JSON.parse(
+      localStorage.getItem('free-agent-roster')
+    )
+    this.setState({
+      freeAgentRoster: freeAgentRosterFromStorage
     })
   }
 
@@ -65,9 +76,13 @@ class Release extends Component {
       .filter(player => player.isMoving === true)
       .map(player =>
         axios
-          .put(`/api/Player/${player.id}/changeteam`, 301, {
-            headers: { 'Content-type': 'application/json' }
-          })
+          .put(
+            `/api/Player/${player.id}/changeteam`,
+            this.state.freeAgentRoster.id,
+            {
+              headers: { 'Content-type': 'application/json' }
+            }
+          )
           .then(() => {
             this.MovePlayer(player.id)
           })
