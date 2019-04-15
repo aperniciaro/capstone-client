@@ -148,7 +148,7 @@ class Home extends Component {
                 playerName: player.name_display_first_last,
                 position: parseInt(player.primary_position, 10),
                 projERA: resp.data.proj_pecota_pitching.queryResults.row.era,
-                proIP: resp.data.proj_pecota_pitching.queryResults.row.ip
+                projIP: resp.data.proj_pecota_pitching.queryResults.row.ip
               })
             })
         } else {
