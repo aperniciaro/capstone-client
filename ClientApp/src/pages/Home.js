@@ -283,20 +283,6 @@ class Home extends Component {
     })
   }
 
-  // asynctest = () => {
-  //   let players = [1, 2, 3, 4, 5, 6]
-  //   let getPlayerInfo = players.map(player => {
-  //     return callback => {
-  //       console.log(player)
-  //       callback(null, player)
-  //     }
-  //   })
-  //   console.log(getPlayerInfo)
-  //   async.series(getPlayerInfo, (err, data) => {
-  //     console.log('done', err, data)
-  //   })
-  // }
-
   render() {
     return (
       <div>
