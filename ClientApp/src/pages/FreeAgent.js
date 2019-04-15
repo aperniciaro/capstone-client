@@ -89,24 +89,28 @@ class FreeAgent extends Component {
 
   MatchPlayers = () => {
     let convertedPlayers = this.state.defaultPlayerList.map(player => {
-      axios
-        .get(
-          `https://lookup-service-prod.mlb.com/json/named.player_info.bam?sport_code='mlb'&player_id='${
-            player.player.id
-          }'`
-        )
-        .then(resp => {
-          return { resp }
-        })
-    })
-    this.setState(
-      {
-        convertedPlayerList: convertedPlayers
-      },
-      () => {
-        this.GetPlayerStats()
+      return callback => {
+        axios
+          .get(
+            `https://lookup-service-prod.mlb.com/json/named.player_info.bam?sport_code='mlb'&player_id='${
+              player.player.id
+            }'`
+          )
+          .then(resp => {
+            callback(null, resp.data.player_info.queryResults.row)
+          })
       }
-    )
+    })
+    async.series(convertedPlayers, (err, data) => {
+      this.setState(
+        {
+          convertedPlayerList: data
+        },
+        () => {
+          this.GetPlayerStats()
+        }
+      )
+    })
   }
 
   GetPlayerStats = () => {
@@ -153,7 +157,6 @@ class FreeAgent extends Component {
   }
 
   PostPlayersToRoster = playerData => {
-    console.log({ playerData })
     axios
       .post(`/api/Player/${this.state.freeAgentRoster.id}`, playerData, {
         headers: { 'Content-type': 'application/json' }
