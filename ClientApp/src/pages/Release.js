@@ -11,13 +11,11 @@ class Release extends Component {
     userPlayerList: [],
     primaryColor: 'rgb(220,220,220)',
     secondaryColor: 'rgb(169, 169, 169)',
-    tertiaryColor: 'rgb(105, 105, 105)',
-    freeAgentRoster: {}
+    tertiaryColor: 'rgb(105, 105, 105)'
   }
 
   componentDidMount() {
     this.GetUserInfoFromStorage()
-    this.GetFreeAgentInfoFromStorage()
   }
 
   GetUserInfoFromStorage = () => {
@@ -40,17 +38,6 @@ class Release extends Component {
         // },${resp.data.team.tertiaryColor[2]})`
       })
     })
-  }
-
-  GetFreeAgentInfoFromStorage = () => {
-    if (localStorage.getItem('free-agent-roster')) {
-      const freeAgentRosterFromStorage = JSON.parse(
-        localStorage.getItem('free-agent-roster')
-      )
-      this.setState({
-        freeAgentRoster: freeAgentRosterFromStorage
-      })
-    }
   }
 
   MovePlayer = playerId => {
