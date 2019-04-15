@@ -32,7 +32,7 @@ class PlayerStats extends Component {
   }
 
   render() {
-    if (parseInt(this.props.position, 10) === 1) {
+    if (this.props.position === '1') {
       return (
         <div>
           <p>IP: {this.props.stats.ip}</p>

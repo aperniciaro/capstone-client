@@ -53,7 +53,7 @@ class PlayerInfo extends Component {
             playerBio: resp.data.player_info.queryResults.row
           },
           () => {
-            if (parseInt(this.state.playerBio.primary_position, 10) === 1) {
+            if (this.state.playerBio.primary_position === '1') {
               this.GetPitchingStats()
             } else {
               this.GetHittingStats()

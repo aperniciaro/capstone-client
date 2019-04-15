@@ -5,7 +5,7 @@ namespace capstone_client.Models
     public int Id { get; set; }
     public int MlbId { get; set; }
     public string PlayerName { get; set; }
-    public int Position { get; set; }
+    public string Position { get; set; }
     public bool IsMoving { get; set; } = false;
     public int ProjRuns { get; set; } = 0;
     public double ProjERA { get; set; } = .000;

@@ -117,7 +117,7 @@ class FreeAgent extends Component {
     const currentYear = new Date().getFullYear()
     let playerData = this.state.convertedPlayerList.map(player => {
       return callback => {
-        if (parseInt(player.primary_position, 10) === 1) {
+        if (player.primary_position === '1') {
           axios
             .get(
               `https://lookup-service-prod.mlb.com/json/named.proj_pecota_pitching.bam?season='${currentYear}'&player_id='${
@@ -128,7 +128,7 @@ class FreeAgent extends Component {
               callback(null, {
                 mlbId: player.player_id,
                 playerName: player.name_display_first_last,
-                position: parseInt(player.primary_position, 10),
+                position: player.primary_position,
                 projERA: resp.data.proj_pecota_pitching.queryResults.row.era,
                 projIP: resp.data.proj_pecota_pitching.queryResults.row.ip
               })
@@ -144,7 +144,7 @@ class FreeAgent extends Component {
               callback(null, {
                 mlbId: player.player_id,
                 playerName: player.name_display_first_last,
-                position: parseInt(player.primary_position, 10),
+                position: player.primary_position,
                 projRuns: resp.data.proj_pecota_batting.queryResults.row.r
               })
             })

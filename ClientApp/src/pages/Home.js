@@ -135,7 +135,7 @@ class Home extends Component {
     const currentYear = new Date().getFullYear()
     let playerData = this.state.defaultPlayerList.map(player => {
       return callback => {
-        if (parseInt(player.primary_position, 10) === 1) {
+        if (player.primary_position === '1') {
           axios
             .get(
               `https://lookup-service-prod.mlb.com/json/named.proj_pecota_pitching.bam?season='${currentYear}'&player_id='${
@@ -146,7 +146,7 @@ class Home extends Component {
               callback(null, {
                 mlbId: player.player_id,
                 playerName: player.name_display_first_last,
-                position: parseInt(player.primary_position, 10),
+                position: player.primary_position,
                 projERA: resp.data.proj_pecota_pitching.queryResults.row.era,
                 projIP: resp.data.proj_pecota_pitching.queryResults.row.ip
               })
@@ -162,7 +162,7 @@ class Home extends Component {
               callback(null, {
                 mlbId: player.player_id,
                 playerName: player.name_display_first_last,
-                position: parseInt(player.primary_position, 10),
+                position: player.primary_position,
                 projRuns: resp.data.proj_pecota_batting.queryResults.row.r
               })
             })
@@ -203,7 +203,7 @@ class Home extends Component {
     let projRunsScored = 0
     let projRunsAllowed = 0
     for (let i = 0; i < this.state.userPlayerList.length; i++) {
-      if (parseInt(this.state.userPlayerList[i].position, 10) === 1) {
+      if (this.state.userPlayerList[i].position === '1') {
         projRunsAllowed +=
           this.state.userPlayerList[i].projERA *
           (this.state.userPlayerList[i].projIP / 9)
