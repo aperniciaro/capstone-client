@@ -95,13 +95,13 @@ class Trade extends Component {
             tradeTeamPlayerList: resp.data.roster_40.queryResults.row
           },
           () => {
-            this.AddPlayersToTradeRoster()
+            this.GetPlayerStats()
           }
         )
       })
   }
 
-  AddPlayersToTradeRoster = () => {
+  GetPlayerStats = () => {
     const currentYear = new Date().getFullYear()
     let playerData = this.state.tradeTeamPlayerList.map(player => {
       return callback => {
@@ -140,8 +140,12 @@ class Trade extends Component {
       }
     })
     async.series(playerData, (err, data) => {
-      console.log('done', err, data)
+      this.PostPlayersToRoster(data)
     })
+  }
+
+  PostPlayersToRoster = playerData => {
+    console.log({ playerData })
     axios
       .post(`/api/Player/${this.state.tradeRoster.id}`, playerData, {
         headers: { 'Content-type': 'application/json' }

@@ -104,12 +104,12 @@ class FreeAgent extends Component {
         convertedPlayerList: convertedPlayers
       },
       () => {
-        this.AddPlayersToFA()
+        this.GetPlayerStats()
       }
     )
   }
 
-  AddPlayersToFA = () => {
+  GetPlayerStats = () => {
     const currentYear = new Date().getFullYear()
     let playerData = this.state.convertedPlayerList.map(player => {
       return callback => {
@@ -148,8 +148,12 @@ class FreeAgent extends Component {
       }
     })
     async.series(playerData, (err, data) => {
-      console.log('done', err, data)
+      this.PostPlayersToRoster(data)
     })
+  }
+
+  PostPlayersToRoster = playerData => {
+    console.log({ playerData })
     axios
       .post(`/api/Player/${this.state.freeAgentRoster.id}`, playerData, {
         headers: { 'Content-type': 'application/json' }
