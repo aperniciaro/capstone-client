@@ -72,7 +72,7 @@ namespace capstone_client.Controllers
     }
 
     [HttpPut("{id}/changeteam")]
-    public ActionResult<Player> ChangeTeamOfPlayer(int id, [FromBody] int newRoster)
+    public ActionResult<Player> ChangeTeamOfPlayer(int id, [FromBody] int? newRoster)
     {
       var player = db.Players.FirstOrDefault(f => f.Id == id);
       player.RosterId = newRoster;

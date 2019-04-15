@@ -78,7 +78,7 @@ class Release extends Component {
       .filter(player => player.isMoving === true)
       .map(player =>
         axios
-          .put(`/api/Player/${player.id}/changeteam`, 2147483647, {
+          .put(`/api/Player/${player.id}/changeteam`, null, {
             headers: { 'Content-type': 'application/json' }
           })
           .then(() => {
