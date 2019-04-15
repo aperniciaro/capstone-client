@@ -25,7 +25,6 @@ class Home extends Component {
     primaryColor: 'rgb(220,220,220)',
     secondaryColor: 'rgb(169, 169, 169)',
     tertiaryColor: 'rgb(105, 105, 105)'
-    //messages
   }
 
   componentDidMount() {
@@ -73,7 +72,6 @@ class Home extends Component {
         savedRosters: JSON.parse(localStorage.getItem('saved-rosters'))
       })
     }
-    //Check roster size and add message for over or under 40
   }
 
   ChangeUserTeam = event => {
@@ -200,7 +198,6 @@ class Home extends Component {
             })
           }
         )
-        //Check roster size and add message for over or under 40
       })
   }
 
