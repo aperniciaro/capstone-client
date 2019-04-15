@@ -18,7 +18,7 @@ class FreeAgent extends Component {
 
   componentDidMount() {
     this.GetUserInfoFromStorage()
-    this.GetFreeAgentInfoFromStorage()
+    this.GetFreeAgentsFromStorage()
   }
 
   GetUserInfoFromStorage = () => {
@@ -41,13 +41,13 @@ class FreeAgent extends Component {
     })
   }
 
-  GetFreeAgentInfoFromStorage = () => {
-    if (localStorage.getItem('free-agent-roster')) {
-      const freeAgentRosterFromStorage = JSON.parse(
-        localStorage.getItem('free-agent-roster')
+  GetFreeAgentsFromStorage = () => {
+    if (localStorage.getItem('free-agents')) {
+      const freeAgentsFromStorage = JSON.parse(
+        localStorage.getItem('free-agents')
       )
       this.setState({
-        freeAgentRoster: freeAgentRosterFromStorage
+        freeAgentPlayerList: freeAgentsFromStorage
       })
     } else {
       this.CreateFreeAgentRoster()
@@ -167,8 +167,8 @@ class FreeAgent extends Component {
             freeAgentPlayerList: resp.data
           },
           localStorage.setItem(
-            'free-agent-roster',
-            JSON.stringify(this.state.freeAgentRoster)
+            'free-agents',
+            JSON.stringify(this.state.freeAgentPlayerList)
           )
         )
       })
@@ -180,10 +180,7 @@ class FreeAgent extends Component {
         this.setState({
           freeAgentPlayerList: resp.data.players
         })
-        localStorage.setItem(
-          'free-agent-roster',
-          JSON.stringify(this.state.freeAgentRoster)
-        )
+        localStorage.setItem('free-agents', JSON.stringify(resp.data.players))
       })
     })
   }

@@ -108,7 +108,7 @@ class Home extends Component {
       })
       .then(resp => {
         localStorage.setItem('user-roster', JSON.stringify(resp.data))
-
+        localStorage.removeItem('free-agents')
         this.setState({ userRoster: resp.data }, () => {
           this.GetDefaultPlayerList(this.state.userTeam.mlbId)
         })

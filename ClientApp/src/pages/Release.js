@@ -23,7 +23,6 @@ class Release extends Component {
       localStorage.getItem('user-roster')
     )
     axios.get(`/api/Roster/${userRosterFromStorage.id}`).then(resp => {
-      console.log(resp.data)
       this.setState({
         userRoster: resp.data,
         userTeam: resp.data.team,
