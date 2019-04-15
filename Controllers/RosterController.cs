@@ -41,6 +41,7 @@ namespace capstone_client.Controllers
       newRoster.Name = incomingRoster.Name;
       newRoster.IsCustom = incomingRoster.IsCustom;
       newRoster.ProjectedWins = incomingRoster.ProjectedWins;
+      newRoster.TeamId = incomingRoster.TeamId;
       db.Rosters.Add(newRoster);
       db.SaveChanges();
       newRoster.Team = incomingRoster.Team;

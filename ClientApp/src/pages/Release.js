@@ -23,19 +23,20 @@ class Release extends Component {
       localStorage.getItem('user-roster')
     )
     axios.get(`/api/Roster/${userRosterFromStorage.id}`).then(resp => {
+      console.log(resp.data)
       this.setState({
         userRoster: resp.data,
         userTeam: resp.data.team,
-        userPlayerList: resp.data.players
-        // primaryColor: `rgb(${resp.data.team.primaryColor[0]},${
-        //   resp.data.team.primaryColor[1]
-        // },${resp.data.team.primaryColor[2]})`,
-        // secondaryColor: `rgb(${resp.data.team.secondaryColor[0]},${
-        //   resp.data.team.secondaryColor[1]
-        // },${resp.data.team.secondaryColor[2]})`,
-        // tertiaryColor: `rgb(${resp.data.team.tertiaryColor[0]},${
-        //   resp.data.team.tertiaryColor[1]
-        // },${resp.data.team.tertiaryColor[2]})`
+        userPlayerList: resp.data.players,
+        primaryColor: `rgb(${resp.data.team.primaryColor[0]},${
+          resp.data.team.primaryColor[1]
+        },${resp.data.team.primaryColor[2]})`,
+        secondaryColor: `rgb(${resp.data.team.secondaryColor[0]},${
+          resp.data.team.secondaryColor[1]
+        },${resp.data.team.secondaryColor[2]})`,
+        tertiaryColor: `rgb(${resp.data.team.tertiaryColor[0]},${
+          resp.data.team.tertiaryColor[1]
+        },${resp.data.team.tertiaryColor[2]})`
       })
     })
   }

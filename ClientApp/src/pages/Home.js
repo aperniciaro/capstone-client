@@ -49,16 +49,16 @@ class Home extends Component {
           userRoster: resp.data,
           userTeam: resp.data.team,
           userPlayerList: resp.data.players,
-          newProjWins: resp.data.projectedWins
-          // primaryColor: `rgb(${resp.data.team.primaryColor[0]},${
-          //   resp.data.team.primaryColor[1]
-          // },${resp.data.team.primaryColor[2]})`,
-          // secondaryColor: `rgb(${resp.data.team.secondaryColor[0]},${
-          //   resp.data.team.secondaryColor[1]
-          // },${resp.data.team.secondaryColor[2]})`,
-          // tertiaryColor: `rgb(${resp.data.team.tertiaryColor[0]},${
-          //   resp.data.team.tertiaryColor[1]
-          // },${resp.data.team.tertiaryColor[2]})`
+          newProjWins: resp.data.projectedWins,
+          primaryColor: `rgb(${resp.data.team.primaryColor[0]},${
+            resp.data.team.primaryColor[1]
+          },${resp.data.team.primaryColor[2]})`,
+          secondaryColor: `rgb(${resp.data.team.secondaryColor[0]},${
+            resp.data.team.secondaryColor[1]
+          },${resp.data.team.secondaryColor[2]})`,
+          tertiaryColor: `rgb(${resp.data.team.tertiaryColor[0]},${
+            resp.data.team.tertiaryColor[1]
+          },${resp.data.team.tertiaryColor[2]})`
         })
       })
     }
@@ -98,6 +98,7 @@ class Home extends Component {
   CreateUserRoster = () => {
     const data = {
       team: this.state.userTeam,
+      teamId: this.state.userTeam.id,
       name: `${this.state.userTeam.teamName} default`,
       players: []
     }

@@ -8,6 +8,7 @@ namespace capstone_client.Models
     public string Name { get; set; }
     public bool IsCustom { get; set; } = false;
     public int ProjectedWins { get; set; } = 0;
+    public int? TeamId { get; set; }
     public Team Team { get; set; }
     public List<Player> Players { get; set; } = new List<Player>();
   }
