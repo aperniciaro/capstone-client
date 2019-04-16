@@ -4,8 +4,8 @@ class Footer extends Component {
   render() {
     return (
       <footer>
-        <h6>Made by Andrew Perniciaro at Suncoast Developers Guild, 2019</h6>
-        <h6>All player and team data is property of MLB/MLB Advanced Media </h6>
+        <h6>Made by Andrew Perniciaro at SDG, 2019</h6>
+        <h6>Player and team data is property of MLB/MLBAM </h6>
         <h6>External API courtesy of Chris Apparicio</h6>
       </footer>
     )
