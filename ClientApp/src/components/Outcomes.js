@@ -9,7 +9,7 @@ class Outcomes extends Component {
           {Math.round(this.props.newProjWins)} -{' '}
           {Math.round(162 - this.props.newProjWins)}
         </p>
-        <h4>Change of {Math.round(this.props.winDiff)} wins</h4>
+        <h4>Change of {Math.round(this.props.winDiff)} win(s)</h4>
       </section>
     )
   }
