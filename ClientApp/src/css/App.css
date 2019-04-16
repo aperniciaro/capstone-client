@@ -25,7 +25,7 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-image: url('../images/baseballandbat.jpeg');
+  background-image: url('../images/ballandmound.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   /*would like to prevent background pic from resizing */
