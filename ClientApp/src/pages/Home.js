@@ -50,7 +50,6 @@ class Home extends Component {
             userTeam: resp.data.team,
             userPlayerList: resp.data.players,
             initialProjWins: resp.data.projectedWins,
-            newProjWins: this.CalculateProjectedWins(),
             primaryColor: `rgb(${resp.data.team.primaryColor[0]},${
               resp.data.team.primaryColor[1]
             },${resp.data.team.primaryColor[2]})`,
@@ -62,7 +61,12 @@ class Home extends Component {
             },${resp.data.team.tertiaryColor[2]})`
           },
           () => {
-            this.CompareProjectedWins()
+            this.setState(
+              { newProjWins: this.CalculateProjectedWins() },
+              () => {
+                this.CompareProjectedWins()
+              }
+            )
           }
         )
       })
@@ -82,6 +86,7 @@ class Home extends Component {
       {
         userTeam: selectedTeam,
         rosterNameInput: '',
+        projWinsDiff: 0,
         primaryColor: `rgb(${selectedTeam.primaryColor[0]},${
           selectedTeam.primaryColor[1]
         },${selectedTeam.primaryColor[2]})`,
@@ -193,9 +198,18 @@ class Home extends Component {
             userPlayerList: resp.data
           },
           () => {
-            this.setState({
-              initialProjWins: this.CalculateProjectedWins()
-            })
+            axios
+              .put(
+                `/api/Roster/${this.state.userRoster.id}/wins`,
+                { projectedWins: Math.round(this.CalculateProjectedWins()) },
+                { headers: { 'Content-type': 'application/json' } }
+              )
+              .then(resp => {
+                this.setState({
+                  initialProjWins: resp.data.projectedWins,
+                  newProjWins: resp.data.projectedWins
+                })
+              })
           }
         )
       })
@@ -280,8 +294,9 @@ class Home extends Component {
       userRoster: selectedRoster,
       userPlayerList: selectedRoster.players,
       userTeam: selectedRoster.team,
-      rosterNameInput: '',
-      initialProjWins: this.CalculateProjectedWins()
+      initialProjWins: selectedRoster.projectedWins,
+      projWinsDiff: 0,
+      rosterNameInput: ''
     })
   }
 

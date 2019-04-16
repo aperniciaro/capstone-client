@@ -59,6 +59,15 @@ namespace capstone_client.Controllers
       return newRosterData;
     }
 
+    [HttpPut("{id}/wins")]
+    public ActionResult<Roster> UpdateWins(int id, [FromBody] int newWinsData)
+    {
+      var roster = db.Rosters.FirstOrDefault(f => f.Id == id);
+      roster.ProjectedWins = newWinsData;
+      db.SaveChanges();
+      return roster;
+    }
+
     [HttpDelete("{id}")]
     public ActionResult DeleteRoster(int id)
     {
