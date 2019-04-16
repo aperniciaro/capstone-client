@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import async from 'async'
-// import Login from '../components/Login'
 import TeamMenu from '../components/TeamMenu'
 import SaveLoad from '../components/SaveLoad'
 import Outcomes from '../components/Outcomes'
@@ -152,13 +151,23 @@ class Home extends Component {
               }'`
             )
             .then(resp => {
-              callback(null, {
-                mlbId: player.player_id,
-                playerName: player.name_display_first_last,
-                position: player.primary_position,
-                projERA: resp.data.proj_pecota_pitching.queryResults.row.era,
-                projIP: resp.data.proj_pecota_pitching.queryResults.row.ip
-              })
+              if (resp.data.proj_pecota_pitching.queryResults.row) {
+                callback(null, {
+                  mlbId: player.player_id,
+                  playerName: player.name_display_first_last,
+                  position: player.primary_position,
+                  projERA: resp.data.proj_pecota_pitching.queryResults.row.era,
+                  projIP: resp.data.proj_pecota_pitching.queryResults.row.ip
+                })
+              } else {
+                callback(null, {
+                  mlbId: 621076,
+                  playerName: 'James Kaprielian',
+                  position: '1',
+                  projERA: 0,
+                  projIP: 0
+                })
+              }
             })
         } else {
           axios
