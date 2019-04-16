@@ -1,4 +1,4 @@
-Armchair GM
+#Armchair GM
 
 This webpage will allow you to take the place of a Major League Baseball general manager. You will be able to evaluate the consequences of potential free agent signings, trades, and releases on the team of your choice.
 
