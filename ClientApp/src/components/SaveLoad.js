@@ -21,13 +21,17 @@ class SaveLoad extends Component {
             <option value="" disabled hidden>
               Select
             </option>
-            {this.props.savedRosters.map((roster, i) => {
-              return (
-                <option key={i} value={roster.id} name={roster.name}>
-                  {roster.name}
-                </option>
+            {this.props.savedRosters
+              .sort((rosterA, rosterB) =>
+                rosterA.name.localeCompare(rosterB.name)
               )
-            })}
+              .map((roster, i) => {
+                return (
+                  <option key={i} value={roster.id} name={roster.name}>
+                    {roster.name}
+                  </option>
+                )
+              })}
           </select>
         </section>
         <button onClick={this.props.resetRoster}>Reset to Default</button>
