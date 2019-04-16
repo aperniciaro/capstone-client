@@ -201,7 +201,7 @@ class Home extends Component {
             axios
               .put(
                 `/api/Roster/${this.state.userRoster.id}/wins`,
-                { projectedWins: Math.round(this.CalculateProjectedWins()) },
+                Math.round(this.CalculateProjectedWins()),
                 { headers: { 'Content-type': 'application/json' } }
               )
               .then(resp => {
@@ -259,7 +259,7 @@ class Home extends Component {
               name: this.state.rosterName,
               players: this.state.userPlayerList,
               isCustom: true,
-              projectedWins: this.state.newProjWins,
+              projectedWins: Math.round(this.state.newProjWins),
               team: this.state.userTeam
             },
             { headers: { 'Content-type': 'application/json' } }
@@ -295,8 +295,18 @@ class Home extends Component {
       userPlayerList: selectedRoster.players,
       userTeam: selectedRoster.team,
       initialProjWins: selectedRoster.projectedWins,
+      newProjWins: selectedRoster.projectedWins,
       projWinsDiff: 0,
-      rosterNameInput: ''
+      rosterNameInput: '',
+      primaryColor: `rgb(${selectedRoster.team.primaryColor[0]},${
+        selectedRoster.team.primaryColor[1]
+      },${selectedRoster.team.primaryColor[2]})`,
+      secondaryColor: `rgb(${selectedRoster.team.secondaryColor[0]},${
+        selectedRoster.team.secondaryColor[1]
+      },${selectedRoster.team.secondaryColor[2]})`,
+      tertiaryColor: `rgb(${selectedRoster.team.tertiaryColor[0]},${
+        selectedRoster.team.tertiaryColor[1]
+      },${selectedRoster.team.tertiaryColor[2]})`
     })
   }
 
