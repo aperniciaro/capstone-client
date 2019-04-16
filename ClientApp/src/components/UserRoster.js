@@ -7,15 +7,19 @@ class UserRoster extends Component {
       <section className="roster">
         <h2>Current Roster:</h2>
         <ul className="current-roster">
-          {this.props.userPlayers.sort().map(player => {
-            return (
-              <li key={player.id}>
-                <Link to={`/Player/${player.mlbId}`}>
-                  <h3>{player.playerName}</h3>
-                </Link>
-              </li>
+          {this.props.userPlayers
+            .sort((playerA, playerB) =>
+              playerA.playerName.localeCompare(playerB.playerName)
             )
-          })}
+            .map(player => {
+              return (
+                <li key={player.id}>
+                  <Link to={`/Player/${player.mlbId}`}>
+                    <h3>{player.playerName}</h3>
+                  </Link>
+                </li>
+              )
+            })}
         </ul>
       </section>
     )
