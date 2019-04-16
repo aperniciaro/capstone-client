@@ -101,7 +101,7 @@ class Release extends Component {
           </section>
           <section className="acquiring">
             <h3>Players to be Released: </h3>
-            <ul>
+            <ul className="moving-players">
               {this.state.userPlayerList
                 .filter(f => f.isMoving === true)
                 .sort()

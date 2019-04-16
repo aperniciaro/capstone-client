@@ -240,7 +240,7 @@ class FreeAgent extends Component {
           </section>
           <section className="acquiring">
             <h3>Players to be Signed: </h3>
-            <ul>
+            <ul className="moving-players">
               {this.state.freeAgentPlayerList
                 .filter(f => f.isMoving === true)
                 .sort()

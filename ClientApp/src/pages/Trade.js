@@ -272,7 +272,7 @@ class Trade extends Component {
           <section className="on-the-move">
             <section className="trading">
               <h3>Players to be Traded: </h3>
-              <ul>
+              <ul className="moving-players">
                 {this.state.userPlayerList
                   .filter(f => f.isMoving === true)
                   .sort()
@@ -292,7 +292,7 @@ class Trade extends Component {
             </section>
             <section className="acquiring">
               <h3>Players to be Received: </h3>
-              <ul>
+              <ul className="moving-players">
                 {this.state.tradeTeamPlayerList
                   .filter(f => f.isMoving === true)
                   .sort()
