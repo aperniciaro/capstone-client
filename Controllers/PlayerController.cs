@@ -32,14 +32,6 @@ namespace capstone_client.Controllers
       return player;
     }
 
-    // [HttpPost]
-    // public ActionResult<Player> CreatePlayer([FromBody] Player newPlayer)
-    // {
-    //   db.Players.Add(newPlayer);
-    //   db.SaveChanges();
-    //   return newPlayer;
-    // }
-
     [HttpPost("{rosterId}")]
     public ActionResult<Player[]> CreateMultiplePlayers([FromBody] Player[] playersToAdd, [FromRoute] int rosterId)
     {

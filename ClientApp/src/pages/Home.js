@@ -320,18 +320,9 @@ class Home extends Component {
     })
   }
 
-  // DeleteRoster = event => {
-  //   if (this.state.userRoster.isCustom === true) {
-  //     axios
-  //       .delete(`/api/Roster/${this.state.userRoster.id}`)
-  //       .then(localStorage.removeItem('user-roster'), this.componentDidMount())
-  //   }
-  // }
-
   render() {
     return (
       <div>
-        {/* <Login /> */}
         <header>
           <h1>Armchair GM</h1>
           <h2>Choose Your Team: </h2>

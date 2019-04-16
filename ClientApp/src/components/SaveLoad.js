@@ -34,7 +34,6 @@ class SaveLoad extends Component {
                 )
               })}
           </select>
-          {/* <button onClick={this.props.deleteRoster}>Delete Saved Roster</button> */}
         </section>
       </section>
     )
