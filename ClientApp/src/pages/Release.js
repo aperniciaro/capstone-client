@@ -9,9 +9,9 @@ class Release extends Component {
     userRoster: {},
     userTeam: {},
     userPlayerList: [],
-    primaryColor: 'rgb(220,220,220)',
-    secondaryColor: 'rgb(169, 169, 169)',
-    tertiaryColor: 'rgb(105, 105, 105)'
+    primaryColor: 'rgb(184,102,69)',
+    secondaryColor: 'rgb(100, 99, 39)',
+    tertiaryColor: 'rgb(246, 214, 179)'
   }
 
   componentDidMount() {
