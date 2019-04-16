@@ -11,13 +11,15 @@ class TeamMenu extends Component {
         <option value="" disabled hidden>
           Select
         </option>
-        {this.props.teams.sort().map((team, i) => {
-          return (
-            <option key={i} value={team.mlbId} name={team.teamName}>
-              {team.location} {team.teamName}
-            </option>
-          )
-        })}
+        {this.props.teams
+          .sort((teamA, teamB) => teamA.location.localeCompare(teamB.location))
+          .map((team, i) => {
+            return (
+              <option key={i} value={team.mlbId} name={team.teamName}>
+                {team.location} {team.teamName}
+              </option>
+            )
+          })}
       </select>
     )
   }
