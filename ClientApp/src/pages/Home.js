@@ -207,7 +207,8 @@ class Home extends Component {
               .then(resp => {
                 this.setState({
                   initialProjWins: resp.data.projectedWins,
-                  newProjWins: resp.data.projectedWins
+                  newProjWins: resp.data.projectedWins,
+                  projWinsDiff: 0
                 })
               })
           }
