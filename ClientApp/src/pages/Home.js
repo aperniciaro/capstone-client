@@ -311,6 +311,14 @@ class Home extends Component {
     })
   }
 
+  // DeleteRoster = event => {
+  //   if (this.state.userRoster.isCustom === true) {
+  //     axios
+  //       .delete(`/api/Roster/${this.state.userRoster.id}`)
+  //       .then(localStorage.removeItem('user-roster'), this.componentDidMount())
+  //   }
+  // }
+
   render() {
     return (
       <div>
@@ -346,6 +354,7 @@ class Home extends Component {
             rosterNameInput={this.state.rosterNameInput}
             savedRosters={this.state.savedRosters}
             loadCustomRoster={this.LoadRoster}
+            deleteRoster={this.DeleteRoster}
           />
         </main>
         <Footer />

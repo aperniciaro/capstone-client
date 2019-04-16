@@ -4,6 +4,7 @@ class SaveLoad extends Component {
   render() {
     return (
       <section className="save-and-load">
+        <button onClick={this.props.resetRoster}>Reset to Default</button>
         <input
           className="save-input"
           placeholder="Name your roster"
@@ -33,8 +34,8 @@ class SaveLoad extends Component {
                 )
               })}
           </select>
+          {/* <button onClick={this.props.deleteRoster}>Delete Saved Roster</button> */}
         </section>
-        <button onClick={this.props.resetRoster}>Reset to Default</button>
       </section>
     )
   }
