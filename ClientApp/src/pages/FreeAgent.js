@@ -47,7 +47,8 @@ class FreeAgent extends Component {
         localStorage.getItem('free-agents')
       )
       this.setState({
-        freeAgentPlayerList: freeAgentsFromStorage
+        freeAgentRoster: freeAgentsFromStorage,
+        freeAgentPlayerList: freeAgentsFromStorage.players
       })
     } else {
       this.CreateFreeAgentRoster()
@@ -166,21 +167,24 @@ class FreeAgent extends Component {
           {
             freeAgentPlayerList: resp.data
           },
-          localStorage.setItem(
-            'free-agents',
-            JSON.stringify(this.state.freeAgentPlayerList)
-          )
+          () => {
+            localStorage.setItem(
+              'free-agents',
+              JSON.stringify(this.state.freeAgentRoster)
+            )
+          }
         )
       })
   }
 
   MovePlayer = playerId => {
+    console.log(this.state.freeAgentRoster)
     axios.put(`/api/Player/${playerId}/move`).then(() => {
       axios.get(`/api/Roster/${this.state.freeAgentRoster.id}`).then(resp => {
         this.setState({
           freeAgentPlayerList: resp.data.players
         })
-        localStorage.setItem('free-agents', JSON.stringify(resp.data.players))
+        localStorage.setItem('free-agents', JSON.stringify(resp.data))
       })
     })
   }
