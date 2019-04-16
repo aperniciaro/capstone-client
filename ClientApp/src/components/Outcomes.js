@@ -4,12 +4,12 @@ class Outcomes extends Component {
   render() {
     return (
       <section className="expected-record">
-        <h3>Expected Record: </h3>
+        <h2>Expected Record: </h2>
         <p>
           {Math.round(this.props.newProjWins)} -{' '}
           {Math.round(162 - this.props.newProjWins)}
         </p>
-        <p>Change of {Math.round(this.props.winDiff)} wins</p>
+        <h4>Change of {Math.round(this.props.winDiff)} wins</h4>
       </section>
     )
   }

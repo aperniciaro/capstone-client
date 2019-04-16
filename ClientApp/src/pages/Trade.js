@@ -139,7 +139,7 @@ class Trade extends Component {
         }
       }
     })
-    async.series(playerData, (err, data) => {
+    async.parallel(playerData, (err, data) => {
       this.PostPlayersToRoster(data)
     })
   }
