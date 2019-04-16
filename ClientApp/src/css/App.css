@@ -114,7 +114,7 @@ li {
 }
 
 .current-roster {
-  overflow: scroll;
+  overflow-y: scroll;
   height: 10rem;
   padding: 0;
 }
@@ -158,6 +158,7 @@ button {
   height: 2rem;
   font-size: 1rem;
   border-radius: 0.25rem;
+  padding: 0.5rem;
 }
 
 .save-and-load button {
