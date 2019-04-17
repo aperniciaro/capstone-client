@@ -15,6 +15,7 @@ class Release extends Component {
   }
 
   componentDidMount() {
+    document.title = 'Armchair GM'
     this.GetUserInfoFromStorage()
   }
 

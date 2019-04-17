@@ -21,6 +21,7 @@ class Trade extends Component {
   }
 
   componentDidMount() {
+    document.title = 'Armchair GM'
     this.GetAllTeams()
     this.GetUserInfoFromStorage()
   }

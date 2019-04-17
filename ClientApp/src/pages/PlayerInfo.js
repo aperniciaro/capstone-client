@@ -14,6 +14,7 @@ class PlayerInfo extends Component {
   }
 
   componentDidMount() {
+    document.title = 'Armchair GM'
     this.GetPlayerBio()
     this.GetUserInfoFromStorage()
   }

@@ -17,6 +17,7 @@ class FreeAgent extends Component {
   }
 
   componentDidMount() {
+    document.title = 'Armchair GM'
     this.GetUserInfoFromStorage()
     this.GetFreeAgentsFromStorage()
   }

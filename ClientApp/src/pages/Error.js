@@ -9,6 +9,10 @@ class Error extends Component {
     tertiaryColor: 'rgb(246, 214, 179)'
   }
 
+  componentDidMount() {
+    document.title = 'Armchair GM'
+  }
+
   render() {
     return (
       <div
